@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:miniBlog/animacao/FadeAnimacao.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/widgets_padrao/BotaoPadrao.dart';
+import 'package:miniBlog/widgets_padrao/IconButtonPadrao.dart';
 import 'package:miniBlog/widgets_padrao/TextFieldPadrao.dart';
 
 class TelaLogin extends StatefulWidget {
@@ -33,7 +36,11 @@ class _TelaLoginState extends State<TelaLogin> {
                       left: 25,
                       width: 100,
                       height: 200,
-                      child: FadeAnimacao(1, Container(decoration: null,))),
+                      child: FadeAnimacao(
+                          1,
+                          Container(
+                            decoration: null,
+                          ))),
                   Positioned(
                       left: 150,
                       width: 100,
@@ -63,10 +70,10 @@ class _TelaLoginState extends State<TelaLogin> {
                           child: Center(
                             child: Text(
                               "Login",
-                              style: TextStyle(
-                                  color: Colors.white,
+                              style: GoogleFonts.nunitoSans(
+                                  color: Colors.grey,
                                   fontSize: 40,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
                         )),
@@ -85,19 +92,32 @@ class _TelaLoginState extends State<TelaLogin> {
                         decoration: null,
                         child: Column(
                           children: <Widget>[
-                            TextFieldPadrao(
-                              title: "Email",
-                              onChanged: (text) {
-                                _usuario.email = text;
-                              },
+                            Observer(
+                              builder: (_) => TextFieldPadrao(
+                                prefix: Icon(
+                                  Icons.alternate_email,
+                                ),
+                                hintText: "Email",
+                                onChanged: _controladorUsuario.setEmail,
+                              ),
                             ),
-                            TextFieldPadrao(
-                              title: "Senha",
-                              obscureText: true,
-                              maxLines: 1,
-                              onChanged: (text) {
-                                _usuario.senha = text;
-                              },
+                            Observer(
+                              builder: (_) => TextFieldPadrao(
+                                prefix: Icon(Icons.lock),
+                                hintText: "Senha",
+                                obscureText: _controladorUsuario.obscureText,
+                                maxLines: 1,
+                                onChanged: _controladorUsuario.setSenha,
+                                suffix: IconButtonPadrao(
+                                  radius: 32,
+                                  iconData: _controladorUsuario.obscureText
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  onTap: () {
+                                    _controladorUsuario.changeVisibility();
+                                  },
+                                ),
+                              ),
                             ),
                           ],
                         ),

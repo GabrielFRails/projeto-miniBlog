@@ -12,6 +12,35 @@ abstract class _ControladorUsuarioBase with Store {
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
+  @observable
+  String email = "";
+  @action
+  void setEmail(value) => this.email = value;
+
+  @observable
+  String senha = "";
+  @action
+  void setSenha(value) => this.senha = value;
+
+  @observable
+  String nome = "";
+  @action
+  void setNome(value) => this.nome = value;
+
+  @observable
+  bool obscureText = true;
+  @action
+  void changeVisibility() {
+    obscureText = !obscureText;
+  }
+
+  @computed
+  bool get isLoginValido =>
+      email.contains("@") &&
+      email.contains(".com") &&
+      senha.isNotEmpty &&
+      !senha.contains(" ");
+
   void usuarioExiste({Function existe, Function naoExiste}) {
     _prefs.then((prefsDb) {
       String usuarioJson = prefsDb.getString("user");
