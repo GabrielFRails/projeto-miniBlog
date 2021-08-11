@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/animacao/FadeAnimacao.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
@@ -14,66 +15,24 @@ class TelaLogin extends StatefulWidget {
 }
 
 class _TelaLoginState extends State<TelaLogin> {
-  ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
+  //ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
   Usuario _usuario = new Usuario();
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: SingleChildScrollView(
       child: Container(
         child: Column(
           children: <Widget>[
-            Container(
-              height: 400,
-              decoration: null,
-              child: Stack(
-                children: <Widget>[
-                  Positioned(
-                      left: 25,
-                      width: 100,
-                      height: 200,
-                      child: FadeAnimacao(1, Container(decoration: null,))),
-                  Positioned(
-                      left: 150,
-                      width: 100,
-                      height: 170,
-                      child: FadeAnimacao(
-                          1.2,
-                          Container(
-                            decoration: null,
-                          ))),
-                  Positioned(
-                      right: 40,
-                      width: 80,
-                      top: 35,
-                      height: 150,
-                      child: FadeAnimacao(
-                          1.3,
-                          FadeAnimacao(
-                              1.5,
-                              Container(
-                                decoration: null,
-                              )))),
-                  Positioned(
-                    child: FadeAnimacao(
-                        1.5,
-                        Container(
-                          margin: EdgeInsets.only(top: 50),
-                          child: Center(
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        )),
-                  ),
-                ],
-              ),
-            ),
+            SizedBox(height: size.height * 0.04),
+            FadeAnimacao(
+                1.1,
+                SvgPicture.asset(
+                  'assets/icons/person1.svg',
+                  height: size.height * 0.40,
+                )),
             Padding(
               padding: EdgeInsets.all(30.0),
               child: Column(
