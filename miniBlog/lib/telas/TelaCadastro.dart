@@ -48,13 +48,13 @@ class _TelaCadastroState extends State<TelaCadastro> {
                             child: Column(
                               children: <Widget>[
                                 TextFieldPadrao(
-                                  title: "E-mail",
+                                  hintText: "E-mail",
                                 ),
                                 TextFieldPadrao(
-                                  title: "Nome Completo",
+                                  hintText: "Nome Completo",
                                 ),
                                 TextFieldPadrao(
-                                  title: "Senha",
+                                  hintText: "Senha",
                                   obscureText: true,
                                   maxLines: 1,
                                 ),

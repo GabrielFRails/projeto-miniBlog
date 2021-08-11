@@ -41,7 +41,7 @@ class TextFieldPadrao extends StatelessWidget {
             ),
             enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey[300], width: 1.2)),
-            hintText: "$title",
+            hintText: "$hintText",
             hintStyle: GoogleFonts.nunitoSans(
                 color: Colors.grey[400],
                 fontSize: 18,
