@@ -44,7 +44,6 @@ class _TelaLoginState extends State<TelaLogin> {
                       1.7,
                       Container(
                         padding: EdgeInsets.all(5),
-                        decoration: null,
                         child: Column(
                           children: <Widget>[
                             Observer(
@@ -52,10 +51,11 @@ class _TelaLoginState extends State<TelaLogin> {
                                 prefix: Icon(
                                   Icons.alternate_email,
                                 ),
-                                hintText: "Email",
+                                hintText: "E-mail",
                                 onChanged: _controladorUsuario.setEmail,
                               ),
                             ),
+                            //teste
                             Observer(
                               builder: (_) => TextFieldPadrao(
                                 prefix: Icon(Icons.lock),
@@ -81,7 +81,6 @@ class _TelaLoginState extends State<TelaLogin> {
                     height: 30,
                   ),
                   FadeAnimacao(1.8, BotaoPadrao(value: "Entrar", onTap: () {})),
-                  FadeAnimacao(2.0, Divider()),
                   FadeAnimacao(
                       2.0,
                       BotaoPadrao(
