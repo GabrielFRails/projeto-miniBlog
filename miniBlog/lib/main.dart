@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         initialRoute: "/telaSplash",
         routes: {
           "/telaSplash": (_) => TelaSplash(),
-          "telaPrincipal": (_) => TelaPrincipal(),
+          "/telaPrincipal": (_) => TelaPrincipal(),
           "/telaLogin": (_) => TelaLogin(),
           "/telaCadastro": (_) => TelaCadastro()
         });

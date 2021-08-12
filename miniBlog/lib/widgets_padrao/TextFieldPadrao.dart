@@ -27,26 +27,34 @@ class TextFieldPadrao extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(8.0),
-        child: TextField(
-          obscureText: obscureText,
-          onChanged: onChanged,
-          maxLines: maxLines,
-          decoration: InputDecoration(
-            prefixIcon: prefix,
-            suffixIcon: suffix,
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.grey[300],
-                width: 2.6,
-              ),
-            ),
-            enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey[300], width: 1.2)),
-            hintText: hintText,
-            hintStyle: GoogleFonts.nunitoSans(
-                color: Colors.grey[400],
+        child: Theme(
+          data: Theme.of(context)
+              .copyWith(primaryColor: Color.fromRGBO(143, 148, 251, .9)),
+          child: TextField(
+            style: GoogleFonts.nunitoSans(
                 fontSize: 18,
-                fontWeight: FontWeight.w600),
+                fontWeight: FontWeight.w500,
+                color: Colors.black54),
+            obscureText: obscureText,
+            onChanged: onChanged,
+            maxLines: maxLines,
+            decoration: InputDecoration(
+              prefixIcon: prefix,
+              suffixIcon: suffix,
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.grey[300],
+                  width: 2.6,
+                ),
+              ),
+              enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey[300], width: 1.2)),
+              hintText: hintText,
+              hintStyle: GoogleFonts.nunitoSans(
+                  color: Colors.grey[400],
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600),
+            ),
           ),
         ));
   }
