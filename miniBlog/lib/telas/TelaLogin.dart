@@ -32,64 +32,70 @@ class _TelaLoginState extends State<TelaLogin> {
             SizedBox(height: size.height * 0.04),
             FadeAnimacao(
                 1.1,
-                SvgPicture.asset(
-                  'assets/icons/person1.svg',
-                  height: size.height * 0.35,
+                Padding(
+                  padding: const EdgeInsets.only(top: 32.0),
+                  child: SvgPicture.asset(
+                    'assets/icons/person1.svg',
+                    height: size.height * 0.35,
+                  ),
                 )),
             Padding(
               padding: EdgeInsets.all(30.0),
-              child: Column(
-                children: <Widget>[
-                  FadeAnimacao(
-                      1.7,
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        child: Column(
-                          children: <Widget>[
-                            Observer(
-                              builder: (_) => TextFieldPadrao(
-                                prefix: Icon(
-                                  Icons.alternate_email,
-                                ),
-                                hintText: "E-mail",
-                                onChanged: _controladorUsuario.setEmail,
-                              ),
-                            ),
-                            //teste teste
-                            Observer(
-                              builder: (_) => TextFieldPadrao(
-                                prefix: Icon(Icons.lock),
-                                hintText: "Senha",
-                                obscureText: _controladorUsuario.obscureText,
-                                maxLines: 1,
-                                onChanged: _controladorUsuario.setSenha,
-                                suffix: IconButtonPadrao(
-                                  radius: 32,
-                                  iconData: _controladorUsuario.obscureText
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
-                                  onTap: () {
-                                    _controladorUsuario.changeVisibility();
-                                  },
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    FadeAnimacao(
+                        1.7,
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          child: Column(
+                            children: <Widget>[
+                              Observer(
+                                builder: (_) => TextFieldPadrao(
+                                  prefix: Icon(
+                                    Icons.alternate_email,
+                                  ),
+                                  hintText: "E-mail",
+                                  onChanged: _controladorUsuario.setEmail,
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      )),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  FadeAnimacao(1.8, BotaoPadrao(value: "Entrar", onTap: () {})),
-                  FadeAnimacao(
-                      2.0,
-                      BotaoPadrao(
-                        value: "Quero Me Cadastrar",
-                        onTap: () {
-                          Navigator.pushNamed(context, "/telaCadastro");
-                        },
-                      ))
-                ],
+                              Observer(
+                                builder: (_) => TextFieldPadrao(
+                                  prefix: Icon(Icons.lock),
+                                  hintText: "Senha",
+                                  obscureText: _controladorUsuario.obscureText,
+                                  maxLines: 1,
+                                  onChanged: _controladorUsuario.setSenha,
+                                  suffix: IconButtonPadrao(
+                                    radius: 32,
+                                    iconData: _controladorUsuario.obscureText
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    onTap: () {
+                                      _controladorUsuario.changeVisibility();
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    FadeAnimacao(
+                        1.8, BotaoPadrao(value: "Entrar", onTap: () {})),
+                    SizedBox(height: 16),
+                    FadeAnimacao(
+                        2.0,
+                        BotaoPadrao(
+                          value: "Quero Me Cadastrar",
+                          onTap: () {
+                            Navigator.pushNamed(context, "/telaCadastro");
+                          },
+                        ))
+                  ],
+                ),
               ),
             )
           ],

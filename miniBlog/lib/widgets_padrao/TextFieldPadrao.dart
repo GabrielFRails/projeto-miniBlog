@@ -27,8 +27,6 @@ class TextFieldPadrao extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: Colors.grey[100]))),
         child: TextField(
           obscureText: obscureText,
           onChanged: onChanged,
