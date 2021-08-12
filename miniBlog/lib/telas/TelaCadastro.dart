@@ -29,9 +29,12 @@ class _TelaCadastroState extends State<TelaCadastro> {
                 SizedBox(height: size.height * 0.04),
                 FadeAnimacao(
                     1.1,
-                    SvgPicture.asset(
-                      'assets/icons/person.svg',
-                      height: size.height * 0.35,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 32.0),
+                      child: SvgPicture.asset(
+                        'assets/icons/person.svg',
+                        height: size.height * 0.35,
+                      ),
                     )),
                 Padding(
                   padding: EdgeInsets.all(30.0),
@@ -81,7 +84,6 @@ class _TelaCadastroState extends State<TelaCadastro> {
                       SizedBox(
                         height: 30,
                       ),
-                      FadeAnimacao(2.0, Divider()),
                       FadeAnimacao(
                           1.9,
                           BotaoPadrao(
