@@ -25,6 +25,7 @@ dependencies:
     sdk: flutter
   font_awesome_flutter: any
   flutter_svg: any
+  animated_splash_screen: ^1.0.1
   intl: ^0.16.1
   dio: any
   mobx: ^1.0.2+2

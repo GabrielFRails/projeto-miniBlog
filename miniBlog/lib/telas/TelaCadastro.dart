@@ -81,7 +81,6 @@ class _TelaCadastroState extends State<TelaCadastro> {
                       SizedBox(
                         height: 30,
                       ),
-                      FadeAnimacao(2.0, Divider()),
                       FadeAnimacao(
                           1.9,
                           BotaoPadrao(
