@@ -88,7 +88,11 @@ class _TelaCadastroState extends State<TelaCadastro> {
                           1.9,
                           BotaoPadrao(
                             value: "Concluir Cadastro",
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  "/telaPrincipal",
+                                  (Route<dynamic> route) => false);
+                            },
                           ))
                     ],
                   ),

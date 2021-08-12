@@ -31,6 +31,10 @@ class TextFieldPadrao extends StatelessWidget {
           data: Theme.of(context)
               .copyWith(primaryColor: Color.fromRGBO(143, 148, 251, .9)),
           child: TextField(
+            style: GoogleFonts.nunitoSans(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: Colors.black54),
             obscureText: obscureText,
             onChanged: onChanged,
             maxLines: maxLines,
