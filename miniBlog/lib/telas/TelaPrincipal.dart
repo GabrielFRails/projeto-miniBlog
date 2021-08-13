@@ -40,7 +40,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black,
+              color: Colors.black54,
             ),
           ],
         ),
