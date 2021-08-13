@@ -11,8 +11,6 @@ class TelaSplash extends StatefulWidget {
 }
 
 class _TelaSplashState extends State<TelaSplash> {
-  ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
-
   @override
   void initState() {
     super.initState();
@@ -27,7 +25,7 @@ class _TelaSplashState extends State<TelaSplash> {
         GetIt.I.get<ControladorUsuario>().usuarioExiste(existe: () {
           Navigator.pushReplacementNamed(context, "/telaPrincipal");
         }, naoExiste: () {
-          Navigator.pushReplacementNamed(context, "/telaLogin");
+          Navigator.pushReplacementNamed(context, "/telaPrincipal");
         });
         return;
       },

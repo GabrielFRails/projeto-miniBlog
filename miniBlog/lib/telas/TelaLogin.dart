@@ -18,7 +18,6 @@ class TelaLogin extends StatefulWidget {
 
 class _TelaLoginState extends State<TelaLogin> {
   ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
-  Usuario _usuario = new Usuario();
 
   @override
   Widget build(BuildContext context) {

@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
+          primaryColorBrightness: Brightness.light
         ),
         initialRoute: "/telaSplash",
         routes: {

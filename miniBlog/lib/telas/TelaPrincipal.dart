@@ -19,16 +19,13 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("app's name"),
-        backgroundColor: Color.fromRGBO(143, 148, 251, .6),
-      ),
+      appBar: AppBar(),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black,
+              color: Colors.black54,
             ),
           ],
         ),
