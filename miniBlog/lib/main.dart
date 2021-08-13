@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/telas/TelaCadastro.dart';
+import 'package:miniBlog/telas/TelaEditarPerfil.dart';
 import 'package:miniBlog/telas/TelaLogin.dart';
+import 'package:miniBlog/telas/TelaPerfil.dart';
 import 'package:miniBlog/telas/TelaPrincipal.dart';
 import 'package:miniBlog/telas/TelaSplash.dart';
 
@@ -28,7 +30,9 @@ class MyApp extends StatelessWidget {
           "/telaSplash": (_) => TelaSplash(),
           "/telaPrincipal": (_) => TelaPrincipal(),
           "/telaLogin": (_) => TelaLogin(),
-          "/telaCadastro": (_) => TelaCadastro()
+          "/telaCadastro": (_) => TelaCadastro(),
+          "/telaPerfil": (_) => TelaPerfil(),
+          "/telaEditarPerfil": (_) => TelaEditarPerfil()
         });
   }
 }

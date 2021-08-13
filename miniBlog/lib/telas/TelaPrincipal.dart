@@ -19,7 +19,22 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("Twitter da Pacto"),
+        backgroundColor: Color.fromRGBO(143, 148, 251, .6),
+        actions: <Widget>[
+          _currentIndex == 1
+              ? IconButton(
+                  icon: Icon(
+                    Icons.logout,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, "/telaSplash");
+                  })
+              : Container(),
+        ],
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
