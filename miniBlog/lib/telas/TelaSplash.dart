@@ -11,7 +11,6 @@ class TelaSplash extends StatefulWidget {
 }
 
 class _TelaSplashState extends State<TelaSplash> {
-  ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
 
   @override
   void initState() {
