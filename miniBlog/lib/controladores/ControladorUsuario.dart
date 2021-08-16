@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:miniBlog/entidades/Post.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:mobx/mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,6 +35,9 @@ abstract class _ControladorUsuarioBase with Store {
     obscureText = !obscureText;
   }
 
+  @observable
+  List<Post> postsSeguidos = new List<Post>();
+
   @computed
   bool get isLoginValido =>
       email.contains("@") &&
@@ -53,3 +57,4 @@ abstract class _ControladorUsuarioBase with Store {
     });
   }
 }
+
