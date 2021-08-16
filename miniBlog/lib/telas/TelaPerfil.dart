@@ -1,6 +1,7 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/util/DadosPerfilWidget.dart';
@@ -69,13 +70,17 @@ class _TelaPerfilState extends State<TelaPerfil>
           Text(
             'Nome Usuario aqui',
             //usuario.nome,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            style: GoogleFonts.nunitoSans(
+                fontSize: 25,
+                color: Color(0xff0D0D0D),
+                fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 4),
           Text(
             'e-mail Usuario aqui',
             //usuario.email,
-            style: TextStyle(color: Colors.grey),
+            style: GoogleFonts.nunitoSans(
+                color: Colors.grey, fontWeight: FontWeight.w300),
           )
         ],
       );
