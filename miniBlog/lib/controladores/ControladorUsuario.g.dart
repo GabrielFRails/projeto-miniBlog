@@ -81,13 +81,13 @@ mixin _$ControladorUsuario on _ControladorUsuarioBase, Store {
       Atom(name: '_ControladorUsuarioBase.postsSeguidos');
 
   @override
-  List<Post> get postsSeguidos {
+  ObservableList<Post> get postsSeguidos {
     _$postsSeguidosAtom.reportRead();
     return super.postsSeguidos;
   }
 
   @override
-  set postsSeguidos(List<Post> value) {
+  set postsSeguidos(ObservableList<Post> value) {
     _$postsSeguidosAtom.reportWrite(value, super.postsSeguidos, () {
       super.postsSeguidos = value;
     });

@@ -36,7 +36,7 @@ abstract class _ControladorUsuarioBase with Store {
   }
 
   @observable
-  List<Post> postsSeguidos = new List<Post>();
+  ObservableList<Post> postsSeguidos = new ObservableList<Post>();
 
   @computed
   bool get isLoginValido =>

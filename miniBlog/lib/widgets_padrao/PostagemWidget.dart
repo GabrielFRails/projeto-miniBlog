@@ -51,10 +51,19 @@ class PostagemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           postHeader(),
-          postText(),
+          SizedBox(
+            height: 5,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: postText(),
+          ),
+          SizedBox(
+            height: 5,
+          ),
           postButtons(),
           SizedBox(
-            height: 10,
+            height: 5,
           )
         ],
       ),
@@ -67,23 +76,20 @@ class PostagemWidget extends StatelessWidget {
       children: [
         Container(
           margin: const EdgeInsets.only(right: 5.0),
-          child: Text(
-            this.username,
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          child: Text(this.username,
+              style: GoogleFonts.nunitoSans(
+                  fontSize: 17, fontWeight: FontWeight.bold)),
         ),
-        Text(
-          '@$name · $timeAgo',
-          style: TextStyle(
-            color: Colors.grey,
-          ),
+        SizedBox(
+          width: 4,
         ),
+        Text('@$name',
+            style: GoogleFonts.nunitoSans(
+                color: Colors.grey[400],
+                fontSize: 11,
+                fontWeight: FontWeight.w400)),
         Spacer(),
         PopupMenuButton(
-          key: _key,
           icon: Icon(
             FontAwesomeIcons.angleDown,
             size: 14.0,
@@ -120,14 +126,11 @@ class PostagemWidget extends StatelessWidget {
     );
   }
 
-  void choiceAction(String choice) {
-    print("working");
-  }
-
   Widget postText() {
     return Text(
       text,
       overflow: TextOverflow.clip,
+      style: GoogleFonts.nunitoSans(fontSize: 14, fontWeight: FontWeight.w400),
     );
   }
 
@@ -166,11 +169,4 @@ class PostagemWidget extends StatelessWidget {
       ],
     );
   }
-}
-
-class EditarEExcluir {
-  static const String editar = "editar";
-  static const String excluir = "excluir";
-
-  static const List<String> escolhas = [editar, excluir];
 }
