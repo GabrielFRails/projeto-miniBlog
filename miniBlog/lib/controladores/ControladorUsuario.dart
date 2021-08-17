@@ -9,7 +9,7 @@ part 'ControladorUsuario.g.dart';
 class ControladorUsuario = _ControladorUsuarioBase with _$ControladorUsuario;
 
 abstract class _ControladorUsuarioBase with Store {
-  Usuario mUsuarioLogado = new Usuario();
+  Usuario usuarioLogado = new Usuario(nome: "vlad");
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
@@ -49,7 +49,7 @@ abstract class _ControladorUsuarioBase with Store {
     _prefs.then((prefsDb) {
       String usuarioJson = prefsDb.getString("user");
       if (usuarioJson != null) {
-        mUsuarioLogado = Usuario.fromJson(JsonCodec().decode(usuarioJson));
+        usuarioLogado = Usuario.fromJson(JsonCodec().decode(usuarioJson));
         existe?.call();
       } else {
         naoExiste?.call();

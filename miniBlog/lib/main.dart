@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:miniBlog/controladores/ControladorPost.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/telas/TelaCadastro.dart';
+import 'package:miniBlog/telas/TelaComentario.dart';
 import 'package:miniBlog/telas/TelaEditarPerfil.dart';
 import 'package:miniBlog/telas/TelaLogin.dart';
 import 'package:miniBlog/telas/TelaPerfil.dart';
@@ -12,6 +14,7 @@ final getIt = GetIt.instance;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   getIt.registerSingleton(ControladorUsuario());
+  getIt.registerSingleton(ControladorPost());
   runApp(MyApp());
 }
 
@@ -22,9 +25,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          primaryColorBrightness: Brightness.light
-        ),
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            primaryColorBrightness: Brightness.light),
         initialRoute: "/telaPrincipal",
         routes: {
           "/telaSplash": (_) => TelaSplash(),
@@ -32,7 +34,8 @@ class MyApp extends StatelessWidget {
           "/telaLogin": (_) => TelaLogin(),
           "/telaCadastro": (_) => TelaCadastro(),
           "/telaPerfil": (_) => TelaPerfil(),
-          "/telaEditarPerfil": (_) => TelaEditarPerfil()
+          "/telaEditarPerfil": (_) => TelaEditarPerfil(),
+          "/telaComentario": (_) => TelaComentario()
         });
   }
 }
