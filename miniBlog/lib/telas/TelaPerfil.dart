@@ -18,8 +18,7 @@ class TelaPerfil extends StatefulWidget {
 class _TelaPerfilState extends State<TelaPerfil>
     with AfterLayoutMixin<TelaPerfil> {
   BuildContext mMainContext;
-  ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
-  Usuario _usuarioLogado = GetIt.I.get<ControladorUsuario>().mUsuarioLogado;
+  Usuario _usuarioLogado = GetIt.I.get<ControladorUsuario>().usuarioLogado;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

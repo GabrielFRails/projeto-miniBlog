@@ -5,21 +5,21 @@ import 'package:google_fonts/google_fonts.dart';
 class PostagemWidget extends StatelessWidget {
   final String avatar;
   final String username;
-  final String name;
   final String timeAgo;
   final String text;
   final String comments;
   final String favorites;
+  final BuildContext context;
 
   const PostagemWidget(
       {Key key,
       @required this.avatar,
       @required this.username,
-      @required this.name,
       @required this.timeAgo,
       @required this.text,
       @required this.comments,
-      @required this.favorites})
+      @required this.favorites,
+      this.context})
       : super(key: key);
 
   @override
@@ -38,7 +38,7 @@ class PostagemWidget extends StatelessWidget {
 
   Widget postAvatar() {
     return Container(
-      margin: const EdgeInsets.all(10.0),
+      margin: const EdgeInsets.fromLTRB(15, 15, 10, 0),
       child: CircleAvatar(
         backgroundImage: NetworkImage(this.avatar),
       ),
@@ -58,20 +58,13 @@ class PostagemWidget extends StatelessWidget {
             padding: const EdgeInsets.only(right: 15),
             child: postText(),
           ),
-          SizedBox(
-            height: 5,
-          ),
           postButtons(),
-          SizedBox(
-            height: 5,
-          )
         ],
       ),
     );
   }
 
   Widget postHeader() {
-    final GlobalKey<PopupMenuButtonState<int>> _key = GlobalKey();
     return Row(
       children: [
         Container(
@@ -83,11 +76,6 @@ class PostagemWidget extends StatelessWidget {
         SizedBox(
           width: 4,
         ),
-        Text('@$name',
-            style: GoogleFonts.nunitoSans(
-                color: Colors.grey[400],
-                fontSize: 11,
-                fontWeight: FontWeight.w400)),
         Spacer(),
         PopupMenuButton(
           icon: Icon(
@@ -140,30 +128,38 @@ class PostagemWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          postIconButton(FontAwesomeIcons.comment, this.comments),
+          Spacer(),
+          postIconButton(
+              icon: FontAwesomeIcons.comment,
+              text: this.comments,
+              onPressed: () {
+                Navigator.of(context).pushNamed("/telaComentario");
+              }),
           SizedBox(width: 15),
-          postIconButton(FontAwesomeIcons.heart, this.favorites),
+          postIconButton(
+              icon: FontAwesomeIcons.heart,
+              text: this.favorites,
+              onPressed: () {}),
         ],
       ),
     );
   }
 
-  Widget postIconButton(IconData icon, String text) {
+  Widget postIconButton({IconData icon, String text, Function() onPressed}) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Icon(
-          icon,
-          size: 16.0,
+        IconButton(
+          icon: Icon(icon),
+          onPressed: onPressed,
+          iconSize: 16.0,
           color: Colors.black45,
         ),
-        Container(
-          margin: const EdgeInsets.all(6.0),
-          child: Text(
-            text,
-            style: TextStyle(
-              color: Colors.black45,
-              fontSize: 14.0,
-            ),
+        Text(
+          text,
+          style: TextStyle(
+            color: Colors.black45,
+            fontSize: 14.0,
           ),
         ),
       ],

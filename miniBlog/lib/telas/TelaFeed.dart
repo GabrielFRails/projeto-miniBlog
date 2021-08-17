@@ -12,7 +12,19 @@ class TelaFeed extends StatefulWidget {
 }
 
 class _TelaFeedState extends State<TelaFeed> {
+  Post post1 =
+      new Post(conteudo: "nadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+  Post post2 = new Post(conteudo: "tudo");
+
   ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
+
+  @override
+  void initState() {
+    _controladorUsuario.postsSeguidos.add(post1);
+    _controladorUsuario.postsSeguidos.add(post2);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,10 +33,6 @@ class _TelaFeedState extends State<TelaFeed> {
   }
 
   Widget listaDePosts() {
-    Post post1 = new Post(conteudo: "nada");
-    Post post2 = new Post(conteudo: "tudo");
-    _controladorUsuario.postsSeguidos.add(post1);
-    _controladorUsuario.postsSeguidos.add(post2);
     return Container(
       color: Colors.white,
       child: ListView.builder(
@@ -33,16 +41,16 @@ class _TelaFeedState extends State<TelaFeed> {
           return Column(
             children: [
               PostagemWidget(
+                  context: context,
                   avatar: "https://picsum.photos/id/237/200/300",
                   username: "matheus",
-                  name: "matueus",
                   timeAgo: "2",
-                  text:
-                      "dfadfdafadafnsjkldkkkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdkdajsdfknh",
+                  text: "${postSeguido.conteudo}",
                   comments: "3",
                   favorites: "4"),
               Divider(
                 thickness: 1,
+                height: 1,
               )
             ],
           );

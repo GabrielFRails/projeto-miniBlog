@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get_it/get_it.dart';
 import 'package:miniBlog/animacao/FadeAnimacao.dart';
-import 'package:miniBlog/controladores/ControladorUsuario.dart';
-import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/widgets_padrao/BotaoPadrao.dart';
 import 'package:miniBlog/widgets_padrao/TextFieldPadrao.dart';
 
@@ -15,8 +12,6 @@ class TelaEditarPerfil extends StatefulWidget {
 }
 
 class _TelaEditarPerfilState extends State<TelaEditarPerfil> {
-  //ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
-  Usuario _usuarioLogado = GetIt.I.get<ControladorUsuario>().mUsuarioLogado;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
