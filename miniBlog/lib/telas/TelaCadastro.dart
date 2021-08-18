@@ -3,6 +3,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/animacao/FadeAnimacao.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
+import 'package:miniBlog/entidades/Usuario.dart';
+import 'package:miniBlog/util/UtilDialogo.dart';
 import 'package:miniBlog/widgets_padrao/BotaoPadrao.dart';
 import 'package:miniBlog/widgets_padrao/IconButtonPadrao.dart';
 import 'package:miniBlog/widgets_padrao/TextFieldPadrao.dart';
@@ -17,6 +19,7 @@ class TelaCadastro extends StatefulWidget {
 
 class _TelaCadastroState extends State<TelaCadastro> {
   ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
+  Usuario _usuario = Usuario();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -87,13 +90,24 @@ class _TelaCadastroState extends State<TelaCadastro> {
                       FadeAnimacao(
                           1.9,
                           BotaoPadrao(
+                            value: "Definir Foto de Perfil",
+                            onTap: () {
+                              UtilDialogo.exibirFotosPerfil(context, _usuario);
+                            },
+                          )),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      FadeAnimacao(
+                          1.9,
+                          BotaoPadrao(
                             value: "Concluir Cadastro",
                             onTap: () {
                               Navigator.of(context).pushNamedAndRemoveUntil(
                                   "/telaPrincipal",
                                   (Route<dynamic> route) => false);
                             },
-                          ))
+                          )),
                     ],
                   ),
                 )

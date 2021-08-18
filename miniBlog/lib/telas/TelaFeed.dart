@@ -55,7 +55,8 @@ class _TelaFeedState extends State<TelaFeed> {
             ],
           );
         },
-        itemCount: _controladorUsuario.postsSeguidos.length,
+        //itemCount: _controladorUsuario.postsSeguidos.length,
+        itemCount: 0,
       ),
     );
   }

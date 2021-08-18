@@ -25,7 +25,7 @@ class _TelaSplashState extends State<TelaSplash> {
         GetIt.I.get<ControladorUsuario>().usuarioExiste(existe: () {
           Navigator.pushReplacementNamed(context, "/telaPrincipal");
         }, naoExiste: () {
-          Navigator.pushReplacementNamed(context, "/telaPrincipal");
+          Navigator.pushReplacementNamed(context, "/telaLogin");
         });
         return;
       },

@@ -22,20 +22,6 @@ class _TelaPerfilState extends State<TelaPerfil>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        /* appBar: AppBar(
-          backgroundColor: Color.fromRGBO(143, 148, 251, .6),
-          title: Text("Este é o seu perfil"),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.logout,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, "/splash");
-                })
-          ],
-        ), */
         body: ListView(
       padding: EdgeInsets.all(25),
       physics: BouncingScrollPhysics(),
