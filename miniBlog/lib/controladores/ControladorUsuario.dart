@@ -56,5 +56,23 @@ abstract class _ControladorUsuarioBase with Store {
       }
     });
   }
-}
 
+  void logoutUsuario() {
+    _prefs.then((db) {
+      db.remove("user");
+    });
+  }
+
+  void cadastrarUsuario(Usuario usuarioCadastrar,
+      {Function() sucesso, Function(String mensagem) erro}) {
+        if (usuarioCadastrar.email?.isEmpty ?? true) {
+          erro?.call("E-mail Inválido");
+        } else if(usuarioCadastrar.senha?.isEmpty ?? true) {
+          erro?.call("Senha inválida");
+        } else if (usuarioCadastrar.nome?.isEmpty ?? true) {
+          erro?.call("Defina um nome");
+        } else {
+          
+        }
+      }
+}
