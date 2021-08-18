@@ -28,8 +28,7 @@ class TextFieldPadrao extends StatelessWidget {
     return Container(
         padding: EdgeInsets.all(8.0),
         child: Theme(
-          data: Theme.of(context)
-              .copyWith(primaryColor: Color.fromRGBO(143, 148, 251, .9)),
+          data: Theme.of(context).copyWith(primaryColor: Color(0xff078783)),
           child: TextField(
             style: GoogleFonts.nunitoSans(
                 fontSize: 18,

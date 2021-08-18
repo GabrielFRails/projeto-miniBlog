@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:miniBlog/telas/TelaFeed.dart';
 import 'package:miniBlog/telas/TelaPerfil.dart';
 
@@ -20,8 +21,11 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Twitter da Pacto"),
-        backgroundColor: Color.fromRGBO(143, 148, 251, .6),
+        title: Text(
+          "Twitter da Pacto",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Color(0xff276B69),
         actions: <Widget>[
           _currentIndex == 1
               ? IconButton(
@@ -30,7 +34,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                     color: Colors.white,
                   ),
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, "/telaSplash");
+                    Navigator.pushReplacementNamed(context, "/telaCadastro");
                   })
               : Container(),
         ],
@@ -53,7 +57,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
             });
           },
           type: BottomNavigationBarType.fixed,
-          fixedColor: Color.fromRGBO(143, 148, 251, .9),
+          fixedColor: Color(0xff008A85),
           items: [
             BottomNavigationBarItem(
                 backgroundColor: Colors.black,

@@ -36,6 +36,8 @@ class _TelaFeedState extends State<TelaFeed> {
     return Container(
       color: Colors.white,
       child: ListView.builder(
+        shrinkWrap: true,
+        primary: false,
         itemBuilder: (context, index) {
           var postSeguido = _controladorUsuario.postsSeguidos[index];
           return Column(
@@ -55,8 +57,7 @@ class _TelaFeedState extends State<TelaFeed> {
             ],
           );
         },
-        //itemCount: _controladorUsuario.postsSeguidos.length,
-        itemCount: 0,
+        itemCount: _controladorUsuario.postsSeguidos.length,
       ),
     );
   }

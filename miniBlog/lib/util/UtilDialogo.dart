@@ -113,7 +113,8 @@ class UtilDialogo {
                   child: BotaoPadrao(
                     value: "Definir",
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          "/telaPrincipal", (Route<dynamic> route) => false);
                     },
                   ),
                 ),

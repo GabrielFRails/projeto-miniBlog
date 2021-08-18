@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             visualDensity: VisualDensity.adaptivePlatformDensity,
             primaryColorBrightness: Brightness.light),
-        initialRoute: "/telaPrincipal",
+        initialRoute: "/telaLogin",
         routes: {
           "/telaSplash": (_) => TelaSplash(),
           "/telaPrincipal": (_) => TelaPrincipal(),
