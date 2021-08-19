@@ -147,12 +147,11 @@ class PostagemWidget extends StatelessWidget {
 
   Widget postIconButton({IconData icon, String text, Function() onPressed}) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         IconButton(
           icon: Icon(icon),
           onPressed: onPressed,
-          iconSize: 16.0,
+          iconSize: 14.0,
           color: Colors.black45,
         ),
         Text(

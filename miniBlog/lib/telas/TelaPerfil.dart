@@ -23,6 +23,8 @@ class _TelaPerfilState extends State<TelaPerfil>
   Widget build(BuildContext context) {
     return Scaffold(
         body: ListView(
+      primary: false,
+      shrinkWrap: true,
       padding: EdgeInsets.all(25),
       physics: BouncingScrollPhysics(),
       children: [
@@ -39,6 +41,7 @@ class _TelaPerfilState extends State<TelaPerfil>
         const SizedBox(height: 50),
         Center(
           child: BotaoPadrao(
+            context: context,
             value: "Editar o meu Perfil",
             onTap: () {
               Navigator.pushNamed(context, "/telaEditarPerfil");

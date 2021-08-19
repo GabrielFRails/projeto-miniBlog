@@ -1,7 +1,6 @@
 import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:miniBlog/controladores/ControladorPost.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/entidades/Comentario.dart';
@@ -68,8 +67,12 @@ class _TelaComentarioState extends State<TelaComentario> {
         Comentario(criador: _controladorUsuario.usuarioLogado);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Página de comentário"),
-        backgroundColor: Colors.pink,
+        iconTheme: IconThemeData(color: Colors.white),
+        title: Text(
+          "Página de comentário",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Color(0xff276B69),
       ),
       body: Container(
         child: CommentBox(
@@ -78,7 +81,7 @@ class _TelaComentarioState extends State<TelaComentario> {
           child: comentariosChild(),
           labelText: 'Adicione um comentário',
           withBorder: false,
-          errorText: 'Preencha o comentário',
+          errorText: "O campo não pode ser vazio",
           sendButtonMethod: () {
             if (formKey.currentState.validate()) {
               setState(() {
@@ -94,7 +97,7 @@ class _TelaComentarioState extends State<TelaComentario> {
           },
           formKey: formKey,
           commentController: controladorComentario,
-          backgroundColor: Colors.black87,
+          backgroundColor: Colors.grey[400],
           textColor: Colors.white,
           sendWidget: Icon(Icons.send_sharp, size: 30, color: Colors.white),
         ),

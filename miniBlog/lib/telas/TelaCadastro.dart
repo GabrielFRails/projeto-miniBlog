@@ -90,22 +90,8 @@ class _TelaCadastroState extends State<TelaCadastro> {
                       FadeAnimacao(
                           1.9,
                           BotaoPadrao(
-                            value: "Definir Foto de Perfil",
-                            onTap: () {
-                              UtilDialogo.exibirFotosPerfil(context, _usuario);
-                            },
-                          )),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      FadeAnimacao(
-                          1.9,
-                          BotaoPadrao(
                             value: "Concluir Cadastro",
-                            onTap: () {
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                  "/telaPrincipal",
-                                  (Route<dynamic> route) => false);
+                            onTap: () {UtilDialogo.exibirFotosPerfil(context, _usuario);
                             },
                           )),
                     ],
