@@ -42,6 +42,8 @@ class _TelaCadastroState extends State<TelaCadastro> {
   bool selecionouImagem8 = false;
 
   ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
+  ControladorWidget _controladorWidget = GetIt.I.get<ControladorWidget>();
+  Usuario usuario = Usuario();
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +76,9 @@ class _TelaCadastroState extends State<TelaCadastro> {
                               return TextFieldPadrao(
                                 prefix: Icon(Icons.person_outline),
                                 hintText: "Nome Completo",
-                                onChanged: _controladorUsuario.setNome,
+                                onChanged: (text) {
+                                  usuario.nome = text;
+                                },
                               );
                             }),
                             Observer(builder: (_) {
@@ -83,7 +87,9 @@ class _TelaCadastroState extends State<TelaCadastro> {
                                   Icons.alternate_email,
                                 ),
                                 hintText: "E-mail",
-                                onChanged: _controladorUsuario.setEmail,
+                                onChanged: (text) {
+                                  usuario.email = text;
+                                },
                               );
                             }),
                             Observer(builder: (_) {
@@ -92,7 +98,9 @@ class _TelaCadastroState extends State<TelaCadastro> {
                                 hintText: "Senha",
                                 obscureText: _controladorUsuario.obscureText,
                                 maxLines: 1,
-                                onChanged: _controladorUsuario.setSenha,
+                                onChanged: (text) {
+                                  usuario.senha = text;
+                                },
                                 suffix: IconButtonPadrao(
                                   radius: 32,
                                   iconData: _controladorUsuario.obscureText
@@ -114,7 +122,8 @@ class _TelaCadastroState extends State<TelaCadastro> {
                           1.9,
                           BotaoPadrao(
                             value: "Concluir Cadastro",
-                            onTap: () {UtilDialogo.exibirFotosPerfil(context, _usuario);
+                            onTap: () {
+                              takeChosenImage(context);
                             },
                           )),
                     ],
@@ -381,6 +390,15 @@ class _TelaCadastroState extends State<TelaCadastro> {
                   child: BotaoPadrao(
                     value: "Definir",
                     onTap: () {
+                      _controladorUsuario.cadastrarUsuario(usuario,
+                          sucesso: () {
+                        Navigator.pushReplacementNamed(
+                            context, "/telaPrincipal");
+                      }, erro: (mensagem) {
+                        UtilDialogo.exibirAlerta(context,
+                            titulo: "Ops deu erro no Login",
+                            mensagem: mensagem);
+                      });
                       Navigator.of(context).pushNamedAndRemoveUntil(
                           "/telaPrincipal", (Route<dynamic> route) => false);
                     },
