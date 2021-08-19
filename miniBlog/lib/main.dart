@@ -3,6 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/ControladorPost.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/controladores/ControladorWidget.dart';
+import 'package:miniBlog/servicos/ServicoDioProvider.dart';
+import 'package:miniBlog/servicos/ServicosDoMiniBlog.dart';
 import 'package:miniBlog/telas/TelaCadastro.dart';
 import 'package:miniBlog/telas/TelaComentario.dart';
 import 'package:miniBlog/telas/TelaEditarPerfil.dart';
@@ -14,9 +16,11 @@ import 'package:miniBlog/telas/TelaSplash.dart';
 final getIt = GetIt.instance;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  getIt.registerSingleton(ControladorUsuario());
-  getIt.registerSingleton(ControladorPost());
-  getIt.registerSingleton(ControladorWidget());
+  var dioConnect = ServicoDioProvider().getDio();
+  getIt.registerSingleton<ControladorUsuario>(ControladorUsuario());
+  getIt.registerSingleton<ServicosDoMiniBlog>(ServicosDoMiniBlog(dioConnect));
+  getIt.registerSingleton<ControladorPost>(ControladorPost());
+  getIt.registerSingleton<ControladorPost>(ControladorPost());
   runApp(MyApp());
 }
 
