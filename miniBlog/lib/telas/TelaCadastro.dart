@@ -42,7 +42,6 @@ class _TelaCadastroState extends State<TelaCadastro> {
   bool selecionouImagem8 = false;
 
   ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
-  ControladorWidget _controladorWidget = GetIt.I.get<ControladorWidget>();
 
   @override
   Widget build(BuildContext context) {
@@ -71,34 +70,40 @@ class _TelaCadastroState extends State<TelaCadastro> {
                         1.8,
                         Column(
                           children: <Widget>[
-                            TextFieldPadrao(
-                              prefix: Icon(Icons.person_outline),
-                              hintText: "Nome Completo",
-                              onChanged: _controladorUsuario.setNome,
-                            ),
-                            TextFieldPadrao(
-                              prefix: Icon(
-                                Icons.alternate_email,
-                              ),
-                              hintText: "E-mail",
-                              onChanged: _controladorUsuario.setEmail,
-                            ),
-                            TextFieldPadrao(
-                              prefix: Icon(Icons.lock),
-                              hintText: "Senha",
-                              obscureText: _controladorUsuario.obscureText,
-                              maxLines: 1,
-                              onChanged: _controladorUsuario.setSenha,
-                              suffix: IconButtonPadrao(
-                                radius: 32,
-                                iconData: _controladorUsuario.obscureText
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                onTap: () {
-                                  _controladorUsuario.changeVisibility();
-                                },
-                              ),
-                            )
+                            Observer(builder: (_) {
+                              return TextFieldPadrao(
+                                prefix: Icon(Icons.person_outline),
+                                hintText: "Nome Completo",
+                                onChanged: _controladorUsuario.setNome,
+                              );
+                            }),
+                            Observer(builder: (_) {
+                              return TextFieldPadrao(
+                                prefix: Icon(
+                                  Icons.alternate_email,
+                                ),
+                                hintText: "E-mail",
+                                onChanged: _controladorUsuario.setEmail,
+                              );
+                            }),
+                            Observer(builder: (_) {
+                              return TextFieldPadrao(
+                                prefix: Icon(Icons.lock),
+                                hintText: "Senha",
+                                obscureText: _controladorUsuario.obscureText,
+                                maxLines: 1,
+                                onChanged: _controladorUsuario.setSenha,
+                                suffix: IconButtonPadrao(
+                                  radius: 32,
+                                  iconData: _controladorUsuario.obscureText
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  onTap: () {
+                                    _controladorUsuario.changeVisibility();
+                                  },
+                                ),
+                              );
+                            }),
                           ],
                         ),
                       ),
@@ -109,8 +114,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                           1.9,
                           BotaoPadrao(
                             value: "Concluir Cadastro",
-                            onTap: () {
-                              takeChosenImage(context);
+                            onTap: () {UtilDialogo.exibirFotosPerfil(context, _usuario);
                             },
                           )),
                     ],

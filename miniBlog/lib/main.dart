@@ -1,8 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/ControladorPost.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
+<<<<<<< Updated upstream
 import 'package:miniBlog/controladores/ControladorWidget.dart';
+=======
+import 'package:miniBlog/servicos/ServicosDoMiniBlog.dart';
+>>>>>>> Stashed changes
 import 'package:miniBlog/telas/TelaCadastro.dart';
 import 'package:miniBlog/telas/TelaComentario.dart';
 import 'package:miniBlog/telas/TelaEditarPerfil.dart';
@@ -14,6 +19,7 @@ import 'package:miniBlog/telas/TelaSplash.dart';
 final getIt = GetIt.instance;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  getIt.registerSingleton(ServicosDoMiniBlog(Dio()));
   getIt.registerSingleton(ControladorUsuario());
   getIt.registerSingleton(ControladorPost());
   getIt.registerSingleton(ControladorWidget());

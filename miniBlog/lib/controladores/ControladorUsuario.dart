@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:get_it/get_it.dart';
 import 'package:miniBlog/entidades/Post.dart';
+import 'package:miniBlog/servicos/ServicosDoMiniBlog.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:mobx/mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,7 +11,8 @@ part 'ControladorUsuario.g.dart';
 class ControladorUsuario = _ControladorUsuarioBase with _$ControladorUsuario;
 
 abstract class _ControladorUsuarioBase with Store {
-  Usuario usuarioLogado = new Usuario(nome: "vlad");
+  Usuario mUsuarioLogado;
+  ServicosDoMiniBlog mService = GetIt.I.get<ServicosDoMiniBlog>();
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
@@ -49,7 +52,7 @@ abstract class _ControladorUsuarioBase with Store {
     _prefs.then((prefsDb) {
       String usuarioJson = prefsDb.getString("user");
       if (usuarioJson != null) {
-        usuarioLogado = Usuario.fromJson(JsonCodec().decode(usuarioJson));
+        mUsuarioLogado = Usuario.fromJson(JsonCodec().decode(usuarioJson));
         existe?.call();
       } else {
         naoExiste?.call();
@@ -63,16 +66,42 @@ abstract class _ControladorUsuarioBase with Store {
     });
   }
 
+  void autenticarUsuario(Usuario usuarioLogar,
+      {Function() sucesso, Function(String mensagem) erro}) {
+    if ((usuarioLogar.email?.isEmpty ?? true) ||
+        (usuarioLogar.senha?.isEmpty ?? true)) {
+      erro?.call("Usuario ou senha inválidos!");
+    } else {
+      mService.autenticarUsuario(usuarioLogar).then((usuario) {
+        _prefs.then((db) {
+          db.setString("user", JsonCodec().encode(usuario.sucesso.toJson()));
+          mUsuarioLogado = usuario.sucesso;
+          sucesso?.call();
+        });
+      }).catchError((onError) {
+        erro?.call(onError.response.data["falha"]);
+      });
+    }
+  }
+
   void cadastrarUsuario(Usuario usuarioCadastrar,
       {Function() sucesso, Function(String mensagem) erro}) {
-        if (usuarioCadastrar.email?.isEmpty ?? true) {
-          erro?.call("E-mail Inválido");
-        } else if(usuarioCadastrar.senha?.isEmpty ?? true) {
-          erro?.call("Senha inválida");
-        } else if (usuarioCadastrar.nome?.isEmpty ?? true) {
-          erro?.call("Defina um nome");
-        } else {
-          
-        }
-      }
+    if (usuarioCadastrar.email?.isEmpty ?? true) {
+      erro?.call("E-mail Inválido");
+    } else if (usuarioCadastrar.senha?.isEmpty ?? true) {
+      erro?.call("Senha inválida");
+    } else if (usuarioCadastrar.nome?.isEmpty ?? true) {
+      erro?.call("Defina um nome");
+    } else {
+      mService.cadastrarUsuario(usuarioCadastrar).then((usuario) {
+        _prefs.then((db) {
+          db.setString("user", JsonCodec().encode(usuario.sucesso.toJson()));
+          mUsuarioLogado = usuario.sucesso;
+          sucesso?.call();
+        });
+      }).catchError((onError) {
+        erro?.call(onError.response.data["falha"]);
+      });
+    }
+  }
 }
