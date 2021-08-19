@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/ControladorPost.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
+import 'package:miniBlog/controladores/ControladorWidget.dart';
 import 'package:miniBlog/telas/TelaCadastro.dart';
 import 'package:miniBlog/telas/TelaComentario.dart';
 import 'package:miniBlog/telas/TelaEditarPerfil.dart';
@@ -15,6 +16,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   getIt.registerSingleton(ControladorUsuario());
   getIt.registerSingleton(ControladorPost());
+  getIt.registerSingleton(ControladorWidget());
   runApp(MyApp());
 }
 

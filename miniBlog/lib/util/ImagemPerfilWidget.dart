@@ -4,8 +4,13 @@ class ImagemPerfilWidget extends StatelessWidget {
   final String linkImagem;
   final double tamanhoImagem;
   final Function() onTap;
+  final bool isSelecionado;
   const ImagemPerfilWidget(
-      {Key key, this.linkImagem, this.tamanhoImagem, this.onTap})
+      {Key key,
+      this.linkImagem,
+      this.tamanhoImagem,
+      this.onTap,
+      this.isSelecionado})
       : super(key: key);
 
   @override
@@ -22,14 +27,32 @@ class ImagemPerfilWidget extends StatelessWidget {
     return ClipOval(
       child: Material(
           color: Colors.transparent,
-          child: InkWell(
-            onTap: onTap,
-            child: Ink.image(
-              image: image,
-              fit: BoxFit.cover,
-              width: tamanhoImagem,
-              height: tamanhoImagem,
-            ),
+          child: Stack(
+            alignment: Alignment.topRight,
+            children: [
+              this.isSelecionado
+                  ? Padding(
+                      padding: const EdgeInsets.only(right: 8.0, top: 4),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Icon(
+                          Icons.check,
+                          size: 25,
+                          color: Colors.amberAccent,
+                        ),
+                      ),
+                    )
+                  : Container(),
+              InkWell(
+                onTap: onTap,
+                child: Ink.image(
+                  image: image,
+                  fit: BoxFit.cover,
+                  width: tamanhoImagem,
+                  height: tamanhoImagem,
+                ),
+              ),
+            ],
           )),
     );
   }
