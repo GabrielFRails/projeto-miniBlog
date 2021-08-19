@@ -29,10 +29,12 @@ class _TelaPerfilState extends State<TelaPerfil>
       physics: BouncingScrollPhysics(),
       children: [
         ImagemPerfilWidget(
-          onTap: () {},
           linkImagem:
               "https://i.pinimg.com/564x/2b/23/f6/2b23f6ee9fbc16112ac00b5c0d909959.jpg",
           tamanhoImagem: 150,
+          onTap: () {
+            Navigator.pushNamed(context, "/telaEditarPerfil");
+          },
         ),
         const SizedBox(height: 24),
         buildNomeUsuario(_usuarioLogado),

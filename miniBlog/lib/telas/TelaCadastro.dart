@@ -5,7 +5,7 @@ import 'package:miniBlog/animacao/FadeAnimacao.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/controladores/ControladorWidget.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
-import 'package:miniBlog/util/ImagemPerfilWidget.dart';
+import 'package:miniBlog/util/ImagemWidget.dart';
 import 'package:miniBlog/util/UtilDialogo.dart';
 import 'package:miniBlog/widgets_padrao/BotaoPadrao.dart';
 import 'package:miniBlog/widgets_padrao/IconButtonPadrao.dart';
@@ -174,7 +174,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Observer(builder: (_) {
-                      return ImagemPerfilWidget(
+                      return ImagemWidget(
                         isSelecionado: _controladorWidget.selecionouImagem0,
                         linkImagem: linksImagens[0],
                         onTap: () {
@@ -190,12 +190,13 @@ class _TelaCadastroState extends State<TelaCadastro> {
                             _controladorWidget.selecionouImagem7 = false;
                             _controladorWidget.selecionouImagem8 = false;
                           });
+                          usuario.imagemPerfil = linksImagens[0];
                         },
                         tamanhoImagem: 70,
                       );
                     }),
                     Observer(builder: (_) {
-                      return ImagemPerfilWidget(
+                      return ImagemWidget(
                         isSelecionado: _controladorWidget.selecionouImagem1,
                         linkImagem: linksImagens[1],
                         onTap: () {
@@ -211,12 +212,13 @@ class _TelaCadastroState extends State<TelaCadastro> {
                             _controladorWidget.selecionouImagem7 = false;
                             _controladorWidget.selecionouImagem8 = false;
                           });
+                          usuario.imagemPerfil = linksImagens[1];
                         },
                         tamanhoImagem: 70,
                       );
                     }),
                     Observer(builder: (_) {
-                      return ImagemPerfilWidget(
+                      return ImagemWidget(
                         isSelecionado: _controladorWidget.selecionouImagem2,
                         linkImagem: linksImagens[2],
                         onTap: () {
@@ -231,6 +233,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                             _controladorWidget.selecionouImagem7 = false;
                             _controladorWidget.selecionouImagem8 = false;
                           });
+                          usuario.imagemPerfil = linksImagens[2];
                         },
                         tamanhoImagem: 70,
                       );
@@ -247,7 +250,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Observer(builder: (_) {
-                      return ImagemPerfilWidget(
+                      return ImagemWidget(
                         isSelecionado: _controladorWidget.selecionouImagem3,
                         linkImagem: linksImagens[3],
                         onTap: () {
@@ -262,12 +265,13 @@ class _TelaCadastroState extends State<TelaCadastro> {
                             _controladorWidget.selecionouImagem7 = false;
                             _controladorWidget.selecionouImagem8 = false;
                           });
+                          usuario.imagemPerfil = linksImagens[3];
                         },
                         tamanhoImagem: 70,
                       );
                     }),
                     Observer(builder: (_) {
-                      return ImagemPerfilWidget(
+                      return ImagemWidget(
                         isSelecionado: _controladorWidget.selecionouImagem4,
                         linkImagem: linksImagens[4],
                         onTap: () {
@@ -282,12 +286,13 @@ class _TelaCadastroState extends State<TelaCadastro> {
                             _controladorWidget.selecionouImagem7 = false;
                             _controladorWidget.selecionouImagem8 = false;
                           });
+                          usuario.imagemPerfil = linksImagens[4];
                         },
                         tamanhoImagem: 70,
                       );
                     }),
                     Observer(builder: (_) {
-                      return ImagemPerfilWidget(
+                      return ImagemWidget(
                         isSelecionado: _controladorWidget.selecionouImagem5,
                         linkImagem: linksImagens[5],
                         onTap: () {
@@ -302,6 +307,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                             _controladorWidget.selecionouImagem7 = false;
                             _controladorWidget.selecionouImagem8 = false;
                           });
+                          usuario.imagemPerfil = linksImagens[5];
                         },
                         tamanhoImagem: 70,
                       );
@@ -318,7 +324,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Observer(builder: (_) {
-                      return ImagemPerfilWidget(
+                      return ImagemWidget(
                         isSelecionado: _controladorWidget.selecionouImagem6,
                         linkImagem: linksImagens[6],
                         onTap: () {
@@ -333,12 +339,13 @@ class _TelaCadastroState extends State<TelaCadastro> {
                             _controladorWidget.selecionouImagem7 = false;
                             _controladorWidget.selecionouImagem8 = false;
                           });
+                          usuario.imagemPerfil = linksImagens[6];
                         },
                         tamanhoImagem: 70,
                       );
                     }),
                     Observer(builder: (_) {
-                      return ImagemPerfilWidget(
+                      return ImagemWidget(
                         isSelecionado: _controladorWidget.selecionouImagem7,
                         linkImagem: linksImagens[7],
                         onTap: () {
@@ -353,12 +360,13 @@ class _TelaCadastroState extends State<TelaCadastro> {
                             _controladorWidget.selecionouImagem7 = true;
                             _controladorWidget.selecionouImagem8 = false;
                           });
+                          usuario.imagemPerfil = linksImagens[7];
                         },
                         tamanhoImagem: 70,
                       );
                     }),
                     Observer(builder: (_) {
-                      return ImagemPerfilWidget(
+                      return ImagemWidget(
                         isSelecionado: _controladorWidget.selecionouImagem8,
                         linkImagem: linksImagens[8],
                         onTap: () {
@@ -373,6 +381,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                             _controladorWidget.selecionouImagem7 = false;
                             _controladorWidget.selecionouImagem8 = true;
                           });
+                          usuario.imagemPerfil = linksImagens[8];
                         },
                         tamanhoImagem: 70,
                       );
@@ -395,12 +404,11 @@ class _TelaCadastroState extends State<TelaCadastro> {
                         Navigator.pushReplacementNamed(
                             context, "/telaPrincipal");
                       }, erro: (mensagem) {
+                        Navigator.pop(context);
                         UtilDialogo.exibirAlerta(context,
                             titulo: "Ops deu erro no Login",
                             mensagem: mensagem);
                       });
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          "/telaPrincipal", (Route<dynamic> route) => false);
                     },
                   ),
                 ),

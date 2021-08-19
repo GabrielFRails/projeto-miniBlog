@@ -36,7 +36,12 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                   onPressed: () {
                     Navigator.pushReplacementNamed(context, "/telaLogin");
                   })
-              : Container(),
+              : IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {}),
         ],
       ),
       bottomNavigationBar: Container(
