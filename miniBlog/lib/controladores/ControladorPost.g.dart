@@ -24,10 +24,26 @@ mixin _$ControladorPost on _ControladorPostBase, Store {
     });
   }
 
+  final _$postsSeguidosAtom = Atom(name: '_ControladorPostBase.postsSeguidos');
+
+  @override
+  ObservableList<Post> get postsSeguidos {
+    _$postsSeguidosAtom.reportRead();
+    return super.postsSeguidos;
+  }
+
+  @override
+  set postsSeguidos(ObservableList<Post> value) {
+    _$postsSeguidosAtom.reportWrite(value, super.postsSeguidos, () {
+      super.postsSeguidos = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
-comentarios: ${comentarios}
+comentarios: ${comentarios},
+postsSeguidos: ${postsSeguidos}
     ''';
   }
 }

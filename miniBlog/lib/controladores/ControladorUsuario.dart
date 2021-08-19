@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:get_it/get_it.dart';
+import 'package:dio/dio.dart';
 import 'package:miniBlog/entidades/Post.dart';
 import 'package:miniBlog/servicos/ServicosDoMiniBlog.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
