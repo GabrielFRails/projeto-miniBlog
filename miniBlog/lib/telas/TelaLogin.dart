@@ -4,6 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/animacao/FadeAnimacao.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
+import 'package:miniBlog/entidades/Usuario.dart';
+import 'package:miniBlog/util/UtilDialogo.dart';
 import 'package:miniBlog/widgets_padrao/BotaoPadrao.dart';
 import 'package:miniBlog/widgets_padrao/IconButtonPadrao.dart';
 import 'package:miniBlog/widgets_padrao/TextFieldPadrao.dart';
@@ -17,6 +19,7 @@ class TelaLogin extends StatefulWidget {
 
 class _TelaLoginState extends State<TelaLogin> {
   ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
+  Usuario _usuario = Usuario();
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +56,9 @@ class _TelaLoginState extends State<TelaLogin> {
                                     Icons.alternate_email,
                                   ),
                                   hintText: "E-mail",
-                                  onChanged: _controladorUsuario.setEmail,
+                                  onChanged: (text) {
+                                    _usuario.email = text;
+                                  },
                                 ),
                               ),
                               Observer(
@@ -62,7 +67,9 @@ class _TelaLoginState extends State<TelaLogin> {
                                   hintText: "Senha",
                                   obscureText: _controladorUsuario.obscureText,
                                   maxLines: 1,
-                                  onChanged: _controladorUsuario.setSenha,
+                                  onChanged: (text) {
+                                    _usuario.senha = text;
+                                  },
                                   suffix: IconButtonPadrao(
                                     radius: 32,
                                     iconData: _controladorUsuario.obscureText
@@ -81,7 +88,22 @@ class _TelaLoginState extends State<TelaLogin> {
                       height: 30,
                     ),
                     FadeAnimacao(
-                        1.8, BotaoPadrao(value: "Entrar", onTap: () {})),
+                        1.8,
+                        BotaoPadrao(
+                            value: "Entrar",
+                            onTap: () {
+                              _controladorUsuario.autenticarUsuario(
+                                _usuario,
+                                sucesso: () {
+                                  Navigator.pushReplacementNamed(
+                                      context, "/telaPrincipal");
+                                },
+                                erro: (mensagem) {
+                                  UtilDialogo.exibirAlerta(context,
+                                      titulo: "Ops!", mensagem: mensagem);
+                                },
+                              );
+                            })),
                     SizedBox(height: 16),
                     FadeAnimacao(
                         2.0,

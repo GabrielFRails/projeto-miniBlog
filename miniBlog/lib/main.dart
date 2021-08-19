@@ -1,7 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/ControladorPost.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
+<<<<<<< Updated upstream
 import 'package:miniBlog/controladores/ControladorWidget.dart';
 import 'package:miniBlog/servicos/ServicoDioProvider.dart';
 import 'package:miniBlog/servicos/ServicosDoMiniBlog.dart';

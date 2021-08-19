@@ -34,7 +34,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                     color: Colors.white,
                   ),
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, "/telaCadastro");
+                    Navigator.pushReplacementNamed(context, "/telaLogin");
                   })
               : Container(),
         ],
