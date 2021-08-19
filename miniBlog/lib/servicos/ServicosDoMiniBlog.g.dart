@@ -264,12 +264,11 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<UtilRetornoPostagens> listarPostagensSeguindo() async {
+  Future<List<Postagem>> listarPostagensSeguindo() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
-        '/postagens/listaPost',
+    final _result = await _dio.request<List<dynamic>>('/postagens/listaPost',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -277,7 +276,9 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoPostagens.fromJson(_result.data);
+    var value = _result.data
+        .map((dynamic i) => Postagem.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
@@ -300,12 +301,12 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<UtilRetornoPostagens> listarPostagensDeUmUsuario() async {
+  Future<UtilRetornoPostagens> listarPostagensDeUsuarioLogado() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        '/postagens/postagemUsuario',
+        '/postagens/meuUsuario',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',

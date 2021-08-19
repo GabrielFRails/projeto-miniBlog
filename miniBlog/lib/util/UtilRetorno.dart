@@ -1,8 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:miniBlog/entidades/Comentario.dart';
-import 'package:miniBlog/entidades/Post.dart';
-import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/entidades/Postagem.dart';
+import 'package:miniBlog/entidades/Usuario.dart';
 
 part 'UtilRetorno.g.dart';
 
@@ -18,7 +17,7 @@ class UtilRetornoUsuario {
 
 @JsonSerializable()
 class UtilRetornoPost {
-  Post sucesso;
+  Postagem sucesso;
   UtilRetornoPost({this.sucesso});
 
   factory UtilRetornoPost.fromJson(Map<String, dynamic> json) =>
@@ -38,7 +37,7 @@ class UtilRetornoPostagem {
 
 @JsonSerializable()
 class UtilRetornoPostagens {
-  List<Post> sucesso;
+  List<Postagem> sucesso;
   UtilRetornoPostagens({this.sucesso});
 
   factory UtilRetornoPostagens.fromJson(Map<String, dynamic> json) =>

@@ -1,8 +1,7 @@
 import 'package:miniBlog/entidades/Comentario.dart';
 import 'package:miniBlog/entidades/ComentarioDto.dart';
-import 'package:miniBlog/entidades/Post.dart';
-import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/entidades/Postagem.dart';
+import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/util/UtilRetorno.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
@@ -46,7 +45,7 @@ abstract class ServicosDoMiniBlog {
   Future<UtilRetornoPost> listarPostagens();
 
   @POST("/postagens")
-  Future<UtilRetornoPost> cadastrarPostagem(@Body() Post postagem);
+  Future<UtilRetornoPost> cadastrarPostagem(@Body() Postagem postagem);
 
   @PUT("/postagens")
   Future<UtilRetornoPostagem> editarPostagem(@Body() Postagem postagem);
@@ -68,13 +67,13 @@ abstract class ServicosDoMiniBlog {
   Future<UtilRetornoPost> buscarPost(@Path("idPost") String idPost);
 
   @GET("/postagens/listaPost")
-  Future<UtilRetornoPostagens> listarPostagensSeguindo();
+  Future<List<Postagem>> listarPostagensSeguindo();
 
   @GET("/postagens/meuUsuario")
   Future<UtilRetornoPostagens> listarMinhasPostagens();
 
-  @GET("/postagens/postagemUsuario")
-  Future<UtilRetornoPostagens> listarPostagensDeUmUsuario();
+  @GET("/postagens/meuUsuario")
+  Future<UtilRetornoPostagens> listarPostagensDeUsuarioLogado();
 
   //Parte Serviços Seguindo
 

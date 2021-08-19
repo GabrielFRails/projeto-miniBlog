@@ -4,9 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:miniBlog/animacao/FadeAnimacao.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/controladores/ControladorWidget.dart';
-import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/util/ImagemPerfilWidget.dart';
-import 'package:miniBlog/util/UtilDialogo.dart';
 import 'package:miniBlog/widgets_padrao/BotaoPadrao.dart';
 import 'package:miniBlog/widgets_padrao/IconButtonPadrao.dart';
 import 'package:miniBlog/widgets_padrao/TextFieldPadrao.dart';
@@ -42,6 +40,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
   bool selecionouImagem8 = false;
 
   ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
+  ControladorWidget _controladorWidget = GetIt.I.get<ControladorWidget>();
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +113,8 @@ class _TelaCadastroState extends State<TelaCadastro> {
                           1.9,
                           BotaoPadrao(
                             value: "Concluir Cadastro",
-                            onTap: () {UtilDialogo.exibirFotosPerfil(context, _usuario);
+                            onTap: () {
+                              takeChosenImage(context);
                             },
                           )),
                     ],
@@ -381,6 +381,8 @@ class _TelaCadastroState extends State<TelaCadastro> {
                   child: BotaoPadrao(
                     value: "Definir",
                     onTap: () {
+                      _controladorUsuario.cadastrarUsuario(
+                          _controladorUsuario.usuarioLogado);
                       Navigator.of(context).pushNamedAndRemoveUntil(
                           "/telaPrincipal", (Route<dynamic> route) => false);
                     },

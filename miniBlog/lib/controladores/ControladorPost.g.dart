@@ -27,15 +27,31 @@ mixin _$ControladorPost on _ControladorPostBase, Store {
   final _$postsSeguidosAtom = Atom(name: '_ControladorPostBase.postsSeguidos');
 
   @override
-  ObservableList<Post> get postsSeguidos {
+  ObservableList<Postagem> get postsSeguidos {
     _$postsSeguidosAtom.reportRead();
     return super.postsSeguidos;
   }
 
   @override
-  set postsSeguidos(ObservableList<Post> value) {
+  set postsSeguidos(ObservableList<Postagem> value) {
     _$postsSeguidosAtom.reportWrite(value, super.postsSeguidos, () {
       super.postsSeguidos = value;
+    });
+  }
+
+  final _$statusConsultaFeedAtom =
+      Atom(name: '_ControladorPostBase.statusConsultaFeed');
+
+  @override
+  StatusConsulta get statusConsultaFeed {
+    _$statusConsultaFeedAtom.reportRead();
+    return super.statusConsultaFeed;
+  }
+
+  @override
+  set statusConsultaFeed(StatusConsulta value) {
+    _$statusConsultaFeedAtom.reportWrite(value, super.statusConsultaFeed, () {
+      super.statusConsultaFeed = value;
     });
   }
 
@@ -43,7 +59,8 @@ mixin _$ControladorPost on _ControladorPostBase, Store {
   String toString() {
     return '''
 comentarios: ${comentarios},
-postsSeguidos: ${postsSeguidos}
+postsSeguidos: ${postsSeguidos},
+statusConsultaFeed: ${statusConsultaFeed}
     ''';
   }
 }

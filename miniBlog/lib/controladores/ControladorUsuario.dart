@@ -1,7 +1,6 @@
 import 'dart:convert';
-
-import 'package:dio/dio.dart';
-import 'package:miniBlog/entidades/Post.dart';
+import 'package:get_it/get_it.dart';
+import 'package:miniBlog/entidades/Postagem.dart';
 import 'package:miniBlog/servicos/ServicosDoMiniBlog.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:mobx/mobx.dart';
@@ -11,7 +10,7 @@ part 'ControladorUsuario.g.dart';
 class ControladorUsuario = _ControladorUsuarioBase with _$ControladorUsuario;
 
 abstract class _ControladorUsuarioBase with Store {
-  Usuario mUsuarioLogado;
+  Usuario usuarioLogado;
   ServicosDoMiniBlog mService = GetIt.I.get<ServicosDoMiniBlog>();
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -39,7 +38,7 @@ abstract class _ControladorUsuarioBase with Store {
   }
 
   @observable
-  ObservableList<Post> postsSeguidos = new ObservableList<Post>();
+  ObservableList<Postagem> postsSeguidos = new ObservableList<Postagem>();
 
   @computed
   bool get isLoginValido =>
@@ -52,7 +51,8 @@ abstract class _ControladorUsuarioBase with Store {
     _prefs.then((prefsDb) {
       String usuarioJson = prefsDb.getString("user");
       if (usuarioJson != null) {
-        mUsuarioLogado = Usuario.fromJson(JsonCodec().decode(usuarioJson));
+        usuarioLogado =
+            Usuario.fromJson(JsonCodec().decode(usuarioJson));
         existe?.call();
       } else {
         naoExiste?.call();
@@ -75,7 +75,7 @@ abstract class _ControladorUsuarioBase with Store {
       mService.autenticarUsuario(usuarioLogar).then((usuario) {
         _prefs.then((db) {
           db.setString("user", JsonCodec().encode(usuario.sucesso.toJson()));
-          mUsuarioLogado = usuario.sucesso;
+          usuarioLogado = usuario.sucesso;
           sucesso?.call();
         });
       }).catchError((onError) {
@@ -96,7 +96,7 @@ abstract class _ControladorUsuarioBase with Store {
       mService.cadastrarUsuario(usuarioCadastrar).then((usuario) {
         _prefs.then((db) {
           db.setString("user", JsonCodec().encode(usuario.sucesso.toJson()));
-          mUsuarioLogado = usuario.sucesso;
+          usuarioLogado = usuario.sucesso;
           sucesso?.call();
         });
       }).catchError((onError) {
