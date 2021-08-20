@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/AutenticarUsuario.dart';
-import 'package:miniBlog/entidades/Post.dart';
+import 'package:miniBlog/entidades/Postagem.dart';
 import 'package:miniBlog/servicos/ServicosDoMiniBlog.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:mobx/mobx.dart';
@@ -11,7 +11,7 @@ part 'ControladorUsuario.g.dart';
 class ControladorUsuario = _ControladorUsuarioBase with _$ControladorUsuario;
 
 abstract class _ControladorUsuarioBase with Store {
-  Usuario usuarioLogado;
+  Usuario mUsuarioLogado;
   ServicosDoMiniBlog mService = GetIt.I.get<ServicosDoMiniBlog>();
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -52,7 +52,7 @@ abstract class _ControladorUsuarioBase with Store {
     _prefs.then((prefsDb) {
       String usuarioJson = prefsDb.getString("user");
       if (usuarioJson != null) {
-        usuarioLogado =
+        mUsuarioLogado =
             Usuario.fromJson(JsonCodec().decode(usuarioJson));
         existe?.call();
       } else {
@@ -77,8 +77,7 @@ abstract class _ControladorUsuarioBase with Store {
           email: usuarioLogar.email, senha: usuarioLogar.senha);
       mService.autenticarUsuario(autenticarUsuario).then((value) {
         _prefs.then((db) {
-          db.setString("user", JsonCodec().encode(usuario.sucesso.toJson()));
-          mUsuarioLogado = usuario.sucesso;
+          db.setString("tokenUsuario", value.toString());
           sucesso?.call();
           mUsuarioLogado = usuarioLogar;
         });
@@ -100,11 +99,9 @@ abstract class _ControladorUsuarioBase with Store {
       erro?.call("Defina uma foto de perfil");
     } else {
       mService.cadastrarUsuario(usuarioCadastrar).then((usuario) {
-        _prefs.then((db) {
-          db.setString("user", JsonCodec().encode(usuario.sucesso.toJson()));
-          mUsuarioLogado = usuario.sucesso;
+        
           sucesso?.call();
-        });
+        
       }).catchError((onError) {
         erro?.call(onError.response.data["falha"]);
       });

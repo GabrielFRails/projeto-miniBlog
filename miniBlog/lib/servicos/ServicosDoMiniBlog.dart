@@ -49,7 +49,7 @@ abstract class ServicosDoMiniBlog {
   Future<UtilRetornoPost> listarPostagens();
 
   @POST("/postagens")
-  Future<UtilRetornoPost> cadastrarPostagem(@Body() Post postagem);
+  Future<UtilRetornoPost> cadastrarPostagem(@Body() Postagem postagem);
 
   @PUT("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens")
   Future<UtilRetornoPostagem> editarPostagem(@Body() Postagem postagem);
@@ -74,7 +74,7 @@ abstract class ServicosDoMiniBlog {
   Future<UtilRetornoPost> buscarPost(@Path("idPost") String idPost);
 
   @GET("/postagens/listaPost")
-  Future<UtilRetornoPostagens> listarPostagensSeguindo();
+  Future<List<Postagem>> listarPostagensSeguindo();
 
   @GET(
       "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/meuUsuario")

@@ -161,8 +161,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(postagem?.toJson() ?? <String, dynamic>{});
-    final _result = await _dio.request<Map<String, dynamic>>(
-        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens',
+    final _result = await _dio.request<Map<String, dynamic>>('/postagens',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -278,8 +277,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
-        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/listaPost',
+    final _result = await _dio.request<List<dynamic>>('/postagens/listaPost',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -312,12 +310,12 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<UtilRetornoPostagens> listarPostagensDeUsuarioLogado() async {
+  Future<UtilRetornoPostagens> listarPostagensDeUmUsuario() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/postagemUsuario',
+        '/postagens/postagemUsuario',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
