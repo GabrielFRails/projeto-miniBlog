@@ -23,7 +23,7 @@ UtilRetornoPost _$UtilRetornoPostFromJson(Map<String, dynamic> json) {
   return UtilRetornoPost(
     sucesso: json['sucesso'] == null
         ? null
-        : Post.fromJson(json['sucesso'] as Map<String, dynamic>),
+        : Postagem.fromJson(json['sucesso'] as Map<String, dynamic>),
   );
 }
 
@@ -49,8 +49,8 @@ Map<String, dynamic> _$UtilRetornoPostagemToJson(
 UtilRetornoPostagens _$UtilRetornoPostagensFromJson(Map<String, dynamic> json) {
   return UtilRetornoPostagens(
     sucesso: (json['sucesso'] as List)
-        ?.map(
-            (e) => e == null ? null : Post.fromJson(e as Map<String, dynamic>))
+        ?.map((e) =>
+            e == null ? null : Postagem.fromJson(e as Map<String, dynamic>))
         ?.toList(),
   );
 }

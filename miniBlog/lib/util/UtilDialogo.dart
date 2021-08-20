@@ -61,12 +61,27 @@ class UtilDialogo {
           ),
           actions: [],
         ));
-    // showthe dialog
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return alert;
       },
     );
+  }
+
+  static void showLoading(BuildContext context) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return Center(
+              child: Card(
+                  margin: EdgeInsets.all(24.0),
+                  child: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.green[300],
+                      ))));
+        });
   }
 }

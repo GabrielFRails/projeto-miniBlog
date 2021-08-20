@@ -64,7 +64,7 @@ class _TelaComentarioState extends State<TelaComentario> {
   @override
   Widget build(BuildContext context) {
     Comentario comentario =
-        Comentario(criador: _controladorUsuario.mUsuarioLogado);
+        Comentario(criador: _controladorUsuario.usuarioLogado);
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white),

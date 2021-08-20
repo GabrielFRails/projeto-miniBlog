@@ -1,9 +1,8 @@
 import 'package:miniBlog/controladores/AutenticarUsuario.dart';
 import 'package:miniBlog/entidades/Comentario.dart';
 import 'package:miniBlog/entidades/ComentarioDto.dart';
-import 'package:miniBlog/entidades/Post.dart';
-import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/entidades/Postagem.dart';
+import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/util/UtilRetorno.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart' hide Headers;
@@ -49,7 +48,7 @@ abstract class ServicosDoMiniBlog {
   @GET("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens")
   Future<UtilRetornoPost> listarPostagens();
 
-  @POST("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens")
+  @POST("/postagens")
   Future<UtilRetornoPost> cadastrarPostagem(@Body() Post postagem);
 
   @PUT("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens")
@@ -74,16 +73,14 @@ abstract class ServicosDoMiniBlog {
   @FormUrlEncoded()
   Future<UtilRetornoPost> buscarPost(@Path("idPost") String idPost);
 
-  @GET(
-      "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/listaPost")
+  @GET("/postagens/listaPost")
   Future<UtilRetornoPostagens> listarPostagensSeguindo();
 
   @GET(
       "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/meuUsuario")
   Future<UtilRetornoPostagens> listarMinhasPostagens();
 
-  @GET(
-      "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/postagemUsuario")
+  @GET("/postagens/postagemUsuario")
   Future<UtilRetornoPostagens> listarPostagensDeUmUsuario();
 
   //Parte Serviços Seguindo

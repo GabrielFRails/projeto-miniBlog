@@ -11,7 +11,7 @@ part 'ControladorUsuario.g.dart';
 class ControladorUsuario = _ControladorUsuarioBase with _$ControladorUsuario;
 
 abstract class _ControladorUsuarioBase with Store {
-  Usuario mUsuarioLogado;
+  Usuario usuarioLogado;
   ServicosDoMiniBlog mService = GetIt.I.get<ServicosDoMiniBlog>();
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -39,7 +39,7 @@ abstract class _ControladorUsuarioBase with Store {
   }
 
   @observable
-  ObservableList<Post> postsSeguidos = new ObservableList<Post>();
+  ObservableList<Postagem> postsSeguidos = new ObservableList<Postagem>();
 
   @computed
   bool get isLoginValido =>
@@ -52,7 +52,8 @@ abstract class _ControladorUsuarioBase with Store {
     _prefs.then((prefsDb) {
       String usuarioJson = prefsDb.getString("user");
       if (usuarioJson != null) {
-        mUsuarioLogado = Usuario.fromJson(JsonCodec().decode(usuarioJson));
+        usuarioLogado =
+            Usuario.fromJson(JsonCodec().decode(usuarioJson));
         existe?.call();
       } else {
         naoExiste?.call();
@@ -76,7 +77,8 @@ abstract class _ControladorUsuarioBase with Store {
           email: usuarioLogar.email, senha: usuarioLogar.senha);
       mService.autenticarUsuario(autenticarUsuario).then((value) {
         _prefs.then((db) {
-          db.setString("tokenUsuario", value.toString());
+          db.setString("user", JsonCodec().encode(usuario.sucesso.toJson()));
+          mUsuarioLogado = usuario.sucesso;
           sucesso?.call();
           mUsuarioLogado = usuarioLogar;
         });
@@ -98,7 +100,11 @@ abstract class _ControladorUsuarioBase with Store {
       erro?.call("Defina uma foto de perfil");
     } else {
       mService.cadastrarUsuario(usuarioCadastrar).then((usuario) {
-        sucesso?.call();
+        _prefs.then((db) {
+          db.setString("user", JsonCodec().encode(usuario.sucesso.toJson()));
+          mUsuarioLogado = usuario.sucesso;
+          sucesso?.call();
+        });
       }).catchError((onError) {
         erro?.call(onError.response.data["falha"]);
       });

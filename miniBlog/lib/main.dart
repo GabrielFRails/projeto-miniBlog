@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/ControladorPost.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
+import 'package:miniBlog/controladores/ControladorWidget.dart';
 import 'package:miniBlog/servicos/ServicoDioProvider.dart';
 import 'package:miniBlog/servicos/ServicosDoMiniBlog.dart';
 import 'package:miniBlog/telas/TelaCadastro.dart';
@@ -18,10 +19,11 @@ final getIt = GetIt.instance;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   var dioConnect = ServicoDioProvider().getDio();
-  getIt.registerSingleton<ServicosDoMiniBlog>(ServicosDoMiniBlog(dioConnect));
   getIt.registerSingleton<ControladorUsuario>(ControladorUsuario());
+  getIt.registerSingleton<ServicosDoMiniBlog>(ServicosDoMiniBlog(dioConnect));
   getIt.registerSingleton<ControladorPost>(ControladorPost());
-  getIt.registerSingleton<ControladorWidget>(ControladorWidget());
+  getIt.registerSingleton<ControladorPost>(ControladorPost());
+>>>>>>>>> Temporary merge branch 2
   runApp(MyApp());
 }
 
