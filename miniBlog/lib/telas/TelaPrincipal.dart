@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get_it/get_it.dart';
+import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/telas/TelaFeed.dart';
 import 'package:miniBlog/telas/TelaPerfil.dart';
 
@@ -12,6 +14,7 @@ class TelaPrincipal extends StatefulWidget {
 
 class _TelaPrincipalState extends State<TelaPrincipal> {
   int _currentIndex = 0;
+  final _controlerUsuario = GetIt.I.get<ControladorUsuario>();
   List<Widget> screens = [
     TelaFeed(),
     TelaPerfil(),
@@ -19,6 +22,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
 
   @override
   Widget build(BuildContext context) {
+    print(_controlerUsuario.mUsuarioLogado);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -36,7 +40,12 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                   onPressed: () {
                     Navigator.pushReplacementNamed(context, "/telaLogin");
                   })
-              : Container(),
+              : IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {}),
         ],
       ),
       bottomNavigationBar: Container(

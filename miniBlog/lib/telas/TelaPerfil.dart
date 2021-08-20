@@ -30,10 +30,12 @@ class _TelaPerfilState extends State<TelaPerfil>
       physics: BouncingScrollPhysics(),
       children: [
         ImagemPerfilWidget(
-          onTap: () {},
           linkImagem:
               "https://i.pinimg.com/564x/2b/23/f6/2b23f6ee9fbc16112ac00b5c0d909959.jpg",
           tamanhoImagem: 150,
+          onTap: () {
+            Navigator.pushNamed(context, "/telaEditarPerfil");
+          },
         ),
         const SizedBox(height: 24),
         buildNomeUsuario(_usuarioLogado),
@@ -57,7 +59,7 @@ class _TelaPerfilState extends State<TelaPerfil>
   Widget buildNomeUsuario(Usuario usuario) => Column(
         children: [
           Text(
-            'Nome Usuario aqui',
+            '${_usuarioLogado.nome}',
             //usuario.nome,
             style: GoogleFonts.nunitoSans(
                 fontSize: 25,
@@ -66,7 +68,7 @@ class _TelaPerfilState extends State<TelaPerfil>
           ),
           const SizedBox(height: 4),
           Text(
-            'e-mail Usuario aqui',
+            '${_usuarioLogado.email}',
             //usuario.email,
             style: GoogleFonts.nunitoSans(
                 color: Colors.grey, fontWeight: FontWeight.w300),

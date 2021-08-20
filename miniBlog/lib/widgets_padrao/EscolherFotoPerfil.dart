@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:miniBlog/util/ImagemPerfilWidget.dart';
+import 'package:miniBlog/util/ImagemWidget.dart';
 
 import 'BotaoPadrao.dart';
 
@@ -47,7 +47,7 @@ class _EscolherFotoPerfilState extends State<EscolherFotoPerfil> {
                 padding: const EdgeInsets.only(left: 10, right: 10),
                 child: Row(
                   children: [
-                    ImagemPerfilWidget(
+                    ImagemWidget(
                       //tristesa
 
                       linkImagem:
@@ -55,7 +55,7 @@ class _EscolherFotoPerfilState extends State<EscolherFotoPerfil> {
                       onTap: () {},
                       tamanhoImagem: 50,
                     ),
-                    ImagemPerfilWidget(
+                    ImagemWidget(
                       //raiva
 
                       linkImagem:
@@ -63,7 +63,7 @@ class _EscolherFotoPerfilState extends State<EscolherFotoPerfil> {
                       onTap: () {},
                       tamanhoImagem: 50,
                     ),
-                    ImagemPerfilWidget(
+                    ImagemWidget(
                       //alegria
 
                       linkImagem:
@@ -71,7 +71,7 @@ class _EscolherFotoPerfilState extends State<EscolherFotoPerfil> {
                       onTap: () {},
                       tamanhoImagem: 50,
                     ),
-                    ImagemPerfilWidget(
+                    ImagemWidget(
                       //nojo
 
                       linkImagem:
@@ -79,7 +79,7 @@ class _EscolherFotoPerfilState extends State<EscolherFotoPerfil> {
                       onTap: () {},
                       tamanhoImagem: 50,
                     ),
-                    ImagemPerfilWidget(
+                    ImagemWidget(
                       //medo
 
                       linkImagem:

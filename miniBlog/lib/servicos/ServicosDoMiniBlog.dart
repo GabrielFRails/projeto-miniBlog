@@ -1,60 +1,66 @@
+import 'package:miniBlog/controladores/AutenticarUsuario.dart';
 import 'package:miniBlog/entidades/Comentario.dart';
 import 'package:miniBlog/entidades/ComentarioDto.dart';
 import 'package:miniBlog/entidades/Postagem.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/util/UtilRetorno.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' hide Headers;
 
 part 'ServicosDoMiniBlog.g.dart';
 
-@RestApi(baseUrl: "https://app.pactosolucoes.com.br/socialmedia-api")
+@RestApi(baseUrl: "")
 abstract class ServicosDoMiniBlog {
   factory ServicosDoMiniBlog(Dio dio, {String baseUrl}) = _ServicosDoMiniBlog;
 
   //Autenticação
 
-  @POST("/authenticate")
-  Future<UtilRetornoUsuario> autenticarUsuario(@Body() Usuario usuario);
+  @POST("https://app.pactosolucoes.com.br/socialmedia-api/authenticate")
+  Future<String> autenticarUsuario(@Body() AutenticarUsuario autenticarUsuario);
 
   //Parte Serviços dos Comentários
 
-  @GET("/comentarios")
+  @GET("https://app.pactosolucoes.com.br/socialmedia-api/comentarios")
   Future<UtilRetornoComentarios> listarComentariosPostagem(
       @Body() String idPostagem);
 
-  @POST("/comentarios")
+  @POST("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios")
   Future<String> cadastrarComentario(@Body() ComentarioDto comentarioDto);
 
-  @GET("/comentarios/{id}")
+  @GET(
+      "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios/{id}")
   @FormUrlEncoded()
   Future<Comentario> buscarComentario(@Path("id") String id);
 
-  @PUT("/comentarios/{id}")
+  @PUT(
+      "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios/{id}")
   @FormUrlEncoded()
   Future<String> editarComentario(
       @Path("id") String id, @Body() ComentarioDto comentarioDto);
 
-  @DELETE("/comentarios/{id}")
+  @DELETE(
+      "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios/{id}")
   @FormUrlEncoded()
   Future<String> deletarComentario(@Path("id") String id);
 
   //Parte Serviços das Postagens
 
-  @GET("/postagens")
+  @GET("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens")
   Future<UtilRetornoPost> listarPostagens();
 
   @POST("/postagens")
-  Future<UtilRetornoPost> cadastrarPostagem(@Body() Postagem postagem);
+  Future<UtilRetornoPost> cadastrarPostagem(@Body() Post postagem);
 
-  @PUT("/postagens")
+  @PUT("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens")
   Future<UtilRetornoPostagem> editarPostagem(@Body() Postagem postagem);
 
-  @DELETE("/postagens/{id}")
+  @DELETE(
+      "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/{id}")
   @FormUrlEncoded()
   Future<String> excluirPostagem(@Path("id") String id);
 
-  @POST("/postagens/{id}/like")
+  @POST(
+      "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/{id}/like")
   @FormUrlEncoded()
   Future<String> darLike(@Path("id") String id);
 
@@ -62,53 +68,59 @@ abstract class ServicosDoMiniBlog {
   @FormUrlEncoded()
   Future<String> removerLike(@Path("id") String id);
 
-  @GET("/postagens/{idPost}")
+  @GET(
+      "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/{idPost}")
   @FormUrlEncoded()
   Future<UtilRetornoPost> buscarPost(@Path("idPost") String idPost);
 
   @GET("/postagens/listaPost")
-  Future<List<Postagem>> listarPostagensSeguindo();
+  Future<UtilRetornoPostagens> listarPostagensSeguindo();
 
-  @GET("/postagens/meuUsuario")
+  @GET(
+      "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/meuUsuario")
   Future<UtilRetornoPostagens> listarMinhasPostagens();
 
-  @GET("/postagens/meuUsuario")
-  Future<UtilRetornoPostagens> listarPostagensDeUsuarioLogado();
+  @GET("/postagens/postagemUsuario")
+  Future<UtilRetornoPostagens> listarPostagensDeUmUsuario();
 
   //Parte Serviços Seguindo
 
-  @GET("/seguindo")
+  @GET("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/seguindo")
   Future<UtilRetornoUsers> listarSeguidores(); //quem eu sigo
 
-  @POST("/seguindo/{id}")
+  @POST(
+      "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/seguindo/{id}")
   @FormUrlEncoded()
   Future<String> seguirUsuario(@Path("id") int id);
 
-  @POST("/seguindo/{id}")
+  @POST(
+      "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/seguindo/{id}")
   @FormUrlEncoded()
   Future<String> unFollowUser(@Path("id") int id);
 
-  @POST("/seguindo​/seguidores")
+  @POST(
+      "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/seguindo​/seguidores")
   Future<UtilRetornoUsers> listarMeusSeguidores();
 
   //Parte Serviços do Usuário
 
-  @GET("/usuarios")
+  @GET("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/usuarios")
   Future<UtilRetornoUsuario> filtrarUsuarios(@Query("nome") String nome);
 
-  @POST("/usuarios")
-  Future<UtilRetornoUsuario> cadastrarUsuario(@Body() Usuario usuario);
+  @POST("https://app.pactosolucoes.com.br/socialmedia-api/usuarios")
+  Future<String> cadastrarUsuario(@Body() Usuario usuario);
 
-  @GET("/usuarios/{idUsuario}")
+  @GET("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/{idUsuario}")
   @FormUrlEncoded()
   Future<UtilRetornoUsuario> buscarUsurio(@Path("idUsuario") int idUsuario);
 
-  @PUT("/usuarios/{idUsuario}")
+  @PUT("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/{idUsuario}")
   @FormUrlEncoded()
   Future<UtilRetornoUsuario> editarUsuario(
       @Path("idUsuario") int idUsuario, @Body() Usuario usuario);
 
-  @DELETE("/usuarios/{idUsuario}")
+  @DELETE(
+      "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/{idUsuario}")
   @FormUrlEncoded()
   Future<UtilRetornoUsuario> excluirUsuario(@Path("idUsuario") int idUsuario);
 }
