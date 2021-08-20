@@ -77,8 +77,7 @@ abstract class _ControladorUsuarioBase with Store {
           email: usuarioLogar.email, senha: usuarioLogar.senha);
       mService.autenticarUsuario(autenticarUsuario).then((value) {
         _prefs.then((db) {
-          db.setString("user", JsonCodec().encode(usuario.sucesso.toJson()));
-          mUsuarioLogado = usuario.sucesso;
+          db.setString("tokenUsuario", value.toString());
           sucesso?.call();
           mUsuarioLogado = usuarioLogar;
         });
