@@ -5,8 +5,8 @@ class UtilDialogo {
   static void exibirAlerta(BuildContext context,
       {String titulo, String mensagem}) {
     var alert = Container(
-        width: double.maxFinite,
-        height: double.maxFinite,
+        width: MediaQuery.of(context).size.width * 0.7,
+        height: MediaQuery.of(context).size.height * 0.5,
         color: Color.fromRGBO(81, 85, 90, 1),
         child: AlertDialog(
           insetPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 250),
@@ -71,7 +71,7 @@ class UtilDialogo {
 
   static void showLoading(BuildContext context) {
     showDialog(
-        barrierDismissible: false,
+        barrierDismissible: true,
         context: context,
         builder: (context) {
           return Center(

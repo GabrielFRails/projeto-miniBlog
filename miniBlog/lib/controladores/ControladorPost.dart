@@ -17,7 +17,6 @@ abstract class _ControladorPostBase with Store {
   @observable
   ObservableList<Postagem> postsSeguidos = new ObservableList<Postagem>();
 
-  
   @observable
   StatusConsulta statusConsultaFeed = StatusConsulta.CARREGANDO;
 
@@ -28,11 +27,12 @@ abstract class _ControladorPostBase with Store {
     carregando?.call();
     statusConsultaFeed = StatusConsulta.CARREGANDO;
     service.listarPostagensSeguindo().then((responsePosts) {
-      statusConsultaFeed = StatusConsulta.SUCESSO;
       postsSeguidos.clear();
       postsSeguidos.addAll(responsePosts);
+      statusConsultaFeed = StatusConsulta.SUCESSO;
       sucesso?.call();
     }).catchError((onError) {
+      statusConsultaFeed = StatusConsulta.ERRO;
       erro?.call("Houve um erro");
     });
   }

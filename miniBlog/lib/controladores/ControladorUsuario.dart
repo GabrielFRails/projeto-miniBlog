@@ -52,8 +52,7 @@ abstract class _ControladorUsuarioBase with Store {
     _prefs.then((prefsDb) {
       String usuarioJson = prefsDb.getString("user");
       if (usuarioJson != null) {
-        mUsuarioLogado =
-            Usuario.fromJson(JsonCodec().decode(usuarioJson));
+        mUsuarioLogado = Usuario.fromJson(JsonCodec().decode(usuarioJson));
         existe?.call();
       } else {
         naoExiste?.call();
@@ -77,9 +76,9 @@ abstract class _ControladorUsuarioBase with Store {
           email: usuarioLogar.email, senha: usuarioLogar.senha);
       mService.autenticarUsuario(autenticarUsuario).then((value) {
         _prefs.then((db) {
-          db.setString("tokenUsuario", value.toString());
-          sucesso?.call();
+          db.setString("tokenUsuario", value.token);
           mUsuarioLogado = usuarioLogar;
+          sucesso?.call();
         });
       }).catchError((onError) {
         erro?.call(onError.response.data["falha"]);
@@ -99,9 +98,7 @@ abstract class _ControladorUsuarioBase with Store {
       erro?.call("Defina uma foto de perfil");
     } else {
       mService.cadastrarUsuario(usuarioCadastrar).then((usuario) {
-        
-          sucesso?.call();
-        
+        sucesso?.call();
       }).catchError((onError) {
         erro?.call(onError.response.data["falha"]);
       });
