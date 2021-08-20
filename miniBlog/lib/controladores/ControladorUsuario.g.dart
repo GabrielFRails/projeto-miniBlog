@@ -77,6 +77,22 @@ mixin _$ControladorUsuario on _ControladorUsuarioBase, Store {
     });
   }
 
+  final _$postsSeguidosAtom =
+      Atom(name: '_ControladorUsuarioBase.postsSeguidos');
+
+  @override
+  ObservableList<Postagem> get postsSeguidos {
+    _$postsSeguidosAtom.reportRead();
+    return super.postsSeguidos;
+  }
+
+  @override
+  set postsSeguidos(ObservableList<Postagem> value) {
+    _$postsSeguidosAtom.reportWrite(value, super.postsSeguidos, () {
+      super.postsSeguidos = value;
+    });
+  }
+
   final _$_ControladorUsuarioBaseActionController =
       ActionController(name: '_ControladorUsuarioBase');
 
@@ -131,6 +147,7 @@ email: ${email},
 senha: ${senha},
 nome: ${nome},
 obscureText: ${obscureText},
+postsSeguidos: ${postsSeguidos},
 isLoginValido: ${isLoginValido}
     ''';
   }

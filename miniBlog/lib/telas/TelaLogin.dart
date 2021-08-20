@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:miniBlog/animacao/FadeAnimacao.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
+import 'package:miniBlog/util/UtilDialogo.dart';
 import 'package:miniBlog/widgets_padrao/BotaoPadrao.dart';
 import 'package:miniBlog/widgets_padrao/IconButtonPadrao.dart';
 import 'package:miniBlog/widgets_padrao/TextFieldPadrao.dart';
@@ -19,7 +19,7 @@ class TelaLogin extends StatefulWidget {
 
 class _TelaLoginState extends State<TelaLogin> {
   ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
-  Usuario _usuario = new Usuario();
+  Usuario _usuario = Usuario();
 
   @override
   Widget build(BuildContext context) {
@@ -32,65 +32,101 @@ class _TelaLoginState extends State<TelaLogin> {
             SizedBox(height: size.height * 0.04),
             FadeAnimacao(
                 1.1,
-                SvgPicture.asset(
-                  'assets/icons/person1.svg',
-                  height: size.height * 0.35,
+                Padding(
+                  padding: const EdgeInsets.only(top: 32.0),
+                  child: SvgPicture.asset(
+                    'assets/icons/person1.svg',
+                    height: size.height * 0.35,
+                  ),
                 )),
             Padding(
               padding: EdgeInsets.all(30.0),
-              child: Column(
-                children: <Widget>[
-                  FadeAnimacao(
-                      1.7,
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: null,
-                        child: Column(
-                          children: <Widget>[
-                            Observer(
-                              builder: (_) => TextFieldPadrao(
-                                prefix: Icon(
-                                  Icons.alternate_email,
-                                ),
-                                hintText: "Email",
-                                onChanged: _controladorUsuario.setEmail,
-                              ),
-                            ),
-                            Observer(
-                              builder: (_) => TextFieldPadrao(
-                                prefix: Icon(Icons.lock),
-                                hintText: "Senha",
-                                obscureText: _controladorUsuario.obscureText,
-                                maxLines: 1,
-                                onChanged: _controladorUsuario.setSenha,
-                                suffix: IconButtonPadrao(
-                                  radius: 32,
-                                  iconData: _controladorUsuario.obscureText
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
-                                  onTap: () {
-                                    _controladorUsuario.changeVisibility();
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    FadeAnimacao(
+                        1.7,
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          child: Column(
+                            children: <Widget>[
+                              Observer(
+                                builder: (_) => TextFieldPadrao(
+                                  prefix: Icon(
+                                    Icons.alternate_email,
+                                  ),
+                                  hintText: "E-mail",
+                                  onChanged: (text) {
+                                    _usuario.email = text;
                                   },
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      )),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  FadeAnimacao(1.8, BotaoPadrao(value: "Entrar", onTap: () {})),
-                  FadeAnimacao(2.0, Divider()),
-                  FadeAnimacao(
+                              Observer(
+                                builder: (_) => TextFieldPadrao(
+                                  prefix: Icon(Icons.lock),
+                                  hintText: "Senha",
+                                  obscureText: _controladorUsuario.obscureText,
+                                  maxLines: 1,
+                                  onChanged: (text) {
+                                    _usuario.senha = text;
+                                  },
+                                  suffix: IconButtonPadrao(
+                                    radius: 32,
+                                    iconData: _controladorUsuario.obscureText
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    onTap: () {
+                                      _controladorUsuario.changeVisibility();
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    FadeAnimacao(
+                        1.8,
+                        BotaoPadrao(
+                            value: "Entrar",
+                            onTap: () {
+                              _controladorUsuario.autenticarUsuario(
+                                _usuario,
+                                sucesso: () {
+                                  Navigator.pushReplacementNamed(
+                                      context, "/telaPrincipal");
+                                },
+                                erro: (mensagem) {
+                                  UtilDialogo.exibirAlerta(context,
+                                      titulo: "Ops!", mensagem: mensagem);
+                                },
+                              );
+                            })),
+                    SizedBox(height: 16),
+                    FadeAnimacao(
                       2.0,
                       BotaoPadrao(
                         value: "Quero Me Cadastrar",
                         onTap: () {
                           Navigator.pushNamed(context, "/telaCadastro");
                         },
-                      ))
-                ],
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    FadeAnimacao(
+                      2.0,
+                      BotaoPadrao(
+                        value: "Devs only",
+                        onTap: () {
+                          Navigator.pushReplacementNamed(
+                              context, "/telaPrincipal");
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
             )
           ],
