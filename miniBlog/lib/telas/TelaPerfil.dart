@@ -58,7 +58,7 @@ class _TelaPerfilState extends State<TelaPerfil>
   Widget buildNomeUsuario(Usuario usuario) => Column(
         children: [
           Text(
-            'Nome Usuario aqui',
+            '${_usuarioLogado.nome}',
             //usuario.nome,
             style: GoogleFonts.nunitoSans(
                 fontSize: 25,
@@ -67,7 +67,7 @@ class _TelaPerfilState extends State<TelaPerfil>
           ),
           const SizedBox(height: 4),
           Text(
-            'e-mail Usuario aqui',
+            '${_usuarioLogado.email}',
             //usuario.email,
             style: GoogleFonts.nunitoSans(
                 color: Colors.grey, fontWeight: FontWeight.w300),

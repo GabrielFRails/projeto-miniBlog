@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:get_it/get_it.dart';
+import 'package:miniBlog/controladores/AutenticarUsuario.dart';
 import 'package:miniBlog/entidades/Post.dart';
 import 'package:miniBlog/servicos/ServicosDoMiniBlog.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
@@ -71,11 +72,13 @@ abstract class _ControladorUsuarioBase with Store {
         (usuarioLogar.senha?.isEmpty ?? true)) {
       erro?.call("Usuario ou senha inválidos!");
     } else {
-      mService.autenticarUsuario(usuarioLogar).then((usuario) {
+      AutenticarUsuario autenticarUsuario = AutenticarUsuario(
+          email: usuarioLogar.email, senha: usuarioLogar.senha);
+      mService.autenticarUsuario(autenticarUsuario).then((value) {
         _prefs.then((db) {
-          db.setString("user", JsonCodec().encode(usuario.sucesso.toJson()));
-          mUsuarioLogado = usuario.sucesso;
+          db.setString("tokenUsuario", value.toString());
           sucesso?.call();
+          mUsuarioLogado = usuarioLogar;
         });
       }).catchError((onError) {
         erro?.call(onError.response.data["falha"]);
@@ -91,13 +94,11 @@ abstract class _ControladorUsuarioBase with Store {
       erro?.call("Senha inválida");
     } else if (usuarioCadastrar.nome?.isEmpty ?? true) {
       erro?.call("Defina um nome");
+    } else if (usuarioCadastrar.imagemPerfil?.isEmpty ?? true) {
+      erro?.call("Defina uma foto de perfil");
     } else {
       mService.cadastrarUsuario(usuarioCadastrar).then((usuario) {
-        _prefs.then((db) {
-          db.setString("user", JsonCodec().encode(usuario.sucesso.toJson()));
-          mUsuarioLogado = usuario.sucesso;
-          sucesso?.call();
-        });
+        sucesso?.call();
       }).catchError((onError) {
         erro?.call(onError.response.data["falha"]);
       });

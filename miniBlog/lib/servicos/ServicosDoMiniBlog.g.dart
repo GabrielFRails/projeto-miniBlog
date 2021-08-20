@@ -9,7 +9,6 @@ part of 'ServicosDoMiniBlog.dart';
 class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   _ServicosDoMiniBlog(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl ??= 'https://app.pactosolucoes.com.br/socialmedia-api';
   }
 
   final Dio _dio;
@@ -17,13 +16,14 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   String baseUrl;
 
   @override
-  Future<UtilRetornoUsuario> autenticarUsuario(usuario) async {
-    ArgumentError.checkNotNull(usuario, 'usuario');
+  Future<String> autenticarUsuario(autenticarUsuario) async {
+    ArgumentError.checkNotNull(autenticarUsuario, 'autenticarUsuario');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(usuario?.toJson() ?? <String, dynamic>{});
-    final _result = await _dio.request<Map<String, dynamic>>('/authenticate',
+    _data.addAll(autenticarUsuario?.toJson() ?? <String, dynamic>{});
+    final _result = await _dio.request<String>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/authenticate',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -31,7 +31,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoUsuario.fromJson(_result.data);
+    final value = _result.data;
     return value;
   }
 
@@ -41,7 +41,8 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = idPostagem;
-    final _result = await _dio.request<Map<String, dynamic>>('/comentarios',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/comentarios',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -60,7 +61,8 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(comentarioDto?.toJson() ?? <String, dynamic>{});
-    final _result = await _dio.request<String>('/comentarios',
+    final _result = await _dio.request<String>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -78,7 +80,8 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>('/comentarios/$id',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios/$id',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -99,7 +102,8 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(comentarioDto?.toJson() ?? <String, dynamic>{});
-    final _result = await _dio.request<String>('/comentarios/$id',
+    final _result = await _dio.request<String>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios/$id',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'PUT',
@@ -118,7 +122,8 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<String>('/comentarios/$id',
+    final _result = await _dio.request<String>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios/$id',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'DELETE',
@@ -136,7 +141,8 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>('/postagens',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -155,7 +161,8 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(postagem?.toJson() ?? <String, dynamic>{});
-    final _result = await _dio.request<Map<String, dynamic>>('/postagens',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -174,7 +181,8 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(postagem?.toJson() ?? <String, dynamic>{});
-    final _result = await _dio.request<Map<String, dynamic>>('/postagens',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'PUT',
@@ -192,7 +200,8 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<String>('/postagens/$id',
+    final _result = await _dio.request<String>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/$id',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'DELETE',
@@ -211,7 +220,8 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<String>('/postagens/$id/like',
+    final _result = await _dio.request<String>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/$id/like',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -250,7 +260,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        '/postagens/$idPost',
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/$idPost',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -269,7 +279,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        '/postagens/listaPost',
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/listaPost',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -287,7 +297,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        '/postagens/meuUsuario',
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/meuUsuario',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -305,7 +315,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        '/postagens/postagemUsuario',
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/postagemUsuario',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -322,7 +332,8 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>('/seguindo',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/seguindo',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -340,7 +351,8 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<String>('/seguindo/$id',
+    final _result = await _dio.request<String>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/seguindo/$id',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -359,7 +371,8 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<String>('/seguindo/$id',
+    final _result = await _dio.request<String>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/seguindo/$id',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -378,7 +391,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        '/seguindo​/seguidores',
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/seguindo​/seguidores',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -396,7 +409,8 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'nome': nome};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>('/usuarios',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/usuarios',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -409,13 +423,14 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<UtilRetornoUsuario> cadastrarUsuario(usuario) async {
+  Future<String> cadastrarUsuario(usuario) async {
     ArgumentError.checkNotNull(usuario, 'usuario');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(usuario?.toJson() ?? <String, dynamic>{});
-    final _result = await _dio.request<Map<String, dynamic>>('/usuarios',
+    final _result = await _dio.request<String>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -423,7 +438,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoUsuario.fromJson(_result.data);
+    final value = _result.data;
     return value;
   }
 
@@ -434,7 +449,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        '/usuarios/$idUsuario',
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/$idUsuario',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -456,7 +471,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final _data = <String, dynamic>{};
     _data.addAll(usuario?.toJson() ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        '/usuarios/$idUsuario',
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/$idUsuario',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'PUT',
@@ -476,7 +491,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        '/usuarios/$idUsuario',
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/$idUsuario',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'DELETE',

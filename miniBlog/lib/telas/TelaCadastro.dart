@@ -121,9 +121,29 @@ class _TelaCadastroState extends State<TelaCadastro> {
                       FadeAnimacao(
                           1.9,
                           BotaoPadrao(
-                            value: "Concluir Cadastro",
+                            value: "Definir Foto de Perfil",
                             onTap: () {
                               takeChosenImage(context);
+                            },
+                          )),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      FadeAnimacao(
+                          1.9,
+                          BotaoPadrao(
+                            value: "Concluir Cadastro",
+                            onTap: () {
+                              _controladorUsuario.cadastrarUsuario(usuario,
+                                  sucesso: () {
+                                UtilDialogo.exibirAlerta(context,
+                                    titulo: "Cadastro ok!");
+                                //Navigator.pushReplacementNamed(context, "/telaLogin");
+                              }, erro: (mensagem) {
+                                UtilDialogo.exibirAlerta(context,
+                                    titulo: "Ops deu erro no Login",
+                                    mensagem: mensagem);
+                              });
                             },
                           )),
                     ],
@@ -399,16 +419,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                   child: BotaoPadrao(
                     value: "Definir",
                     onTap: () {
-                      _controladorUsuario.cadastrarUsuario(usuario,
-                          sucesso: () {
-                        Navigator.pushReplacementNamed(
-                            context, "/telaPrincipal");
-                      }, erro: (mensagem) {
-                        Navigator.pop(context);
-                        UtilDialogo.exibirAlerta(context,
-                            titulo: "Ops deu erro no Login",
-                            mensagem: mensagem);
-                      });
+                      Navigator.pop(context);
                     },
                   ),
                 ),

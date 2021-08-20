@@ -17,6 +17,7 @@ class ServicoDioProvider {
     dio.interceptors
         .add(InterceptorsWrapper(onRequest: (RequestOptions options) async {
       getToken();
+      if(!(options.path.contains("authenticate")))
       options.headers.addAll({"Authorization":
        "Bearer $token"});
     }));
