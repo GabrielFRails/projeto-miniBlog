@@ -13,17 +13,14 @@ import 'package:miniBlog/telas/TelaPerfil.dart';
 import 'package:miniBlog/telas/TelaPrincipal.dart';
 import 'package:miniBlog/telas/TelaSplash.dart';
 
-import 'controladores/ControladorWidget.dart';
-
 final getIt = GetIt.instance;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   var dioConnect = ServicoDioProvider().getDio();
-  getIt.registerSingleton<ControladorUsuario>(ControladorUsuario());
   getIt.registerSingleton<ServicosDoMiniBlog>(ServicosDoMiniBlog(dioConnect));
+  getIt.registerSingleton<ControladorUsuario>(ControladorUsuario());
   getIt.registerSingleton<ControladorPost>(ControladorPost());
-  getIt.registerSingleton<ControladorPost>(ControladorPost());
->>>>>>>>> Temporary merge branch 2
+  getIt.registerSingleton<ControladorWidget>(ControladorWidget());
   runApp(MyApp());
 }
 

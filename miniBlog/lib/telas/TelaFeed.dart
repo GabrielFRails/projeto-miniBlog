@@ -21,23 +21,20 @@ class _TelaFeedState extends State<TelaFeed> {
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: true);
-
   @override
   void initState() {
-    _controladorPost.consultarOFeed(
-        sucesso: () {}, erro: (text) {}, carregando: () {});
+    WidgetsBinding.instance.addPostFrameCallback((_) => _consultarOFeed());
     super.initState();
   }
 
   _consultarOFeed() {
     _controladorPost.consultarOFeed(sucesso: () {
-      Navigator.pop(context);
       _refreshController.refreshCompleted();
     }, erro: (mensagem) {
-      Navigator.pop(context);
+      UtilDialogo.exibirAlerta(context, mensagem: "bleblebel", titulo: "load");
       _refreshController.refreshFailed();
     }, carregando: () {
-      UtilDialogo.showLoading(context);
+      UtilDialogo.exibirAlerta(context, mensagem: "carregando", titulo: "load");
     });
   }
 
@@ -45,6 +42,8 @@ class _TelaFeedState extends State<TelaFeed> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SmartRefresher(
+          enablePullDown: true,
+          enablePullUp: true,
           onRefresh: _consultarOFeed,
           controller: _refreshController,
           header: MaterialClassicHeader(
@@ -55,8 +54,7 @@ class _TelaFeedState extends State<TelaFeed> {
   }
 
   Widget listaDePosts() {
-    return Container(
-      color: Colors.white,
+    return SingleChildScrollView(
       child: Observer(builder: (_) {
         switch (_controladorPost.statusConsultaFeed) {
           case StatusConsulta.CARREGANDO:
@@ -68,15 +66,16 @@ class _TelaFeedState extends State<TelaFeed> {
           case StatusConsulta.SUCESSO:
             return ListView.builder(
               shrinkWrap: true,
+              primary: false,
               itemBuilder: (context, index) {
-                var postSeguido = _controladorUsuario.postsSeguidos[index];
+                var postSeguido = _controladorPost.postsSeguidos[index];
                 return Column(
                   children: [
                     PostagemWidget(
                         context: context,
-                        avatar: "https://picsum.photos/id/237/200/300",
-                        username: "matheus",
-                        timeAgo: "2",
+                        avatar: "${postSeguido.usuario.imagemPerfil}",
+                        username: "${postSeguido.usuario.nome}",
+                        timeAgo: "${postSeguido.data}",
                         text: "${postSeguido.conteudo}",
                         comments: "3",
                         favorites: "4"),
@@ -87,8 +86,11 @@ class _TelaFeedState extends State<TelaFeed> {
                   ],
                 );
               },
-              itemCount: _controladorUsuario.postsSeguidos.length,
+              itemCount: _controladorPost.postsSeguidos.length,
             );
+          default:
+            return Text("default");
+            break;
         }
       }),
     );

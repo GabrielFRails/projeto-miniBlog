@@ -21,9 +21,9 @@ part 'Postagem.g.dart';
 @JsonSerializable()
 class Postagem {
   String conteudo, id, data;
-  Usuario criador;
+  Usuario usuario;
 
-  Postagem({this.conteudo, this.id, this.data, this.criador});
+  Postagem({this.conteudo, this.id, this.data, this.usuario});
 
   factory Postagem.fromJson(Map<String, dynamic> json) => _$PostagemFromJson(json);
   Map<String, dynamic> toJson() => _$PostagemToJson(this);
