@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
 import 'package:miniBlog/animacao/FadeAnimacao.dart';
+import 'package:miniBlog/controladores/ControladorUsuario.dart';
+import 'package:miniBlog/entidades/Usuario.dart';
+import 'package:miniBlog/util/UtilDialogo.dart';
 import 'package:miniBlog/widgets_padrao/BotaoPadrao.dart';
 import 'package:miniBlog/widgets_padrao/TextFieldPadrao.dart';
 
@@ -12,6 +16,9 @@ class TelaEditarPerfil extends StatefulWidget {
 }
 
 class _TelaEditarPerfilState extends State<TelaEditarPerfil> {
+  ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
+  Usuario _usuarioLogado = GetIt.I.get<ControladorUsuario>().mUsuarioLogado;
+  Usuario _usuarioEditar = Usuario();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -49,14 +56,20 @@ class _TelaEditarPerfilState extends State<TelaEditarPerfil> {
                               children: <Widget>[
                                 TextFieldPadrao(
                                   hintText: "Editar Nome",
-                                  onChanged: (text) {},
+                                  onChanged: (text) {
+                                    _usuarioEditar.nome = text;
+                                  },
                                 ),
                                 TextFieldPadrao(
                                     hintText: "Editar E-mail",
-                                    onChanged: (text) {}),
+                                    onChanged: (text) {
+                                      _usuarioEditar.email = text;
+                                    }),
                                 TextFieldPadrao(
                                     hintText: "Editar Senha",
-                                    onChanged: (text) {}),
+                                    onChanged: (text) {
+                                      _usuarioEditar.senha = text;
+                                    }),
                               ],
                             ),
                           )),
@@ -68,7 +81,51 @@ class _TelaEditarPerfilState extends State<TelaEditarPerfil> {
                           1.9,
                           BotaoPadrao(
                             value: "Concluir Edição",
-                            onTap: () {},
+                            onTap: () {
+                              _controladorUsuario.editarUsuario(
+                                  _usuarioEditar, int.parse(_usuarioLogado.id),
+                                  sucesso: () {
+                                UtilDialogo.exibirAlerta(
+                                  context,
+                                  titulo: "Edição Concluida!",
+                                  mensagem:
+                                      "Você precisará fazer login novamente",
+                                  onTap: () {
+                                    Navigator.pushReplacementNamed(
+                                        context, "/telaLogin");
+                                  },
+                                );
+                              }, erro: (mensagem) {
+                                UtilDialogo.exibirAlerta(context,
+                                    titulo: "Ops deu erro na Edição",
+                                    mensagem: mensagem);
+                              });
+                            },
+                          )),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      FadeAnimacao(
+                          1.9,
+                          BotaoPadrao(
+                            value: "Excluir o meu Perfil",
+                            onTap: () {
+                              UtilDialogo.exibirAlerta(context,
+                                  titulo: "ATENÇÃO!",
+                                  mensagem: "Deseja mesmo excluir sua conta?",
+                                  onTap: () {
+                                _controladorUsuario.excluirUsuario(
+                                    int.parse(_usuarioLogado.id), sucesso: () {
+                                  Navigator.pushReplacementNamed(
+                                      context, "/telaLogin");
+                                }, erro: (mensagem) {
+                                  Navigator.pop(context);
+                                  UtilDialogo.exibirAlerta(context,
+                                      titulo: "Erro ao excluir",
+                                      mensagem: mensagem);
+                                });
+                              });
+                            },
                           ))
                     ],
                   ),

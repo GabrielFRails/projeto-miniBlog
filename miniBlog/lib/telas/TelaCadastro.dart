@@ -137,8 +137,10 @@ class _TelaCadastroState extends State<TelaCadastro> {
                               _controladorUsuario.cadastrarUsuario(usuario,
                                   sucesso: () {
                                 UtilDialogo.exibirAlerta(context,
-                                    titulo: "Cadastro ok!");
-                                //Navigator.pushReplacementNamed(context, "/telaLogin");
+                                    titulo: "Cadastro ok!", onTap: () {
+                                      Navigator.pushReplacementNamed(context, "/telaLogin");
+                                    });
+                                
                               }, erro: (mensagem) {
                                 UtilDialogo.exibirAlerta(context,
                                     titulo: "Ops deu erro no Login",

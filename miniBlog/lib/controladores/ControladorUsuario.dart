@@ -76,9 +76,9 @@ abstract class _ControladorUsuarioBase with Store {
           email: usuarioLogar.email, senha: usuarioLogar.senha);
       mService.autenticarUsuario(autenticarUsuario).then((value) {
         _prefs.then((db) {
-          db.setString("tokenUsuario", value.token);
-          mUsuarioLogado = usuarioLogar;
+          db.setString("tokenUsuario", value.token.toString());
           sucesso?.call();
+          mUsuarioLogado = value.autenticado;
         });
       }).catchError((onError) {
         erro?.call(onError.response.data["falha"]);
@@ -103,5 +103,52 @@ abstract class _ControladorUsuarioBase with Store {
         erro?.call(onError.response.data["falha"]);
       });
     }
+  }
+
+  void editarUsuario(Usuario usuarioEditar, int idUsuario,
+      {Function() sucesso, Function(String mensagem) erro}) {
+    if (usuarioEditar.email == null) {
+      usuarioEditar.email = mUsuarioLogado.email;
+    }
+    if (usuarioEditar.senha == null) {
+      usuarioEditar.senha = mUsuarioLogado.senha;
+    }
+    if (usuarioEditar.nome == null) {
+      usuarioEditar.nome = mUsuarioLogado.nome;
+    }
+    usuarioEditar.imagemPerfil = mUsuarioLogado.imagemPerfil;
+    mService.editarUsuario(idUsuario, usuarioEditar).then((value) {
+      sucesso?.call();
+    }).catchError((onError) {
+      erro?.call(onError.response.data["falha"]);
+    });
+  }
+
+  void excluirUsuario(int idUsuario,
+      {Function() sucesso, Function(String mensagem) erro}) {
+    mService.excluirUsuario(idUsuario).then((value) {
+      sucesso?.call();
+    }).catchError((onError) {
+      erro?.call(onError.response.data["falha"]);
+    });
+  }
+
+  void buscaUsuario(int idUsuario,
+      {Function() sucesso, Function(String mensagem) erro}) {
+    mService.buscarUsuario(idUsuario).then((value) {
+      sucesso?.call();
+    }).catchError((onError) {
+      erro?.call(onError.response.data["falha"]);
+    });
+  }
+
+  //ainda precisa fazer
+  void filtrarUsuarios(String nome,
+      {Function() sucesso, Function(String mensagem) erro}) {
+    mService.filtrarUsuarios(nome).then((value) {
+      sucesso?.call();
+    }).catchError((onError) {
+      erro?.call(onError.response.data["falha"]);
+    });
   }
 }

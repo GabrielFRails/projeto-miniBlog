@@ -114,17 +114,6 @@ class _TelaLoginState extends State<TelaLogin> {
                         },
                       ),
                     ),
-                    SizedBox(height: 16),
-                    FadeAnimacao(
-                      2.0,
-                      BotaoPadrao(
-                        value: "Devs only",
-                        onTap: () {
-                          Navigator.pushReplacementNamed(
-                              context, "/telaPrincipal");
-                        },
-                      ),
-                    )
                   ],
                 ),
               ),

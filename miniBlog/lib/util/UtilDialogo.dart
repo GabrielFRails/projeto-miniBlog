@@ -3,7 +3,7 @@ import 'package:miniBlog/widgets_padrao/BotaoPadrao.dart';
 
 class UtilDialogo {
   static void exibirAlerta(BuildContext context,
-      {String titulo, String mensagem}) {
+      {String titulo, String mensagem, Function() onTap}) {
     var alert = Container(
         width: MediaQuery.of(context).size.width * 0.7,
         height: MediaQuery.of(context).size.height * 0.5,
@@ -38,6 +38,7 @@ class UtilDialogo {
                 padding: const EdgeInsets.only(left: 10, right: 10),
                 child: Row(
                   children: [
+                    if(mensagem != null)
                     Text(mensagem),
                   ],
                 ),
@@ -53,6 +54,7 @@ class UtilDialogo {
                     value: "Ok",
                     onTap: () {
                       Navigator.pop(context);
+                      onTap?.call();
                     },
                   ),
                 ),

@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:miniBlog/entidades/Comentario.dart';
 import 'package:miniBlog/entidades/Postagem.dart';
+import 'package:miniBlog/entidades/Token.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 
 part 'UtilRetorno.g.dart';
@@ -13,6 +14,18 @@ class UtilRetornoUsuario {
   factory UtilRetornoUsuario.fromJson(Map<String, dynamic> json) =>
       _$UtilRetornoUsuarioFromJson(json);
   Map<String, dynamic> toJson() => _$UtilRetornoUsuarioToJson(this);
+}
+
+@JsonSerializable()
+class UtilRetornoAutenticacao {
+  Usuario autenticado;
+  Token tokenUsuario;
+
+  UtilRetornoAutenticacao({this.autenticado, this.tokenUsuario});
+
+  factory UtilRetornoAutenticacao.fromJson(Map<String, dynamic> json) =>
+      _$UtilRetornoAutenticacaoFromJson(json);
+  Map<String, dynamic> toJson() => _$UtilRetornoAutenticacaoToJson(this);
 }
 
 @JsonSerializable()

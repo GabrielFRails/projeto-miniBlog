@@ -19,6 +19,25 @@ Map<String, dynamic> _$UtilRetornoUsuarioToJson(UtilRetornoUsuario instance) =>
       'sucesso': instance.sucesso,
     };
 
+UtilRetornoAutenticacao _$UtilRetornoAutenticacaoFromJson(
+    Map<String, dynamic> json) {
+  return UtilRetornoAutenticacao(
+    autenticado: json['autenticado'] == null
+        ? null
+        : Usuario.fromJson(json['autenticado'] as Map<String, dynamic>),
+    tokenUsuario: json['tokenUsuario'] == null
+        ? null
+        : Token.fromJson(json['tokenUsuario'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$UtilRetornoAutenticacaoToJson(
+        UtilRetornoAutenticacao instance) =>
+    <String, dynamic>{
+      'autenticado': instance.autenticado,
+      'tokenUsuario': instance.tokenUsuario,
+    };
+
 UtilRetornoPost _$UtilRetornoPostFromJson(Map<String, dynamic> json) {
   return UtilRetornoPost(
     sucesso: json['sucesso'] == null
