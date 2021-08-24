@@ -2,10 +2,12 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:miniBlog/controladores/ControladorSeguindo.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/util/DadosPerfilWidget.dart';
 import 'package:miniBlog/util/ImagemPerfilWidget.dart';
+import 'package:miniBlog/util/UtilDialogo.dart';
 import 'package:miniBlog/widgets_padrao/BotaoPadrao.dart';
 
 class TelaPerfil extends StatefulWidget {
@@ -18,10 +20,14 @@ class TelaPerfil extends StatefulWidget {
 class _TelaPerfilState extends State<TelaPerfil>
     with AfterLayoutMixin<TelaPerfil> {
   BuildContext mMainContext;
-  Usuario _usuarioLogado =
-      GetIt.I.get<ControladorUsuario>().mUsuarioLogado;
+  ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
+  ControladorSeguindo _controladorSeguindo = GetIt.I.get<ControladorSeguindo>();
+  Usuario _usuarioLogado = GetIt.I.get<ControladorUsuario>().mUsuarioLogado;
+
   @override
   Widget build(BuildContext context) {
+    _controladorSeguindo.listarSeguindo();
+    _controladorSeguindo.listarSeguidores();
     return Scaffold(
         body: ListView(
       primary: false,
@@ -30,8 +36,7 @@ class _TelaPerfilState extends State<TelaPerfil>
       physics: BouncingScrollPhysics(),
       children: [
         ImagemPerfilWidget(
-          linkImagem:
-              _usuarioLogado.imagemPerfil,
+          linkImagem: _usuarioLogado.imagemPerfil,
           tamanhoImagem: 150,
           onTap: () {
             Navigator.pushNamed(context, "/telaEditarPerfil");
@@ -51,7 +56,54 @@ class _TelaPerfilState extends State<TelaPerfil>
             },
           ),
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 20),
+        Center(
+          child: BotaoPadrao(
+            context: context,
+            value: "Testar Seguir",
+            onTap: () {
+              _controladorSeguindo.seguirUsuario(49, sucesso: () {
+                UtilDialogo.exibirAlerta(context,
+                    titulo: "Sucesso", mensagem: "Tudo certo na busca");
+              }, erro: (mensagem) {
+                UtilDialogo.exibirAlerta(context,
+                    titulo: "Vish deu Pau", mensagem: mensagem);
+              });
+            },
+          ),
+        ),
+        const SizedBox(height: 20),
+        Center(
+          child: BotaoPadrao(
+            context: context,
+            value: "Testar Parar de seguir",
+            onTap: () {
+              _controladorSeguindo.unfollowUsuario(49, sucesso: () {
+                UtilDialogo.exibirAlerta(context,
+                    titulo: "Sucesso", mensagem: "Tudo certo na busca");
+              }, erro: (mensagem) {
+                UtilDialogo.exibirAlerta(context,
+                    titulo: "Vish deu Pau", mensagem: mensagem);
+              });
+            },
+          ),
+        ),
+        const SizedBox(height: 20),
+        Center(
+          child: BotaoPadrao(
+            context: context,
+            value: "Testar Listar Seguindo",
+            onTap: () {
+              _controladorSeguindo.listarSeguidores(sucesso: () {
+                UtilDialogo.exibirAlerta(context,
+                    titulo: "Sucesso", mensagem: "Tudo certo na busca");
+              }, erro: (mensagem) {
+                UtilDialogo.exibirAlerta(context,
+                    titulo: "Vish deu Pau", mensagem: mensagem);
+              });
+            },
+          ),
+        ),
       ],
     ));
   }

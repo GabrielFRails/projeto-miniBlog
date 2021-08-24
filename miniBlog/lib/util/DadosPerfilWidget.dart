@@ -1,15 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:miniBlog/controladores/ControladorSeguindo.dart';
 
-class DadosPerfilWidget extends StatelessWidget {
+class DadosPerfilWidget extends StatefulWidget {
+  @override
+  _DadosPerfilWidgetState createState() => _DadosPerfilWidgetState();
+}
+
+class _DadosPerfilWidgetState extends State<DadosPerfilWidget> {
+  ControladorSeguindo _controladorSeguindo = GetIt.I.get<ControladorSeguindo>();
+
+  int _numeroFollows = GetIt.I.get<ControladorSeguindo>().numeroFollow;
+
+  int _numeroFollowers = GetIt.I.get<ControladorSeguindo>().numeroFollowers;
+
   @override
   Widget build(BuildContext context) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          buildButton(context, '5', 'Seguindo'),
+          buildButton(context, _numeroFollows.toString(), 'Seguindo'),
           buildDivider(),
-          buildButton(context, '20', 'Seguidores'),
+          buildButton(context, _numeroFollowers.toString(), 'Seguidores'),
         ],
       );
+
   Widget buildDivider() => Container(
         height: 24,
         child: VerticalDivider(),

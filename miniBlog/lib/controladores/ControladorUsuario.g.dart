@@ -17,6 +17,22 @@ mixin _$ControladorUsuario on _ControladorUsuarioBase, Store {
               name: '_ControladorUsuarioBase.isLoginValido'))
           .value;
 
+  final _$usuariosBuscadosAtom =
+      Atom(name: '_ControladorUsuarioBase.usuariosBuscados');
+
+  @override
+  ObservableList<Usuario> get usuariosBuscados {
+    _$usuariosBuscadosAtom.reportRead();
+    return super.usuariosBuscados;
+  }
+
+  @override
+  set usuariosBuscados(ObservableList<Usuario> value) {
+    _$usuariosBuscadosAtom.reportWrite(value, super.usuariosBuscados, () {
+      super.usuariosBuscados = value;
+    });
+  }
+
   final _$emailAtom = Atom(name: '_ControladorUsuarioBase.email');
 
   @override
@@ -143,6 +159,7 @@ mixin _$ControladorUsuario on _ControladorUsuarioBase, Store {
   @override
   String toString() {
     return '''
+usuariosBuscados: ${usuariosBuscados},
 email: ${email},
 senha: ${senha},
 nome: ${nome},

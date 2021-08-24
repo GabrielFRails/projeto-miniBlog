@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/ControladorPost.dart';
+import 'package:miniBlog/controladores/ControladorSeguindo.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/controladores/ControladorWidget.dart';
 import 'package:miniBlog/servicos/ServicoDioProvider.dart';
@@ -8,6 +9,7 @@ import 'package:miniBlog/servicos/ServicosDoMiniBlog.dart';
 import 'package:miniBlog/telas/TelaCadastro.dart';
 import 'package:miniBlog/telas/TelaComentario.dart';
 import 'package:miniBlog/telas/TelaEditarPerfil.dart';
+import 'package:miniBlog/telas/TelaExibirUsuario.dart';
 import 'package:miniBlog/telas/TelaLogin.dart';
 import 'package:miniBlog/telas/TelaPerfil.dart';
 import 'package:miniBlog/telas/TelaPrincipal.dart';
@@ -21,6 +23,7 @@ void main() {
   getIt.registerSingleton<ControladorUsuario>(ControladorUsuario());
   getIt.registerSingleton<ControladorPost>(ControladorPost());
   getIt.registerSingleton<ControladorWidget>(ControladorWidget());
+  getIt.registerSingleton<ControladorSeguindo>(ControladorSeguindo());
   runApp(MyApp());
 }
 
@@ -41,7 +44,8 @@ class MyApp extends StatelessWidget {
           "/telaCadastro": (_) => TelaCadastro(),
           "/telaPerfil": (_) => TelaPerfil(),
           "/telaEditarPerfil": (_) => TelaEditarPerfil(),
-          "/telaComentario": (_) => TelaComentario()
+          "/telaComentario": (_) => TelaComentario(),
+          "/telaExibirPerfil": (_) => TelaExibirUsuario(),
         });
   }
 }

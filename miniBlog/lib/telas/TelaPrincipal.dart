@@ -80,6 +80,8 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
         ),
       ),
       body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.all(0),
         child: screens[_currentIndex],
       ),
