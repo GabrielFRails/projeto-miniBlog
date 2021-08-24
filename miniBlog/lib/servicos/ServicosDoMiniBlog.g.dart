@@ -57,6 +57,145 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
+  Future<Comentario> buscarComentario(id) async {
+    ArgumentError.checkNotNull(id, 'id');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios/$id',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            contentType: 'application/x-www-form-urlencoded',
+            baseUrl: baseUrl),
+        data: _data);
+    final value = Comentario.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<String> editarComentario(id, comentarioDto) async {
+    ArgumentError.checkNotNull(id, 'id');
+    ArgumentError.checkNotNull(comentarioDto, 'comentarioDto');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(comentarioDto?.toJson() ?? <String, dynamic>{});
+    final _result = await _dio.request<String>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios/$id',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'PUT',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            contentType: 'application/x-www-form-urlencoded',
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data;
+    return value;
+  }
+
+  @override
+  Future<String> deletarComentario(id) async {
+    ArgumentError.checkNotNull(id, 'id');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<String>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios/$id',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'DELETE',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            contentType: 'application/x-www-form-urlencoded',
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data;
+    return value;
+  }
+
+  @override
+  Future<Postagem> listarPostagens() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = Postagem.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<Postagem> cadastrarPostagem(postagem) async {
+    ArgumentError.checkNotNull(postagem, 'postagem');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(postagem?.toJson() ?? <String, dynamic>{});
+    final _result = await _dio.request<Map<String, dynamic>>('/postagens',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = Postagem.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<Postagem> editarPostagem(postagem) async {
+    ArgumentError.checkNotNull(postagem, 'postagem');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(postagem?.toJson() ?? <String, dynamic>{});
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'PUT',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = Postagem.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<String> excluirPostagem(id) async {
+    ArgumentError.checkNotNull(id, 'id');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<String>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/$id',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'DELETE',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            contentType: 'application/x-www-form-urlencoded',
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data;
+    return value;
+  }
+
+  @override
   Future<dynamic> darLike(id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
@@ -97,6 +236,26 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
+  Future<Postagem> buscarPost(idPost) async {
+    ArgumentError.checkNotNull(idPost, 'idPost');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/$idPost',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            contentType: 'application/x-www-form-urlencoded',
+            baseUrl: baseUrl),
+        data: _data);
+    final value = Postagem.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<List<Postagem>> listarPostagensSeguindo() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -117,11 +276,11 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<UtilRetornoPostagens> listarMinhasPostagens() async {
+  Future<List<Postagem>> listarMinhasPostagens() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
+    final _result = await _dio.request<List<dynamic>>(
         'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/meuUsuario',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -130,16 +289,18 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoPostagens.fromJson(_result.data);
+    var value = _result.data
+        .map((dynamic i) => Postagem.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
   @override
-  Future<UtilRetornoPostagens> listarPostagensDeUmUsuario() async {
+  Future<List<Postagem>> listarPostagensDeUmUsuario() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
+    final _result = await _dio.request<List<dynamic>>(
         '/postagens/postagemUsuario',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -148,16 +309,18 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoPostagens.fromJson(_result.data);
+    var value = _result.data
+        .map((dynamic i) => Postagem.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
   @override
-  Future<UtilRetornoUsers> listarSeguidores() async {
+  Future<List<Usuario>> listarSeguidores() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
+    final _result = await _dio.request<List<dynamic>>(
         'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/seguindo',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -166,7 +329,9 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoUsers.fromJson(_result.data);
+    var value = _result.data
+        .map((dynamic i) => Usuario.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
@@ -211,11 +376,11 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<UtilRetornoUsers> listarMeusSeguidores() async {
+  Future<List<Usuario>> listarMeusSeguidores() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
+    final _result = await _dio.request<List<dynamic>>(
         'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/seguindo​/seguidores',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -224,17 +389,19 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoUsers.fromJson(_result.data);
+    var value = _result.data
+        .map((dynamic i) => Usuario.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
   @override
-  Future<UtilRetornoUsuario> filtrarUsuarios(nome) async {
+  Future<List<Usuario>> filtrarUsuarios(nome) async {
     ArgumentError.checkNotNull(nome, 'nome');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'nome': nome};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
+    final _result = await _dio.request<List<dynamic>>(
         'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/usuarios',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -243,7 +410,9 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoUsuario.fromJson(_result.data);
+    var value = _result.data
+        .map((dynamic i) => Usuario.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
@@ -268,12 +437,12 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<UtilRetornoUsuario> buscarUsuario(idUsuario) async {
+  Future<List<Usuario>> buscarUsuario(idUsuario) async {
     ArgumentError.checkNotNull(idUsuario, 'idUsuario');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
+    final _result = await _dio.request<List<dynamic>>(
         'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/$idUsuario',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -283,7 +452,9 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             contentType: 'application/x-www-form-urlencoded',
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoUsuario.fromJson(_result.data);
+    var value = _result.data
+        .map((dynamic i) => Usuario.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 

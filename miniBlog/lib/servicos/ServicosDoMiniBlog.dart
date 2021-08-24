@@ -34,7 +34,7 @@ abstract class ServicosDoMiniBlog {
       "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios/{id}")
   @FormUrlEncoded()
   Future<String> editarComentario(
-      @Path("id") String id, @Body() ComentarioDto comentarioDto);
+      @Path("id") String id, @Body() Comentario comentarioDto);
 
   @DELETE(
       "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios/{id}")
@@ -44,13 +44,13 @@ abstract class ServicosDoMiniBlog {
   // //Parte Serviços das Postagens
 
   @GET("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens")
-  Future<UtilRetornoPost> listarPostagens();
+  Future<Postagem> listarPostagens();
 
   @POST("/postagens")
-  Future<UtilRetornoPost> cadastrarPostagem(@Body() Postagem postagem);
+  Future<Postagem> cadastrarPostagem(@Body() Postagem postagem);
 
   @PUT("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens")
-  Future<UtilRetornoPostagem> editarPostagem(@Body() Postagem postagem);
+  Future<Postagem> editarPostagem(@Body() Postagem postagem);
 
   @DELETE(
       "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/{id}")
@@ -69,22 +69,22 @@ abstract class ServicosDoMiniBlog {
   @GET(
       "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/{idPost}")
   @FormUrlEncoded()
-  Future<UtilRetornoPost> buscarPost(@Path("idPost") String idPost);
+  Future<Postagem> buscarPost(@Path("idPost") String idPost);
 
   @GET("https://app.pactosolucoes.com.br/socialmedia-api/postagens")
   Future<List<Postagem>> listarPostagensSeguindo();
 
   @GET(
       "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/meuUsuario")
-  Future<UtilRetornoPostagens> listarMinhasPostagens();
+  Future<List<Postagem>> listarMinhasPostagens();
 
   @GET("/postagens/postagemUsuario")
-  Future<UtilRetornoPostagens> listarPostagensDeUmUsuario();
+  Future<List<Postagem>> listarPostagensDeUmUsuario();
 
   // //Parte Serviços Seguindo
 
   @GET("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/seguindo")
-  Future<UtilRetornoUsers> listarSeguidores(); //quem eu sigo
+  Future<List<Usuario>> listarSeguidores(); //quem eu sigo
 
   @POST(
       "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/seguindo/{id}")
@@ -98,19 +98,19 @@ abstract class ServicosDoMiniBlog {
 
   @POST(
       "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/seguindo​/seguidores")
-  Future<UtilRetornoUsers> listarMeusSeguidores();
+  Future<List<Usuario>> listarMeusSeguidores();
 
   // //Parte Serviços do Usuário
 
   @GET("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/usuarios")
-  Future<UtilRetornoUsuario> filtrarUsuarios(@Query("nome") String nome);
+  Future<List<Usuario>> filtrarUsuarios(@Query("nome") String nome);
 
   @POST("https://app.pactosolucoes.com.br/socialmedia-api/usuarios")
   Future<dynamic> cadastrarUsuario(@Body() Usuario usuario);
 
   @GET("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/{idUsuario}")
   @FormUrlEncoded()
-  Future<UtilRetornoUsuario> buscarUsuario(@Path("idUsuario") int idUsuario);
+  Future<List<Usuario>> buscarUsuario(@Path("idUsuario") int idUsuario);
 
   @PUT("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/{idUsuario}")
   Future<dynamic> editarUsuario(
