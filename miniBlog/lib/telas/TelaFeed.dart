@@ -102,16 +102,6 @@ class _TelaFeedState extends State<TelaFeed> {
                                 setState(() {});
                               });
                       },
-                      onTap: () {
-                        _controladorUsuario.buscaUsuario(
-                            int.parse(postSeguido.usuario.id), sucesso: () {
-                          Navigator.pushNamed(context, "/telaExibirPerfil");
-                        }, erro: (mensagem) {
-                          UtilDialogo.exibirAlerta(context,
-                              titulo: "Ops! Erro ao exibir o perfil",
-                              mensagem: mensagem);
-                        });
-                      },
                       color: _controladorPost.postsSeguidos[index].liked
                           ? Colors.red
                           : Colors.grey,
