@@ -9,10 +9,10 @@ part of 'Comentario.dart';
 Comentario _$ComentarioFromJson(Map<String, dynamic> json) {
   return Comentario(
     conteudo: json['conteudo'] as String,
-    data: json['data'] as String,
-    criador: json['criador'] == null
+    data: UtilDataHora.convert(json['data']),
+    usuario: json['usuario'] == null
         ? null
-        : Usuario.fromJson(json['criador'] as Map<String, dynamic>),
+        : Usuario.fromJson(json['usuario'] as Map<String, dynamic>),
     idComentario: json['idComentario'] as String,
     idPostagem: json['idPostagem'] as String,
   );
@@ -23,6 +23,6 @@ Map<String, dynamic> _$ComentarioToJson(Comentario instance) =>
       'conteudo': instance.conteudo,
       'idComentario': instance.idComentario,
       'idPostagem': instance.idPostagem,
-      'data': instance.data,
-      'criador': instance.criador,
+      'data': instance.data?.toIso8601String(),
+      'usuario': instance.usuario,
     };

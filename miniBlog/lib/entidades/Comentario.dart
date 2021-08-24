@@ -1,16 +1,19 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
+import 'package:miniBlog/util/UtilDataHora.dart';
 part 'Comentario.g.dart';
 
 @JsonSerializable()
 class Comentario {
-  String conteudo, idComentario, idPostagem, data;
-  Usuario criador;
+  String conteudo, idComentario, idPostagem;
+  @JsonKey(fromJson: UtilDataHora.convert)
+  DateTime data;
+  Usuario usuario;
 
   Comentario(
       {this.conteudo,
       this.data,
-      this.criador,
+      this.usuario,
       this.idComentario,
       this.idPostagem});
 
