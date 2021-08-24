@@ -94,7 +94,7 @@ class _TelaPerfilState extends State<TelaPerfil>
             context: context,
             value: "Testar Listar Seguindo",
             onTap: () {
-              _controladorSeguindo.listarSeguidores(sucesso: () {
+              _controladorSeguindo.listarSeguindo(sucesso: () {
                 UtilDialogo.exibirAlerta(context,
                     titulo: "Sucesso", mensagem: "Tudo certo na busca");
               }, erro: (mensagem) {

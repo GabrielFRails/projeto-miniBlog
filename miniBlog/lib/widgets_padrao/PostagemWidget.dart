@@ -12,6 +12,7 @@ class PostagemWidget extends StatelessWidget {
   final BuildContext context;
   final VoidCallback onPressedComment;
   final VoidCallback onPressedLike;
+  final Function() onTap;
   final Color color;
 
   const PostagemWidget(
@@ -25,7 +26,8 @@ class PostagemWidget extends StatelessWidget {
       @required this.onPressedComment,
       this.context,
       this.onPressedLike,
-      this.color})
+      this.color,
+      this.onTap})
       : super(key: key);
 
   @override
@@ -45,8 +47,11 @@ class PostagemWidget extends StatelessWidget {
   Widget postAvatar() {
     return Container(
       margin: const EdgeInsets.fromLTRB(15, 15, 10, 0),
-      child: CircleAvatar(
-        backgroundImage: NetworkImage(this.avatar),
+      child: GestureDetector(
+        onTap: onTap,
+        child: CircleAvatar(
+          backgroundImage: NetworkImage(this.avatar),
+        ),
       ),
     );
   }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/ControladorPost.dart';
+import 'package:miniBlog/controladores/ControladorUsuario.dart';
+import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/enums/StatusConsulta.dart';
 import 'package:miniBlog/util/UtilDialogo.dart';
 import 'package:miniBlog/widgets_padrao/PostagemWidget.dart';
@@ -16,6 +18,8 @@ class TelaFeed extends StatefulWidget {
 
 class _TelaFeedState extends State<TelaFeed> {
   ControladorPost _controladorPost = GetIt.I.get<ControladorPost>();
+  ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
+  Usuario _usuarioRetorno = GetIt.I.get<ControladorUsuario>().mUsuarioRetorno;
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: true);
@@ -97,6 +101,16 @@ class _TelaFeedState extends State<TelaFeed> {
                                 sucesso: () {
                                 setState(() {});
                               });
+                      },
+                      onTap: () {
+                        _controladorUsuario.buscaUsuario(
+                            int.parse(postSeguido.usuario.id), sucesso: () {
+                          Navigator.pushNamed(context, "/telaExibirPerfil");
+                        }, erro: (mensagem) {
+                          UtilDialogo.exibirAlerta(context,
+                              titulo: "Ops! Erro ao exibir o perfil",
+                              mensagem: mensagem);
+                        });
                       },
                       color: _controladorPost.postsSeguidos[index].liked
                           ? Colors.red

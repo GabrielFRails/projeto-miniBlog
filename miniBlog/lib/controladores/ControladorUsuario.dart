@@ -141,10 +141,9 @@ abstract class _ControladorUsuarioBase with Store {
     });
   }
 
-  void buscaUsuario(int idUsuario, Usuario usuarioRetorno,
+  void buscaUsuario(int idUsuario,
       {Function() sucesso, Function(String mensagem) erro}) {
     mService.buscarUsuario(idUsuario).then((value) {
-      usuarioRetorno = value.sucesso;
       mUsuarioRetorno = value.sucesso;
       sucesso?.call();
     }).catchError((onError) {
