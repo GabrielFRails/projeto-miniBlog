@@ -57,6 +57,26 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
+  Future<dynamic> cadastrarComentario(comentario) async {
+    ArgumentError.checkNotNull(comentario, 'comentario');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(comentario?.toJson() ?? <String, dynamic>{});
+    final _result = await _dio.request(
+        'https://app.pactosolucoes.com.br/socialmedia-api/comentarios',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data;
+    return value;
+  }
+
+  @override
   Future<Comentario> buscarComentario(id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
@@ -176,13 +196,13 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<String> excluirPostagem(id) async {
+  Future<dynamic> excluirPostagem(id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<String>(
-        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/$id',
+    final _result = await _dio.request(
+        'https://app.pactosolucoes.com.br/socialmedia-api/postagens/$id',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'DELETE',
@@ -261,7 +281,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<List<dynamic>>(
-        'https://app.pactosolucoes.com.br/socialmedia-api/postagens',
+        'https://app.pactosolucoes.com.br/socialmedia-api/postagens/listaPost',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',

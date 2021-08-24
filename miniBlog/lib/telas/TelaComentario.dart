@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/ControladorPost.dart';
+import 'package:miniBlog/entidades/Comentario.dart';
 import 'package:miniBlog/enums/StatusConsulta.dart';
 import 'package:miniBlog/util/UtilDialogo.dart';
 import 'package:miniBlog/widgets_padrao/ComentarioWidget.dart';
@@ -18,6 +19,7 @@ class _TelaComentarioState extends State<TelaComentario> {
   ControladorPost _controladorPost = GetIt.I.get<ControladorPost>();
   final formKey = GlobalKey<FormState>();
   final TextEditingController _controladorComentario = TextEditingController();
+  Comentario comentarioAdicionar = new Comentario();
 
   @override
   void initState() {
@@ -100,10 +102,12 @@ class _TelaComentarioState extends State<TelaComentario> {
           errorText: "O campo não pode ser vazio",
           sendButtonMethod: () {
             if (formKey.currentState.validate()) {
-              _controladorComentario.clear();
-              FocusScope.of(context).unfocus();
-            } else {
-              print("Not validated");
+              comentarioAdicionar.conteudo = _controladorComentario.text;
+              comentarioAdicionar.idPostagem = _controladorPost.postId;
+              _controladorPost.cadastrarComentario(comentarioAdicionar,
+                  sucesso: () {
+                setState(() {});
+              });
             }
           },
           formKey: formKey,

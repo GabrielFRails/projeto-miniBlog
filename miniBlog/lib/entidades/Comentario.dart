@@ -10,6 +10,10 @@ class Comentario {
   DateTime data;
   Usuario usuario;
 
+  Comentario clone() {
+    return _$ComentarioFromJson(this.toJson());
+  }
+
   Comentario(
       {this.conteudo,
       this.data,

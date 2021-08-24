@@ -48,6 +48,10 @@ abstract class _ControladorUsuarioBase with Store {
       senha.isNotEmpty &&
       !senha.contains(" ");
 
+  bool isCriador(String idUsuarioLogado, idCriadorPost) {
+    return idUsuarioLogado == idCriadorPost;
+  }
+
   void usuarioExiste({Function existe, Function naoExiste}) {
     _prefs.then((prefsDb) {
       String usuarioJson = prefsDb.getString("user");

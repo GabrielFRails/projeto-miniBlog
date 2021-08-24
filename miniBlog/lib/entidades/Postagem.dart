@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:miniBlog/entidades/Comentario.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 part 'Postagem.g.dart';
 
@@ -23,6 +24,7 @@ class Postagem {
   String conteudo, id, data;
   Usuario usuario;
   bool liked;
+  List<Comentario> comentarios = new List<Comentario>();
 
   Postagem({this.conteudo, this.id, this.data, this.usuario});
 
