@@ -7,13 +7,16 @@ class PostagemWidget extends StatelessWidget {
   final String username;
   final String timeAgo;
   final String text;
-  final String comments;
+  final int comments;
   final String favorites;
   final BuildContext context;
   final VoidCallback onPressedComment;
   final VoidCallback onPressedLike;
   final Function() onTap;
+  final VoidCallback onPressedDelete;
+  final VoidCallback onPressedEdit;
   final Color color;
+  final bool visible;
 
   const PostagemWidget(
       {Key key,
@@ -27,7 +30,7 @@ class PostagemWidget extends StatelessWidget {
       this.context,
       this.onPressedLike,
       this.color,
-      this.onTap})
+      this.visible, this.onPressedDelete, this.onPressedEdit})
       : super(key: key);
 
   @override
@@ -88,38 +91,44 @@ class PostagemWidget extends StatelessWidget {
           width: 4,
         ),
         Spacer(),
-        PopupMenuButton(
-          icon: Icon(
-            FontAwesomeIcons.angleDown,
-            size: 14.0,
-            color: Colors.grey,
-          ),
-          itemBuilder: (context) => [
-            PopupMenuItem(
-              child: TextButton(
-                child: Text("Editar",
-                    style: GoogleFonts.nunitoSans(
-                        color: Color.fromRGBO(143, 148, 251, .9),
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600)),
-                onPressed: () {},
-              ),
-              value: 1,
-            ),
-            PopupMenuItem(
-              child: TextButton(
-                child: Text(
-                  "Excluir",
-                  style: GoogleFonts.nunitoSans(
-                      color: Color.fromRGBO(143, 148, 251, .9),
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600),
+        Container(
+          child: visible
+              ? PopupMenuButton(
+                  icon: Icon(
+                    FontAwesomeIcons.angleDown,
+                    size: 14.0,
+                    color: Colors.grey,
+                  ),
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      child: TextButton(
+                        child: Text("Editar",
+                            style: GoogleFonts.nunitoSans(
+                                color: Color.fromRGBO(143, 148, 251, .9),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600)),
+                        onPressed: onPressedEdit,
+                      ),
+                      value: 1,
+                    ),
+                    PopupMenuItem(
+                      child: TextButton(
+                        child: Text(
+                          "Excluir",
+                          style: GoogleFonts.nunitoSans(
+                              color: Color.fromRGBO(143, 148, 251, .9),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        onPressed: onPressedDelete,
+                      ),
+                      value: 2,
+                    )
+                  ],
+                )
+              : SizedBox(
+                  height: 50,
                 ),
-                onPressed: () {},
-              ),
-              value: 2,
-            )
-          ],
         )
       ],
     );
@@ -142,7 +151,7 @@ class PostagemWidget extends StatelessWidget {
           Spacer(),
           postIconButton(
               icon: FontAwesomeIcons.comment,
-              text: this.comments,
+              text: this.comments.toString(),
               onPressed: onPressedComment),
           SizedBox(width: 15),
           postIconButton(

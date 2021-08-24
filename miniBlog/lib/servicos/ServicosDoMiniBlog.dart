@@ -24,8 +24,8 @@ abstract class ServicosDoMiniBlog {
   Future<List<Comentario>> listarComentariosPostagem(
       @Query("idPostagem") String idPostagem);
 
-  // @POST("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios")
-  // Future<String> cadastrarComentario(@Body() ComentarioDto comentarioDto);
+  @POST("https://app.pactosolucoes.com.br/socialmedia-api/comentarios")
+  Future<dynamic> cadastrarComentario(@Body() Comentario comentario);
 
   @GET(
       "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios/{id}")
@@ -55,9 +55,9 @@ abstract class ServicosDoMiniBlog {
   Future<Postagem> editarPostagem(@Body() Postagem postagem);
 
   @DELETE(
-      "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/{id}")
+      "https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}")
   @FormUrlEncoded()
-  Future<String> excluirPostagem(@Path("id") String id);
+  Future<dynamic> excluirPostagem(@Path("id") String id);
 
   @POST("https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}/like")
   @FormUrlEncoded()
@@ -73,7 +73,7 @@ abstract class ServicosDoMiniBlog {
   @FormUrlEncoded()
   Future<Postagem> buscarPost(@Path("idPost") String idPost);
 
-  @GET("https://app.pactosolucoes.com.br/socialmedia-api/postagens")
+  @GET("https://app.pactosolucoes.com.br/socialmedia-api/postagens/listaPost")
   Future<List<Postagem>> listarPostagensSeguindo();
 
   @GET(

@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/entidades/Comentario.dart';
 import 'package:miniBlog/entidades/Postagem.dart';
 import 'package:miniBlog/enums/StatusConsulta.dart';
@@ -10,6 +11,7 @@ class ControladorPost = _ControladorPostBase with _$ControladorPost;
 
 abstract class _ControladorPostBase with Store {
   ServicosDoMiniBlog service = GetIt.I.get<ServicosDoMiniBlog>();
+  ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
 
   @observable
   ObservableList<Postagem> postsSeguidos = new ObservableList<Postagem>();
@@ -25,12 +27,6 @@ abstract class _ControladorPostBase with Store {
 
   @observable
   StatusConsulta statusConsultaComentario = StatusConsulta.CARREGANDO;
-
-  @observable
-  int numeroComentarios = 0;
-
-  @observable
-  bool liked = false;
 
   void consultarOFeed(
       {Function() sucesso,
@@ -66,17 +62,6 @@ abstract class _ControladorPostBase with Store {
     });
   }
 
-  int getNumeroComentarios(String idPostagem) {
-    service.listarComentariosPostagem(idPostagem).then((responseComentarios) {
-      comentariosPost.clear();
-      comentariosPost.addAll(responseComentarios);
-      numeroComentarios = comentariosPost.length;
-      return numeroComentarios;
-    });
-    return 0;
-  }
-
-  @action
   void darLike(String id, {Function() erro, Function() sucesso}) {
     service.darLike(id).then((_) {
       var indexPost = postsSeguidos.indexWhere((element) => element.id == id);
@@ -87,7 +72,6 @@ abstract class _ControladorPostBase with Store {
     });
   }
 
-  @action
   void removerLike(String id, {Function() erro, Function() sucesso}) {
     service.removerLike(id).then((_) {
       var indexPost = postsSeguidos.indexWhere((element) => element.id == id);
@@ -95,6 +79,25 @@ abstract class _ControladorPostBase with Store {
       sucesso?.call();
     }).catchError((onError) {
       erro?.call();
+    });
+  }
+
+  void cadastrarComentario(Comentario comentario,
+      {Function(String msg) erro, Function() sucesso}) {
+    service.cadastrarComentario(comentario).then((_) {
+      comentariosPost.add(
+          comentario.clone()..usuario = _controladorUsuario.mUsuarioLogado);
+      sucesso?.call();
+    }).catchError((onError) {
+      erro?.call("Erro ao adicionar comentário");
+    });
+  }
+
+  void excluirPostagem(String id, {Function(String msg) erro, Function() sucesso}){
+    service.excluirPostagem(id).then((_) {
+      sucesso?.call();
+    }).catchError((onError){
+      erro?.call("Erro ao excluir postagem");
     });
   }
 }

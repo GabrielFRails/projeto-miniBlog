@@ -88,64 +88,6 @@ mixin _$ControladorPost on _ControladorPostBase, Store {
     });
   }
 
-  final _$numeroComentariosAtom =
-      Atom(name: '_ControladorPostBase.numeroComentarios');
-
-  @override
-  int get numeroComentarios {
-    _$numeroComentariosAtom.reportRead();
-    return super.numeroComentarios;
-  }
-
-  @override
-  set numeroComentarios(int value) {
-    _$numeroComentariosAtom.reportWrite(value, super.numeroComentarios, () {
-      super.numeroComentarios = value;
-    });
-  }
-
-  final _$likedAtom = Atom(name: '_ControladorPostBase.liked');
-
-  @override
-  bool get liked {
-    _$likedAtom.reportRead();
-    return super.liked;
-  }
-
-  @override
-  set liked(bool value) {
-    _$likedAtom.reportWrite(value, super.liked, () {
-      super.liked = value;
-    });
-  }
-
-  final _$_ControladorPostBaseActionController =
-      ActionController(name: '_ControladorPostBase');
-
-  @override
-  void darLike(String id,
-      {dynamic Function() erro, dynamic Function() sucesso}) {
-    final _$actionInfo = _$_ControladorPostBaseActionController.startAction(
-        name: '_ControladorPostBase.darLike');
-    try {
-      return super.darLike(id, erro: erro, sucesso: sucesso);
-    } finally {
-      _$_ControladorPostBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void removerLike(String id,
-      {dynamic Function() erro, dynamic Function() sucesso}) {
-    final _$actionInfo = _$_ControladorPostBaseActionController.startAction(
-        name: '_ControladorPostBase.removerLike');
-    try {
-      return super.removerLike(id, erro: erro, sucesso: sucesso);
-    } finally {
-      _$_ControladorPostBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''
@@ -153,9 +95,7 @@ postsSeguidos: ${postsSeguidos},
 postId: ${postId},
 comentariosPost: ${comentariosPost},
 statusConsultaFeed: ${statusConsultaFeed},
-statusConsultaComentario: ${statusConsultaComentario},
-numeroComentarios: ${numeroComentarios},
-liked: ${liked}
+statusConsultaComentario: ${statusConsultaComentario}
     ''';
   }
 }

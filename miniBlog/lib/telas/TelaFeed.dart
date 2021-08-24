@@ -68,53 +68,65 @@ class _TelaFeedState extends State<TelaFeed> {
             return Text("Desculpe, falhamos");
             break;
           case StatusConsulta.SUCESSO:
-            return ListView.builder(
-              shrinkWrap: true,
-              primary: false,
-              itemBuilder: (context, index) {
-                var postSeguido = _controladorPost.postsSeguidos[index];
-                if (_controladorPost.postsSeguidos[index].liked == null) {
-                  _controladorPost.postsSeguidos[index].liked = false;
-                }
-                return Column(
-                  children: [
-                    PostagemWidget(
-                      context: context,
-                      avatar: "${postSeguido.usuario.imagemPerfil}",
-                      username: "${postSeguido.usuario.nome}",
-                      timeAgo: "${postSeguido.data}",
-                      text: "${postSeguido.conteudo}",
-                      comments:
-                          "${_controladorPost.getNumeroComentarios(postSeguido.id)}",
-                      onPressedComment: () {
-                        _controladorPost.postId = postSeguido.id;
-                        Navigator.of(context).pushNamed("/telaComentario");
-                      },
-                      favorites: "4",
-                      onPressedLike: () {
-                        postSeguido.liked
-                            ? _controladorPost.removerLike(postSeguido.id,
-                                sucesso: () {
-                                setState(() {});
-                              })
-                            : _controladorPost.darLike(postSeguido.id,
-                                sucesso: () {
-                                setState(() {});
-                              });
-                      },
-                      color: _controladorPost.postsSeguidos[index].liked
-                          ? Colors.red
-                          : Colors.grey,
-                    ),
-                    Divider(
-                      thickness: 1,
-                      height: 1,
-                    )
-                  ],
-                );
-              },
-              itemCount: _controladorPost.postsSeguidos.length,
-            );
+            return _controladorPost.postsSeguidos.length != 0
+                ? ListView.builder(
+                    shrinkWrap: true,
+                    primary: false,
+                    itemBuilder: (context, index) {
+                      var postSeguido = _controladorPost.postsSeguidos[index];
+                      if (_controladorPost.postsSeguidos[index].liked == null) {
+                        _controladorPost.postsSeguidos[index].liked = false;
+                      }
+                      return Column(
+                        children: [
+                          PostagemWidget(
+                            visible: _controladorUsuario.isCriador(
+                                _controladorUsuario.mUsuarioLogado.id,
+                                postSeguido.usuario.id),
+                            context: context,
+                            avatar: "${postSeguido.usuario.imagemPerfil}",
+                            username: "${postSeguido.usuario.nome}",
+                            timeAgo: "${postSeguido.data}",
+                            text: "${postSeguido.conteudo}",
+                            comments: 3,
+                            onPressedComment: () {
+                              _controladorPost.postId = postSeguido.id;
+                              Navigator.of(context)
+                                  .pushNamed("/telaComentario");
+                            },
+                            favorites: "4",
+                            onPressedLike: () {
+                              postSeguido.liked
+                                  ? _controladorPost.removerLike(postSeguido.id,
+                                      sucesso: () {
+                                      setState(() {});
+                                    })
+                                  : _controladorPost.darLike(postSeguido.id,
+                                      sucesso: () {
+                                      setState(() {});
+                                    });
+                            },
+                            onPressedDelete: () {
+                              _controladorPost.excluirPostagem(postSeguido.id,
+                                  sucesso: _consultarOFeed);
+                            },
+                            color: _controladorPost.postsSeguidos[index].liked
+                                ? Colors.red
+                                : Colors.grey,
+                          ),
+                          Divider(
+                            thickness: 1,
+                            height: 1,
+                          )
+                        ],
+                      );
+                    },
+                    itemCount: _controladorPost.postsSeguidos.length,
+                  )
+                : Container(
+                    child: Text("Sem posts"),
+                  );
+            break;
           default:
             return Text("default");
             break;
