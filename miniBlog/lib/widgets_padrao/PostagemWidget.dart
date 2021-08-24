@@ -10,6 +10,9 @@ class PostagemWidget extends StatelessWidget {
   final String comments;
   final String favorites;
   final BuildContext context;
+  final VoidCallback onPressedComment;
+  final VoidCallback onPressedLike;
+  final Color color;
 
   const PostagemWidget(
       {Key key,
@@ -19,7 +22,10 @@ class PostagemWidget extends StatelessWidget {
       @required this.text,
       @required this.comments,
       @required this.favorites,
-      this.context})
+      @required this.onPressedComment,
+      this.context,
+      this.onPressedLike,
+      this.color})
       : super(key: key);
 
   @override
@@ -132,24 +138,27 @@ class PostagemWidget extends StatelessWidget {
           postIconButton(
               icon: FontAwesomeIcons.comment,
               text: this.comments,
-              onPressed: () {
-                Navigator.of(context).pushNamed("/telaComentario");
-              }),
+              onPressed: onPressedComment),
           SizedBox(width: 15),
           postIconButton(
               icon: FontAwesomeIcons.heart,
               text: this.favorites,
-              onPressed: () {}),
+              onPressed: onPressedLike,
+              color: color),
         ],
       ),
     );
   }
 
-  Widget postIconButton({IconData icon, String text, Function() onPressed}) {
+  Widget postIconButton(
+      {IconData icon, String text, Function() onPressed, Color color}) {
     return Row(
       children: [
         IconButton(
-          icon: Icon(icon),
+          icon: Icon(
+            icon,
+            color: color,
+          ),
           onPressed: onPressed,
           iconSize: 14.0,
           color: Colors.black45,

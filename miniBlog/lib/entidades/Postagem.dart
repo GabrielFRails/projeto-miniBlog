@@ -22,9 +22,11 @@ part 'Postagem.g.dart';
 class Postagem {
   String conteudo, id, data;
   Usuario usuario;
+  bool liked;
 
   Postagem({this.conteudo, this.id, this.data, this.usuario});
 
-  factory Postagem.fromJson(Map<String, dynamic> json) => _$PostagemFromJson(json);
+  factory Postagem.fromJson(Map<String, dynamic> json) =>
+      _$PostagemFromJson(json);
   Map<String, dynamic> toJson() => _$PostagemToJson(this);
 }

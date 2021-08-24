@@ -14,7 +14,7 @@ Postagem _$PostagemFromJson(Map<String, dynamic> json) {
     usuario: json['usuario'] == null
         ? null
         : Usuario.fromJson(json['usuario'] as Map<String, dynamic>),
-  );
+  )..liked = json['liked'] as bool;
 }
 
 Map<String, dynamic> _$PostagemToJson(Postagem instance) => <String, dynamic>{
@@ -22,4 +22,5 @@ Map<String, dynamic> _$PostagemToJson(Postagem instance) => <String, dynamic>{
       'id': instance.id,
       'data': instance.data,
       'usuario': instance.usuario,
+      'liked': instance.liked,
     };
