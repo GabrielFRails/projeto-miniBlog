@@ -30,7 +30,10 @@ class PostagemWidget extends StatelessWidget {
       this.context,
       this.onPressedLike,
       this.color,
-      this.visible, this.onPressedDelete, this.onPressedEdit})
+      this.visible,
+      this.onPressedDelete,
+      this.onPressedEdit,
+      this.onTap})
       : super(key: key);
 
   @override
