@@ -31,7 +31,7 @@ class _TelaPerfilState extends State<TelaPerfil>
       children: [
         ImagemPerfilWidget(
           linkImagem:
-              "https://i.pinimg.com/564x/2b/23/f6/2b23f6ee9fbc16112ac00b5c0d909959.jpg",
+              _usuarioLogado.imagemPerfil,
           tamanhoImagem: 150,
           onTap: () {
             Navigator.pushNamed(context, "/telaEditarPerfil");
