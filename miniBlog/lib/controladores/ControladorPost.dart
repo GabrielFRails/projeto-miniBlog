@@ -12,13 +12,25 @@ abstract class _ControladorPostBase with Store {
   ServicosDoMiniBlog service = GetIt.I.get<ServicosDoMiniBlog>();
 
   @observable
-  ObservableList<Comentario> comentarios = new ObservableList<Comentario>();
-
-  @observable
   ObservableList<Postagem> postsSeguidos = new ObservableList<Postagem>();
 
   @observable
+  String postId = "";
+
+  @observable
+  ObservableList<Comentario> comentariosPost = new ObservableList<Comentario>();
+
+  @observable
   StatusConsulta statusConsultaFeed = StatusConsulta.CARREGANDO;
+
+  @observable
+  StatusConsulta statusConsultaComentario = StatusConsulta.CARREGANDO;
+
+  @observable
+  int numeroComentarios = 0;
+
+  @observable
+  bool liked = false;
 
   void consultarOFeed(
       {Function() sucesso,
@@ -34,6 +46,55 @@ abstract class _ControladorPostBase with Store {
     }).catchError((onError) {
       statusConsultaFeed = StatusConsulta.ERRO;
       erro?.call("Houve um erro");
+    });
+  }
+
+  void consultarComentarios(String idPostagem,
+      {Function() sucesso,
+      Function() carregando,
+      Function(String mensagem) erro}) {
+    carregando?.call();
+    statusConsultaComentario = StatusConsulta.CARREGANDO;
+    service.listarComentariosPostagem(idPostagem).then((responseComentarios) {
+      comentariosPost.clear();
+      comentariosPost.addAll(responseComentarios);
+      statusConsultaComentario = StatusConsulta.SUCESSO;
+      sucesso?.call();
+    }).catchError((onError) {
+      statusConsultaComentario = StatusConsulta.ERRO;
+      erro?.call("Houve um erro");
+    });
+  }
+
+  int getNumeroComentarios(String idPostagem) {
+    service.listarComentariosPostagem(idPostagem).then((responseComentarios) {
+      comentariosPost.clear();
+      comentariosPost.addAll(responseComentarios);
+      numeroComentarios = comentariosPost.length;
+      return numeroComentarios;
+    });
+    return 0;
+  }
+
+  @action
+  void darLike(String id, {Function() erro, Function() sucesso}) {
+    service.darLike(id).then((_) {
+      var indexPost = postsSeguidos.indexWhere((element) => element.id == id);
+      postsSeguidos[indexPost].liked = true;
+      sucesso?.call();
+    }).catchError((onError) {
+      erro?.call();
+    });
+  }
+
+  @action
+  void removerLike(String id, {Function() erro, Function() sucesso}) {
+    service.removerLike(id).then((_) {
+      var indexPost = postsSeguidos.indexWhere((element) => element.id == id);
+      postsSeguidos[indexPost].liked = false;
+      sucesso?.call();
+    }).catchError((onError) {
+      erro?.call();
     });
   }
 }

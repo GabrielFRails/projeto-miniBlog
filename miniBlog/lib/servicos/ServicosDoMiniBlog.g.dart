@@ -36,12 +36,12 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<UtilRetornoComentarios> listarComentariosPostagem(idPostagem) async {
+  Future<List<Comentario>> listarComentariosPostagem(idPostagem) async {
     ArgumentError.checkNotNull(idPostagem, 'idPostagem');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = idPostagem;
-    final _result = await _dio.request<Map<String, dynamic>>(
+    final queryParameters = <String, dynamic>{r'idPostagem': idPostagem};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<List<dynamic>>(
         'https://app.pactosolucoes.com.br/socialmedia-api/comentarios',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -50,27 +50,9 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoComentarios.fromJson(_result.data);
-    return value;
-  }
-
-  @override
-  Future<String> cadastrarComentario(comentarioDto) async {
-    ArgumentError.checkNotNull(comentarioDto, 'comentarioDto');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(comentarioDto?.toJson() ?? <String, dynamic>{});
-    final _result = await _dio.request<String>(
-        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = _result.data;
+    var value = _result.data
+        .map((dynamic i) => Comentario.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
@@ -137,7 +119,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<UtilRetornoPost> listarPostagens() async {
+  Future<Postagem> listarPostagens() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -150,12 +132,12 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoPost.fromJson(_result.data);
+    final value = Postagem.fromJson(_result.data);
     return value;
   }
 
   @override
-  Future<UtilRetornoPost> cadastrarPostagem(postagem) async {
+  Future<Postagem> cadastrarPostagem(postagem) async {
     ArgumentError.checkNotNull(postagem, 'postagem');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -169,12 +151,12 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoPost.fromJson(_result.data);
+    final value = Postagem.fromJson(_result.data);
     return value;
   }
 
   @override
-  Future<UtilRetornoPostagem> editarPostagem(postagem) async {
+  Future<Postagem> editarPostagem(postagem) async {
     ArgumentError.checkNotNull(postagem, 'postagem');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -189,7 +171,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoPostagem.fromJson(_result.data);
+    final value = Postagem.fromJson(_result.data);
     return value;
   }
 
@@ -214,13 +196,13 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<String> darLike(id) async {
+  Future<dynamic> darLike(id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<String>(
-        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/$id/like',
+    final _result = await _dio.request(
+        'https://app.pactosolucoes.com.br/socialmedia-api/postagens/$id/like',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -234,15 +216,16 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<String> removerLike(id) async {
+  Future<dynamic> removerLike(id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<String>('/postagens/$id/like',
+    final _result = await _dio.request(
+        'https://app.pactosolucoes.com.br/socialmedia-api/postagens/$id/like',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'POST',
+            method: 'DELETE',
             headers: <String, dynamic>{},
             extra: _extra,
             contentType: 'application/x-www-form-urlencoded',
@@ -253,7 +236,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<UtilRetornoPost> buscarPost(idPost) async {
+  Future<Postagem> buscarPost(idPost) async {
     ArgumentError.checkNotNull(idPost, 'idPost');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -268,7 +251,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             contentType: 'application/x-www-form-urlencoded',
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoPost.fromJson(_result.data);
+    final value = Postagem.fromJson(_result.data);
     return value;
   }
 
@@ -293,11 +276,11 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<UtilRetornoPostagens> listarMinhasPostagens() async {
+  Future<List<Postagem>> listarMinhasPostagens() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
+    final _result = await _dio.request<List<dynamic>>(
         'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens/meuUsuario',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -306,16 +289,18 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoPostagens.fromJson(_result.data);
+    var value = _result.data
+        .map((dynamic i) => Postagem.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
   @override
-  Future<UtilRetornoPostagens> listarPostagensDeUmUsuario() async {
+  Future<List<Postagem>> listarPostagensDeUmUsuario() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
+    final _result = await _dio.request<List<dynamic>>(
         '/postagens/postagemUsuario',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -324,7 +309,9 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoPostagens.fromJson(_result.data);
+    var value = _result.data
+        .map((dynamic i) => Postagem.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
@@ -448,12 +435,12 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<UtilRetornoUsuario> buscarUsuario(idUsuario) async {
+  Future<List<Usuario>> buscarUsuario(idUsuario) async {
     ArgumentError.checkNotNull(idUsuario, 'idUsuario');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
+    final _result = await _dio.request<List<dynamic>>(
         'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/$idUsuario',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -463,7 +450,9 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             contentType: 'application/x-www-form-urlencoded',
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoUsuario.fromJson(_result.data);
+    var value = _result.data
+        .map((dynamic i) => Usuario.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
