@@ -435,12 +435,12 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<List<Usuario>> buscarUsuario(idUsuario) async {
+  Future<UtilRetornoUsuario> buscarUsuario(idUsuario) async {
     ArgumentError.checkNotNull(idUsuario, 'idUsuario');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<List<dynamic>>(
+    final _result = await _dio.request<Map<String, dynamic>>(
         'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/$idUsuario',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -450,9 +450,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             contentType: 'application/x-www-form-urlencoded',
             baseUrl: baseUrl),
         data: _data);
-    var value = _result.data
-        .map((dynamic i) => Usuario.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = UtilRetornoUsuario.fromJson(_result.data);
     return value;
   }
 

@@ -3,6 +3,7 @@ import 'package:miniBlog/entidades/Comentario.dart';
 import 'package:miniBlog/entidades/Postagem.dart';
 import 'package:miniBlog/entidades/Token.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
+import 'package:miniBlog/util/UtilRetorno.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart' hide Headers;
 
@@ -18,9 +19,10 @@ abstract class ServicosDoMiniBlog {
   Future<Token> autenticarUsuario(@Body() AutenticarUsuario autenticarUsuario);
 
   //Parte Serviços dos Comentários
-  
+
   @GET("https://app.pactosolucoes.com.br/socialmedia-api/comentarios")
-  Future<List<Comentario>> listarComentariosPostagem(@Query("idPostagem") String idPostagem);
+  Future<List<Comentario>> listarComentariosPostagem(
+      @Query("idPostagem") String idPostagem);
 
   // @POST("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios")
   // Future<String> cadastrarComentario(@Body() ComentarioDto comentarioDto);
@@ -57,12 +59,12 @@ abstract class ServicosDoMiniBlog {
   @FormUrlEncoded()
   Future<String> excluirPostagem(@Path("id") String id);
 
-  @POST(
-      "https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}/like")
+  @POST("https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}/like")
   @FormUrlEncoded()
   Future<dynamic> darLike(@Path("id") String id);
 
-  @DELETE("https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}/like")
+  @DELETE(
+      "https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}/like")
   @FormUrlEncoded()
   Future<dynamic> removerLike(@Path("id") String id);
 
@@ -106,7 +108,7 @@ abstract class ServicosDoMiniBlog {
 
   @GET("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/{idUsuario}")
   @FormUrlEncoded()
-  Future<List<Usuario>> buscarUsuario(@Path("idUsuario") int idUsuario);
+  Future<UtilRetornoUsuario> buscarUsuario(@Path("idUsuario") int idUsuario);
 
   @PUT("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/{idUsuario}")
   Future<dynamic> editarUsuario(
