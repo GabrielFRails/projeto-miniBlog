@@ -88,6 +88,21 @@ mixin _$ControladorPost on _ControladorPostBase, Store {
     });
   }
 
+  final _$postEditarAtom = Atom(name: '_ControladorPostBase.postEditar');
+
+  @override
+  Postagem get postEditar {
+    _$postEditarAtom.reportRead();
+    return super.postEditar;
+  }
+
+  @override
+  set postEditar(Postagem value) {
+    _$postEditarAtom.reportWrite(value, super.postEditar, () {
+      super.postEditar = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
@@ -95,7 +110,8 @@ postsSeguidos: ${postsSeguidos},
 postId: ${postId},
 comentariosPost: ${comentariosPost},
 statusConsultaFeed: ${statusConsultaFeed},
-statusConsultaComentario: ${statusConsultaComentario}
+statusConsultaComentario: ${statusConsultaComentario},
+postEditar: ${postEditar}
     ''';
   }
 }

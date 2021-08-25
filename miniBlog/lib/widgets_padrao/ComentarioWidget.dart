@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ComentarioWidget extends StatelessWidget {
@@ -7,6 +8,8 @@ class ComentarioWidget extends StatelessWidget {
   final String timeAgo;
   final String text;
   final BuildContext context;
+  final bool visible;
+  final VoidCallback onPressedDelete;
 
   const ComentarioWidget(
       {Key key,
@@ -14,7 +17,9 @@ class ComentarioWidget extends StatelessWidget {
       @required this.username,
       @required this.timeAgo,
       @required this.text,
-      this.context})
+      this.context,
+      this.visible,
+      this.onPressedDelete})
       : super(key: key);
 
   @override
@@ -50,7 +55,7 @@ class ComentarioWidget extends StatelessWidget {
             height: 5,
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 15, 10),
+            padding: const EdgeInsets.only(right: 15),
             child: comentarioText(),
           ),
         ],
@@ -60,7 +65,6 @@ class ComentarioWidget extends StatelessWidget {
 
   Widget comentariotHeader() {
     return Container(
-      margin: EdgeInsets.only(top: 14),
       child: Row(
         children: [
           Container(
@@ -69,6 +73,38 @@ class ComentarioWidget extends StatelessWidget {
                 style: GoogleFonts.nunitoSans(
                     fontSize: 17, fontWeight: FontWeight.bold)),
           ),
+          SizedBox(
+            width: 4,
+          ),
+          Spacer(),
+          Container(
+            child: visible
+                ? PopupMenuButton(
+                    icon: Icon(
+                      FontAwesomeIcons.angleDown,
+                      size: 14.0,
+                      color: Colors.grey,
+                    ),
+                    itemBuilder: (context) => [
+                      PopupMenuItem(
+                        child: TextButton(
+                          child: Text(
+                            "Excluir",
+                            style: GoogleFonts.nunitoSans(
+                                color: Color.fromRGBO(143, 148, 251, .9),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          onPressed: onPressedDelete,
+                        ),
+                        value: 2,
+                      )
+                    ],
+                  )
+                : SizedBox(
+                    height: 50,
+                  ),
+          )
         ],
       ),
     );
@@ -84,7 +120,7 @@ class ComentarioWidget extends StatelessWidget {
               GoogleFonts.nunitoSans(fontSize: 14, fontWeight: FontWeight.w400),
         ),
         SizedBox(
-          height: 12,
+          height: 15,
         )
       ],
     );

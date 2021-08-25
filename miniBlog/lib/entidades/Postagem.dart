@@ -24,6 +24,8 @@ class Postagem {
   String conteudo, id, data;
   Usuario usuario;
   bool liked;
+  int qntdComentario;
+  int qntdLike;
   List<Comentario> comentarios = new List<Comentario>();
 
   Postagem({this.conteudo, this.id, this.data, this.usuario});

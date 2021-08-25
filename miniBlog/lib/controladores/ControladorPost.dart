@@ -28,6 +28,9 @@ abstract class _ControladorPostBase with Store {
   @observable
   StatusConsulta statusConsultaComentario = StatusConsulta.CARREGANDO;
 
+  @observable
+  Postagem postEditar = new Postagem();
+
   void consultarOFeed(
       {Function() sucesso,
       Function() carregando,
@@ -93,11 +96,43 @@ abstract class _ControladorPostBase with Store {
     });
   }
 
-  void excluirPostagem(String id, {Function(String msg) erro, Function() sucesso}){
+  void excluirPostagem(String id,
+      {Function(String msg) erro, Function() sucesso}) {
     service.excluirPostagem(id).then((_) {
       sucesso?.call();
-    }).catchError((onError){
+    }).catchError((onError) {
       erro?.call("Erro ao excluir postagem");
+    });
+  }
+
+  void cadastrarPostagem(Postagem postagem,
+      {Function(String msg) erro, Function() sucesso, Function() carregando}) {
+    carregando?.call();
+    service.cadastrarPostagem(postagem).then((_) {
+      sucesso?.call();
+    }).catchError((onError) {
+      erro?.call("Falha ao publicar post");
+    });
+  }
+
+  void excluirComentario(String id,
+      {Function(String msg) erro, Function() sucesso}) {
+    service.excluirComentario(id).then((_) {
+      comentariosPost
+          .removeWhere((comentario) => comentario.idComentario == id);
+      sucesso?.call();
+    }).catchError((onError) {
+      erro("Erro ao excluir comentário")?.call();
+    });
+  }
+
+  void editarPostagem(Postagem postagem, String id,
+      {Function(String msg) erro, Function() sucesso, Function() carregando}) {
+    carregando?.call();
+    service.editarPostagem(postagem, id).then((_) {
+      sucesso?.call();
+    }).catchError((onError) {
+      erro?.call("Erro ao editar postagem");
     });
   }
 }

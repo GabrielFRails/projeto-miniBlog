@@ -18,9 +18,10 @@ abstract class ServicosDoMiniBlog {
   Future<Token> autenticarUsuario(@Body() AutenticarUsuario autenticarUsuario);
 
   //Parte Serviços dos Comentários
-  
+
   @GET("https://app.pactosolucoes.com.br/socialmedia-api/comentarios")
-  Future<List<Comentario>> listarComentariosPostagem(@Query("idPostagem") String idPostagem);
+  Future<List<Comentario>> listarComentariosPostagem(
+      @Query("idPostagem") String idPostagem);
 
   @POST("https://app.pactosolucoes.com.br/socialmedia-api/comentarios")
   Future<dynamic> cadastrarComentario(@Body() Comentario comentario);
@@ -37,32 +38,31 @@ abstract class ServicosDoMiniBlog {
       @Path("id") String id, @Body() Comentario comentarioDto);
 
   @DELETE(
-      "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios/{id}")
+      "https://app.pactosolucoes.com.br/socialmedia-api/comentarios/{id}")
   @FormUrlEncoded()
-  Future<String> deletarComentario(@Path("id") String id);
+  Future<dynamic> excluirComentario(@Path("id") String id);
 
   // //Parte Serviços das Postagens
 
   @GET("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens")
   Future<Postagem> listarPostagens();
 
-  @POST("/postagens")
-  Future<Postagem> cadastrarPostagem(@Body() Postagem postagem);
+  @POST("https://app.pactosolucoes.com.br/socialmedia-api/postagens")
+  Future<dynamic> cadastrarPostagem(@Body() Postagem postagem);
 
-  @PUT("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens")
-  Future<Postagem> editarPostagem(@Body() Postagem postagem);
+  @PUT("https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}")
+  Future<dynamic> editarPostagem(@Body() Postagem postagem, @Path("id") String id);
 
-  @DELETE(
-      "https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}")
+  @DELETE("https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}")
   @FormUrlEncoded()
   Future<dynamic> excluirPostagem(@Path("id") String id);
 
-  @POST(
-      "https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}/like")
+  @POST("https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}/like")
   @FormUrlEncoded()
   Future<dynamic> darLike(@Path("id") String id);
 
-  @DELETE("https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}/like")
+  @DELETE(
+      "https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}/like")
   @FormUrlEncoded()
   Future<dynamic> removerLike(@Path("id") String id);
 
