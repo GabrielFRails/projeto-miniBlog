@@ -16,6 +16,7 @@ class TelaPrincipal extends StatefulWidget {
 }
 
 class _TelaPrincipalState extends State<TelaPrincipal> {
+  ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
   int _currentIndex = 0;
   final _controlerUsuario = GetIt.I.get<ControladorUsuario>();
   List<Widget> screens = [
@@ -49,6 +50,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                     color: Colors.white,
                   ),
                   onPressed: () {
+                    _controladorUsuario.filtrarUsuarios("");
                     showSearch(context: context, delegate: UsuariosSearch());
                   }),
         ],

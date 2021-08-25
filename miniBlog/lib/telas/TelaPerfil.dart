@@ -25,7 +25,8 @@ class _TelaPerfilState extends State<TelaPerfil>
 
   @override
   Widget build(BuildContext context) {
-    
+    _controladorSeguindo.listarSeguidores();
+    _controladorSeguindo.listarSeguindo();
     return Scaffold(
         body: ListView(
       primary: false,
