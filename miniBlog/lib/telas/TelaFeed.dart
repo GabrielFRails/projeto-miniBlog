@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/ControladorPost.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
-import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/enums/StatusConsulta.dart';
 import 'package:miniBlog/util/UtilDialogo.dart';
 import 'package:miniBlog/widgets_padrao/PostagemWidget.dart';
@@ -19,7 +18,6 @@ class TelaFeed extends StatefulWidget {
 class _TelaFeedState extends State<TelaFeed> {
   ControladorPost _controladorPost = GetIt.I.get<ControladorPost>();
   ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
-  Usuario _usuarioRetorno = GetIt.I.get<ControladorUsuario>().mUsuarioRetorno;
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: true);
@@ -111,8 +109,8 @@ class _TelaFeedState extends State<TelaFeed> {
                                   sucesso: _consultarOFeed);
                             },
                             onTap: () {
-                              _controladorUsuario.buscaUsuario(
-                                  int.parse(postSeguido.usuario.id),
+                              int auxiliarId = int.parse(postSeguido.usuario.id);
+                              _controladorUsuario.buscaUsuario(auxiliarId,
                                   sucesso: () {
                                 Navigator.pushNamed(
                                     context, "/telaExibirPerfil");

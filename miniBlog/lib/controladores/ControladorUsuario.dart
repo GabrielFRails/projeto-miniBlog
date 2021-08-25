@@ -146,16 +146,18 @@ abstract class _ControladorUsuarioBase with Store {
   }
 
   void buscaUsuario(int idUsuario,
-      {Function() sucesso, Function(String mensagem) erro}) {
+      {Usuario userRetorno,
+      Function() sucesso,
+      Function(String mensagem) erro}) {
     mService.buscarUsuario(idUsuario).then((value) {
-      mUsuarioRetorno = value.sucesso;
+      mUsuarioRetorno = value;
+      userRetorno = value;
       sucesso?.call();
     }).catchError((onError) {
       erro?.call(onError.response.data["falha"]);
     });
   }
 
-  //ainda precisa fazer
   void filtrarUsuarios(String nome,
       {Function() sucesso,
       Function() carregando,

@@ -1,5 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/enums/StatusConsulta.dart';
 import 'package:miniBlog/servicos/ServicosDoMiniBlog.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
@@ -12,7 +11,6 @@ class ControladorSeguindo = _ControladorSeguindoBase with _$ControladorSeguindo;
 //Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
 abstract class _ControladorSeguindoBase with Store {
-  ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
   ServicosDoMiniBlog mService = GetIt.I.get<ServicosDoMiniBlog>();
 
   ObservableList<Usuario> followBuscados = ObservableList<Usuario>();

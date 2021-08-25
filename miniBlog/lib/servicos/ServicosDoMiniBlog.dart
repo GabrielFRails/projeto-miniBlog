@@ -3,7 +3,6 @@ import 'package:miniBlog/entidades/Comentario.dart';
 import 'package:miniBlog/entidades/Postagem.dart';
 import 'package:miniBlog/entidades/Token.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
-import 'package:miniBlog/util/UtilRetorno.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart' hide Headers;
 
@@ -54,8 +53,7 @@ abstract class ServicosDoMiniBlog {
   @PUT("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens")
   Future<Postagem> editarPostagem(@Body() Postagem postagem);
 
-  @DELETE(
-      "https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}")
+  @DELETE("https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}")
   @FormUrlEncoded()
   Future<dynamic> excluirPostagem(@Path("id") String id);
 
@@ -107,8 +105,8 @@ abstract class ServicosDoMiniBlog {
   Future<dynamic> cadastrarUsuario(@Body() Usuario usuario);
 
   @GET("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/{idUsuario}")
-  @FormUrlEncoded()
-  Future<UtilRetornoUsuario> buscarUsuario(@Path("idUsuario") int idUsuario);
+  //@FormUrlEncoded()
+  Future<Usuario> buscarUsuario(@Path("idUsuario") int idUsuario);
 
   @PUT("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/{idUsuario}")
   Future<dynamic> editarUsuario(

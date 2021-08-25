@@ -455,7 +455,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<UtilRetornoUsuario> buscarUsuario(idUsuario) async {
+  Future<Usuario> buscarUsuario(idUsuario) async {
     ArgumentError.checkNotNull(idUsuario, 'idUsuario');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -467,10 +467,9 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
             method: 'GET',
             headers: <String, dynamic>{},
             extra: _extra,
-            contentType: 'application/x-www-form-urlencoded',
             baseUrl: baseUrl),
         data: _data);
-    final value = UtilRetornoUsuario.fromJson(_result.data);
+    final value = Usuario.fromJson(_result.data);
     return value;
   }
 
