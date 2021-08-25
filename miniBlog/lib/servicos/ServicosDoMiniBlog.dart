@@ -38,20 +38,20 @@ abstract class ServicosDoMiniBlog {
       @Path("id") String id, @Body() Comentario comentarioDto);
 
   @DELETE(
-      "https://app.pactosolucoes.com.br/socialmedia-api/usuarios/comentarios/{id}")
+      "https://app.pactosolucoes.com.br/socialmedia-api/comentarios/{id}")
   @FormUrlEncoded()
-  Future<String> deletarComentario(@Path("id") String id);
+  Future<dynamic> excluirComentario(@Path("id") String id);
 
   // //Parte Serviços das Postagens
 
   @GET("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens")
   Future<Postagem> listarPostagens();
 
-  @POST("/postagens")
-  Future<Postagem> cadastrarPostagem(@Body() Postagem postagem);
+  @POST("https://app.pactosolucoes.com.br/socialmedia-api/postagens")
+  Future<dynamic> cadastrarPostagem(@Body() Postagem postagem);
 
-  @PUT("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/postagens")
-  Future<Postagem> editarPostagem(@Body() Postagem postagem);
+  @PUT("https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}")
+  Future<dynamic> editarPostagem(@Body() Postagem postagem, @Path("id") String id);
 
   @DELETE("https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}")
   @FormUrlEncoded()

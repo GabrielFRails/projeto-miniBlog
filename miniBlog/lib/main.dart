@@ -9,9 +9,11 @@ import 'package:miniBlog/servicos/ServicosDoMiniBlog.dart';
 import 'package:miniBlog/telas/TelaCadastro.dart';
 import 'package:miniBlog/telas/TelaComentario.dart';
 import 'package:miniBlog/telas/TelaEditarPerfil.dart';
+import 'package:miniBlog/telas/TelaEditarPost.dart';
 import 'package:miniBlog/telas/TelaExibirUsuario.dart';
 import 'package:miniBlog/telas/TelaLogin.dart';
 import 'package:miniBlog/telas/TelaPerfil.dart';
+import 'package:miniBlog/telas/TelaPostar.dart';
 import 'package:miniBlog/telas/TelaPrincipal.dart';
 import 'package:miniBlog/telas/TelaSplash.dart';
 
@@ -45,7 +47,9 @@ class MyApp extends StatelessWidget {
           "/telaPerfil": (_) => TelaPerfil(),
           "/telaEditarPerfil": (_) => TelaEditarPerfil(),
           "/telaComentario": (_) => TelaComentario(),
+          "/telaPostar": (_) => TelaPostar(),
           "/telaExibirPerfil": (_) => TelaExibirUsuario(),
+          "/telaEditarPost": (_) => TelaEditarPost()
         });
   }
 }

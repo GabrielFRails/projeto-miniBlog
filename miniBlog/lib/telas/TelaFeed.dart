@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/ControladorPost.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
@@ -43,9 +44,15 @@ class _TelaFeedState extends State<TelaFeed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed("/telaPostar");
+        },
+        backgroundColor: Colors.green,
+        child: Icon(FontAwesomeIcons.featherAlt),
+      ),
       body: SmartRefresher(
           enablePullDown: true,
-          enablePullUp: true,
           onRefresh: _consultarOFeed,
           controller: _refreshController,
           header: MaterialClassicHeader(
@@ -86,27 +93,44 @@ class _TelaFeedState extends State<TelaFeed> {
                             username: "${postSeguido.usuario.nome}",
                             timeAgo: "${postSeguido.data}",
                             text: "${postSeguido.conteudo}",
-                            comments: 3,
+                            comments: postSeguido.qntdComentario,
                             onPressedComment: () {
                               _controladorPost.postId = postSeguido.id;
                               Navigator.of(context)
                                   .pushNamed("/telaComentario");
                             },
-                            favorites: "4",
+                            favorites: postSeguido.qntdLike,
                             onPressedLike: () {
                               postSeguido.liked
                                   ? _controladorPost.removerLike(postSeguido.id,
                                       sucesso: () {
-                                      setState(() {});
+                                      setState(() {
+                                        postSeguido.qntdLike--;
+                                      });
                                     })
                                   : _controladorPost.darLike(postSeguido.id,
                                       sucesso: () {
-                                      setState(() {});
+                                      setState(() {
+                                        postSeguido.qntdLike++;
+                                      });
                                     });
+                            },
+                            onPressedEdit: () {
+                              _controladorPost.postEditar = postSeguido;
+                              Navigator.of(context).pushNamed("/telaEditarPost");
                             },
                             onPressedDelete: () {
                               _controladorPost.excluirPostagem(postSeguido.id,
-                                  sucesso: _consultarOFeed);
+                                  sucesso: () {
+                                _consultarOFeed();
+                                Navigator.of(context).pop();
+                              }, erro: (msg) {
+                                UtilDialogo.exibirAlerta(context,
+                                    mensagem: "Houve um erro",
+                                    titulo: "Ops", onTap: () {
+                                  Navigator.of(context).pop();
+                                });
+                              });
                             },
                             onTap: () {
                               int auxiliarId = int.parse(postSeguido.usuario.id);

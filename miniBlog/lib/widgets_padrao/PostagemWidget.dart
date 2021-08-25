@@ -8,7 +8,7 @@ class PostagemWidget extends StatelessWidget {
   final String timeAgo;
   final String text;
   final int comments;
-  final String favorites;
+  final int favorites;
   final BuildContext context;
   final VoidCallback onPressedComment;
   final VoidCallback onPressedLike;
@@ -85,7 +85,7 @@ class PostagemWidget extends StatelessWidget {
     return Row(
       children: [
         Container(
-          margin: const EdgeInsets.only(right: 5.0),
+          margin: const EdgeInsets.only(right: 14.0),
           child: Text(this.username,
               style: GoogleFonts.nunitoSans(
                   fontSize: 17, fontWeight: FontWeight.bold)),
@@ -159,7 +159,7 @@ class PostagemWidget extends StatelessWidget {
           SizedBox(width: 15),
           postIconButton(
               icon: FontAwesomeIcons.heart,
-              text: this.favorites,
+              text: this.favorites.toString(),
               onPressed: onPressedLike,
               color: color),
         ],

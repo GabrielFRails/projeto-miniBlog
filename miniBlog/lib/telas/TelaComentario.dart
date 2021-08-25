@@ -1,8 +1,10 @@
 import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/ControladorPost.dart';
+import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/entidades/Comentario.dart';
 import 'package:miniBlog/enums/StatusConsulta.dart';
 import 'package:miniBlog/util/UtilDialogo.dart';
@@ -19,7 +21,9 @@ class _TelaComentarioState extends State<TelaComentario> {
   ControladorPost _controladorPost = GetIt.I.get<ControladorPost>();
   final formKey = GlobalKey<FormState>();
   final TextEditingController _controladorComentario = TextEditingController();
+  ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
   Comentario comentarioAdicionar = new Comentario();
+  ScrollController _scrollController = new ScrollController();
 
   @override
   void initState() {
@@ -45,6 +49,7 @@ class _TelaComentarioState extends State<TelaComentario> {
         case StatusConsulta.SUCESSO:
           return _controladorPost.comentariosPost.length != 0
               ? ListView.builder(
+                  controller: _scrollController,
                   itemCount: _controladorPost.comentariosPost.length,
                   itemBuilder: (context, index) {
                     var comentario = _controladorPost.comentariosPost[index];
@@ -57,6 +62,27 @@ class _TelaComentarioState extends State<TelaComentario> {
                           username: "${comentario.usuario.nome}",
                           timeAgo: "2",
                           text: "${comentario.conteudo}",
+                          visible: _controladorUsuario.isCriador(
+                              _controladorUsuario.mUsuarioLogado.id,
+                              comentario.usuario.id),
+                          onPressedDelete: () {
+                            _controladorPost.excluirComentario(
+                                comentario.idComentario, sucesso: () {
+                              Navigator.of(context).pop();
+                              setState(() {});
+                              // SchedulerBinding.instance
+                              //     .addPostFrameCallback((_) {
+                              //   _scrollController.animateTo(
+                              //     _scrollController.position.maxScrollExtent,
+                              //     duration: const Duration(milliseconds: 300),
+                              //     curve: Curves.easeOut,
+                              //   );
+                              // });
+                            }, erro: (msg) {
+                              UtilDialogo.exibirAlerta(context,
+                                  mensagem: msg, titulo: "ops!");
+                            });
+                          },
                         )),
                         Divider(
                           height: 1,
@@ -106,8 +132,11 @@ class _TelaComentarioState extends State<TelaComentario> {
               comentarioAdicionar.idPostagem = _controladorPost.postId;
               _controladorPost.cadastrarComentario(comentarioAdicionar,
                   sucesso: () {
-                setState(() {});
+                setState(() {
+                  _controladorComentario.text = "";
+                });
               });
+              //  _scrollController.jumpTo(value)
             }
           },
           formKey: formKey,
