@@ -25,91 +25,107 @@ class _TelaPerfilState extends State<TelaPerfil> {
   ControladorWidget _controladorWidget = GetIt.I.get<ControladorWidget>();
   Usuario _usuarioLogado = GetIt.I.get<ControladorUsuario>().mUsuarioLogado;
 
+  bool carregando = true;
+
   @override
   void initState() {
-    _controladorSeguindo.listarSeguidores(sucesso: () {
-      setState(() {});
-    });
-    _controladorSeguindo.listarSeguindo(sucesso: () {
-      setState(() {});
-    });
+    _controladorSeguindo.listarSeguidores(
+        email: _usuarioLogado.email,
+        carregando: () {
+          carregando = true;
+        },
+        sucesso: () {
+          _controladorSeguindo.listarSeguindo(
+              email: _usuarioLogado.email,
+              carregando: () {
+                carregando = true;
+              },
+              sucesso: () {
+                carregando = false;
+                setState(() {});
+              });
+        });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView(
-      primary: false,
-      shrinkWrap: true,
-      padding: EdgeInsets.all(25),
-      physics: BouncingScrollPhysics(),
-      children: [
-        ImagemPerfilWidget(
-          linkImagem: "",
-          //_usuarioLogado.imagemPerfil,
-          tamanhoImagem: 150,
-          onTap: () {
-            Navigator.pushNamed(context, "/telaEditarPerfil");
-          },
-        ),
-        const SizedBox(height: 24),
-        buildNomeUsuario(_usuarioLogado),
-        const SizedBox(height: 24),
-        DadosPerfilWidget(),
-        const SizedBox(height: 50),
-        Center(
-          child: Column(
-            children: [
-              BotaoPadrao(
-                context: context,
-                value: "Editar o meu Perfil",
-                onTap: () {
-                  Navigator.pushNamed(context, "/telaEditarPerfil");
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Observer(builder: (_) {
-                return BotaoPadrao(
-                    value: "Mudar tema",
-                    onTap: _controladorWidget.darkThemeSelected
-                        ? () {
-                            setState(() {
-                              _controladorUsuario.themeMode = ThemeMode.light;
-                              _controladorWidget.darkThemeSelected =
-                                  !_controladorWidget.darkThemeSelected;
-                            });
-                          }
-                        : () {
-                            setState(() {
-                              _controladorUsuario.themeMode = ThemeMode.dark;
-                              _controladorWidget.darkThemeSelected =
-                                  !_controladorWidget.darkThemeSelected;
-                            });
-                          });
-              })
-            ],
-          ),
-        ),
-      ],
-    ));
+        body: carregando
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView(
+                primary: false,
+                shrinkWrap: true,
+                padding: EdgeInsets.all(25),
+                physics: BouncingScrollPhysics(),
+                children: [
+                  ImagemPerfilWidget(
+                    linkImagem: _usuarioLogado.imagemPerfil,
+                    tamanhoImagem: 150,
+                    onTap: () {
+                      Navigator.pushNamed(context, "/telaEditarPerfil");
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                  buildNomeUsuario(_usuarioLogado),
+                  const SizedBox(height: 24),
+                  DadosPerfilWidget(),
+                  const SizedBox(height: 50),
+                  Center(
+                    child: Column(
+                      children: [
+                        BotaoPadrao(
+                          context: context,
+                          value: "Editar o meu Perfil",
+                          onTap: () {
+                            Navigator.pushNamed(context, "/telaEditarPerfil");
+                          },
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Observer(builder: (_) {
+                          return BotaoPadrao(
+                              value: "Mudar tema",
+                              onTap: _controladorWidget.darkThemeSelected
+                                  ? () {
+                                      setState(() {
+                                        _controladorUsuario.themeMode =
+                                            ThemeMode.light;
+                                        _controladorWidget.darkThemeSelected =
+                                            !_controladorWidget
+                                                .darkThemeSelected;
+                                      });
+                                    }
+                                  : () {
+                                      setState(() {
+                                        _controladorUsuario.themeMode =
+                                            ThemeMode.dark;
+                                        _controladorWidget.darkThemeSelected =
+                                            !_controladorWidget
+                                                .darkThemeSelected;
+                                      });
+                                    });
+                        }),
+                      ],
+                    ),
+                  ),
+                ],
+              ));
   }
 
   Widget buildNomeUsuario(Usuario usuario) => Column(
         children: [
           Text(
-            "nome",
-            // '${_usuarioLogado.nome}',
-            //usuario.nome,
+            '${_usuarioLogado.nome}',
             style: UtilStyle.text(fontSize: 25, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 4),
           Text(
-            "email",
-            //  '${_usuarioLogado.email}',
-            //usuario.email,
+            '${_usuarioLogado.email}',
             style: GoogleFonts.nunitoSans(
                 color: Colors.grey, fontWeight: FontWeight.w300),
           )

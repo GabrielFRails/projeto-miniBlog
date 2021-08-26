@@ -37,8 +37,7 @@ abstract class ServicosDoMiniBlog {
   Future<String> editarComentario(
       @Path("id") String id, @Body() Comentario comentarioDto);
 
-  @DELETE(
-      "https://app.pactosolucoes.com.br/socialmedia-api/comentarios/{id}")
+  @DELETE("https://app.pactosolucoes.com.br/socialmedia-api/comentarios/{id}")
   @FormUrlEncoded()
   Future<dynamic> excluirComentario(@Path("id") String id);
 
@@ -51,7 +50,8 @@ abstract class ServicosDoMiniBlog {
   Future<dynamic> cadastrarPostagem(@Body() Postagem postagem);
 
   @PUT("https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}")
-  Future<dynamic> editarPostagem(@Body() Postagem postagem, @Path("id") String id);
+  Future<dynamic> editarPostagem(
+      @Body() Postagem postagem, @Path("id") String id);
 
   @DELETE("https://app.pactosolucoes.com.br/socialmedia-api/postagens/{id}")
   @FormUrlEncoded()
@@ -84,7 +84,8 @@ abstract class ServicosDoMiniBlog {
   // //Parte Serviços Seguindo
 
   @GET("https://app.pactosolucoes.com.br/socialmedia-api/seguindo")
-  Future<List<Usuario>> listarSeguindo(); //quem eu sigo
+  Future<List<Usuario>> listarSeguindo(
+      {@Query("email") String email}); //quem eu sigo
 
   @POST("https://app.pactosolucoes.com.br/socialmedia-api/seguindo/{id}")
   Future<String> seguirUsuario(@Path("id") int id);
@@ -94,7 +95,7 @@ abstract class ServicosDoMiniBlog {
   Future<String> unFollowUser(@Path("id") int id);
 
   @GET("https://app.pactosolucoes.com.br/socialmedia-api/seguindo/seguidores")
-  Future<List<Usuario>> listarMeusSeguidores();
+  Future<List<Usuario>> listarMeusSeguidores({@Query("email") String email});
 
   // //Parte Serviços do Usuário
 

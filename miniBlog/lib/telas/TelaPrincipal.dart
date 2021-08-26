@@ -5,6 +5,7 @@ import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/telas/TelaFeed.dart';
 import 'package:miniBlog/telas/TelaPerfil.dart';
+import 'package:miniBlog/util/ImagemPerfilWidget.dart';
 import 'package:miniBlog/util/UtilDialogo.dart';
 import 'package:miniBlog/widgets_padrao/BotaoPadrao.dart';
 import 'package:miniBlog/util/UtilStyle.dart';
@@ -27,7 +28,6 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
 
   @override
   void initState() {
-    _controladorUsuario.filtrarUsuarios("");
     super.initState();
   }
 

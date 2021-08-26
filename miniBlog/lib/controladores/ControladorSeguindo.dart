@@ -24,7 +24,8 @@ abstract class _ControladorSeguindoBase with Store {
   int numeroFollowers;
 
   bool isUsuarioLogadoSeguindo(Usuario usuarioPesquisa) {
-    return followBuscados.indexWhere(
+    print(usuarioPesquisa);
+    return followersBuscados.indexWhere(
             (userSeguido) => userSeguido.id == usuarioPesquisa.id) ==
         -1;
   }
@@ -48,12 +49,13 @@ abstract class _ControladorSeguindoBase with Store {
   }
 
   void listarSeguindo(
-      {Function() sucesso,
+      {String email,
+      Function() sucesso,
       Function() carregando,
       Function(String mensagem) erro}) {
     carregando?.call();
     mStatusConsultaFollow = StatusConsulta.CARREGANDO;
-    mService.listarSeguindo().then((responseFollows) {
+    mService.listarSeguindo(email: email).then((responseFollows) {
       followBuscados.clear();
       followBuscados.addAll(responseFollows);
       mStatusConsultaFollow = StatusConsulta.SUCESSO;
@@ -66,16 +68,17 @@ abstract class _ControladorSeguindoBase with Store {
   }
 
   void listarSeguidores(
-      {Function() sucesso,
+      {String email,
+      Function() sucesso,
       Function() carregando,
       Function(String mensagem) erro}) {
     carregando?.call();
     mStatusConsultaFollowers = StatusConsulta.CARREGANDO;
-    mService.listarMeusSeguidores().then((responseFollowers) {
+    mService.listarMeusSeguidores(email: email).then((responseFollowers) {
       followersBuscados.clear();
       followersBuscados.addAll(responseFollowers);
       mStatusConsultaFollowers = StatusConsulta.SUCESSO;
-      numeroFollowers = responseFollowers.length;
+      numeroFollowers = responseFollowers.length - 1;
       sucesso?.call();
     }).catchError((onError) {
       mStatusConsultaFollowers = StatusConsulta.ERRO;

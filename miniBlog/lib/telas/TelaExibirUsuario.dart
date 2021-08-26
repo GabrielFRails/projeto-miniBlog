@@ -21,80 +21,115 @@ class _TelaExibirUsuarioState extends State<TelaExibirUsuario>
     with AfterLayoutMixin<TelaExibirUsuario> {
   BuildContext mMainContext;
   Usuario _usuarioRetorno = GetIt.I.get<ControladorUsuario>().mUsuarioRetorno;
+  Usuario _usuarioLogado = GetIt.I.get<ControladorUsuario>().mUsuarioLogado;
   ControladorSeguindo _controladorSeguindo = GetIt.I.get<ControladorSeguindo>();
+
+  bool carregando = true;
+
+  @override
+  void initState() {
+    _controladorSeguindo.listarSeguidores(
+        email: _usuarioRetorno.email,
+        carregando: () {
+          carregando = true;
+        },
+        sucesso: () {
+          _controladorSeguindo.listarSeguindo(
+              email: _usuarioRetorno.email,
+              carregando: () {
+                carregando = true;
+              },
+              sucesso: () {
+                carregando = false;
+                setState(() {});
+              });
+        });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 10),
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: ListView(
-        primary: false,
-        shrinkWrap: true,
-        padding: EdgeInsets.all(25),
-        physics: BouncingScrollPhysics(),
-        children: [
-          ImagemPerfilWidget(
-            linkImagem: _usuarioRetorno.imagemPerfil,
-            tamanhoImagem: 150,
-          ),
-          const SizedBox(height: 24),
-          buildNomeUsuario(_usuarioRetorno),
-          const SizedBox(height: 24),
-          //DadosPerfilWidget(),
-          const SizedBox(height: 50),
-          Center(
-            child: BotaoPadrao(
-              context: context,
-              value:
-                  _controladorSeguindo.isUsuarioLogadoSeguindo(_usuarioRetorno)
-                      ? "Seguir"
-                      : "Deixar de Seguir",
-              onTap: () {
-                _controladorSeguindo.isUsuarioLogadoSeguindo(_usuarioRetorno)
-                    ? _controladorSeguindo.seguirUsuario(
-                        int.parse(_usuarioRetorno.id), sucesso: () {
-                        UtilDialogo.exibirAlerta(context,
-                            titulo: "Sucesso",
-                            mensagem: "Você Seguiu ${_usuarioRetorno.nome}");
-                      }, erro: (mensagem) {
-                        UtilDialogo.exibirAlerta(context,
-                            titulo:
-                                "Vish deu pau pra seguir ${_usuarioRetorno.nome}",
-                            mensagem: mensagem);
-                      })
-                    : _controladorSeguindo.unfollowUsuario(
-                        int.parse(_usuarioRetorno.id), sucesso: () {
-                        UtilDialogo.exibirAlerta(context,
-                            titulo: "Sucesso",
-                            mensagem:
-                                "Você deixou de Seguir ${_usuarioRetorno.nome}");
-                      }, erro: (mensagem) {
-                        UtilDialogo.exibirAlerta(context,
-                            titulo: "Vish deu Pau", mensagem: mensagem);
-                      });
-              },
-            ),
-          ),
-          const SizedBox(height: 24),
-          Center(
-            child: BotaoPadrao(
-              context: context,
-              value: "Ver Publicações",
-              onTap: () {},
-            ),
-          ),
-        ],
-      ),
-    ));
+        body: carregando
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Container(
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height / 10),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: ListView(
+                  primary: false,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.all(25),
+                  physics: BouncingScrollPhysics(),
+                  children: [
+                    ImagemPerfilWidget(
+                      linkImagem: _usuarioRetorno.imagemPerfil,
+                      tamanhoImagem: 150,
+                    ),
+                    const SizedBox(height: 24),
+                    buildNomeUsuario(_usuarioRetorno),
+                    const SizedBox(height: 24),
+                    DadosPerfilWidget(),
+                    const SizedBox(height: 50),
+                    Center(
+                      child: BotaoPadrao(
+                        context: context,
+                        value: _controladorSeguindo
+                                .isUsuarioLogadoSeguindo(_usuarioLogado)
+                            ? "Seguir"
+                            : "Deixar de Seguir",
+                        onTap: () {
+                          _controladorSeguindo
+                                  .isUsuarioLogadoSeguindo(_usuarioLogado)
+                              ? _controladorSeguindo.seguirUsuario(
+                                  int.parse(_usuarioRetorno.id), sucesso: () {
+                                  UtilDialogo.exibirAlerta(context,
+                                      titulo: "Sucesso",
+                                      mensagem:
+                                          "Você Seguiu ${_usuarioRetorno.nome}");
+                                  setState(() {});
+                                }, erro: (mensagem) {
+                                  UtilDialogo.exibirAlerta(context,
+                                      titulo:
+                                          "Vish deu pau pra seguir ${_usuarioRetorno.nome}",
+                                      mensagem: mensagem);
+                                })
+                              : _controladorSeguindo.unfollowUsuario(
+                                  int.parse(_usuarioRetorno.id), sucesso: () {
+                                  UtilDialogo.exibirAlerta(context,
+                                      titulo: "Sucesso",
+                                      mensagem:
+                                          "Você deixou de Seguir ${_usuarioRetorno.nome}");
+                                  setState(() {});
+                                }, erro: (mensagem) {
+                                  UtilDialogo.exibirAlerta(context,
+                                      titulo: "Vish deu Pau",
+                                      mensagem: mensagem);
+                                });
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Center(
+                      child: BotaoPadrao(
+                        context: context,
+                        value: "Ver Publicações",
+                        onTap: () {},
+                      ),
+                    ),
+                  ],
+                ),
+              ));
   }
 
   Widget buildNomeUsuario(Usuario usuario) => Column(
         children: [
           Text(
             '${_usuarioRetorno.nome}',
-            //usuario.nome,
             style: GoogleFonts.nunitoSans(
                 fontSize: 25,
                 color: Color(0xff0D0D0D),
@@ -103,7 +138,6 @@ class _TelaExibirUsuarioState extends State<TelaExibirUsuario>
           const SizedBox(height: 4),
           Text(
             '${_usuarioRetorno.email}',
-            //usuario.email,
             style: GoogleFonts.nunitoSans(
                 color: Colors.grey, fontWeight: FontWeight.w300),
           )

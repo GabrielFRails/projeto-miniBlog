@@ -11,6 +11,7 @@ import 'package:miniBlog/telas/TelaCadastro.dart';
 import 'package:miniBlog/telas/TelaComentario.dart';
 import 'package:miniBlog/telas/TelaEditarPerfil.dart';
 import 'package:miniBlog/telas/TelaEditarPost.dart';
+import 'package:miniBlog/telas/TelaExibirUsuario.dart';
 import 'package:miniBlog/telas/TelaLogin.dart';
 import 'package:miniBlog/telas/TelaPerfil.dart';
 import 'package:miniBlog/telas/TelaPostar.dart';
@@ -73,7 +74,8 @@ class _MaterialAppWithThemeState extends State<MaterialAppWithTheme> {
             "/telaEditarPerfil": (_) => TelaEditarPerfil(),
             "/telaComentario": (_) => TelaComentario(),
             "/telaPostar": (_) => TelaPostar(),
-            "/telaEditarPost": (_) => TelaEditarPost()
+            "/telaEditarPost": (_) => TelaEditarPost(),
+            "/telaExibirPerfil": (_) => TelaExibirUsuario()
           });
     });
   }

@@ -76,6 +76,7 @@ class _TelaFeedState extends State<TelaFeed> {
             return Text("Desculpe, falhamos");
             break;
           case StatusConsulta.SUCESSO:
+            _controladorUsuario.filtrarUsuarios("");
             return _controladorPost.postsSeguidos.length != 0
                 ? ListView.builder(
                     shrinkWrap: true,
