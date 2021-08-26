@@ -7,6 +7,7 @@ import 'package:miniBlog/controladores/ControladorWidget.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/util/ImagemWidget.dart';
 import 'package:miniBlog/util/UtilDialogo.dart';
+import 'package:miniBlog/util/UtilStyle.dart';
 import 'package:miniBlog/widgets_padrao/BotaoPadrao.dart';
 import 'package:miniBlog/widgets_padrao/IconButtonPadrao.dart';
 import 'package:miniBlog/widgets_padrao/TextFieldPadrao.dart';
@@ -49,7 +50,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: UtilStyle.postContainer(),
         body: SingleChildScrollView(
           child: Container(
             child: Column(
@@ -163,10 +164,9 @@ class _TelaCadastroState extends State<TelaCadastro> {
     var chooseImage = Container(
         width: double.maxFinite,
         height: double.maxFinite,
-        color: Color.fromRGBO(81, 85, 90, 1),
         child: AlertDialog(
           insetPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 150),
-          backgroundColor: Colors.white,
+          backgroundColor: UtilStyle.postContainer(),
           title: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,

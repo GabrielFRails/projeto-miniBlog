@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/AutenticarUsuario.dart';
 import 'package:miniBlog/entidades/Postagem.dart';
@@ -44,6 +46,11 @@ abstract class _ControladorUsuarioBase with Store {
   void changeVisibility() {
     obscureText = !obscureText;
   }
+
+  @observable
+  ThemeMode themeMode = ThemeMode.light;
+
+  BuildContext context;
 
   @observable
   ObservableList<Postagem> postsSeguidos = new ObservableList<Postagem>();

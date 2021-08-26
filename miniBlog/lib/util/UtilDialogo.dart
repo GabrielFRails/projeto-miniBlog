@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miniBlog/util/UtilStyle.dart';
 import 'package:miniBlog/widgets_padrao/BotaoPadrao.dart';
 
 class UtilDialogo {
@@ -7,10 +8,9 @@ class UtilDialogo {
     var alert = Container(
         width: MediaQuery.of(context).size.width * 0.7,
         height: MediaQuery.of(context).size.height * 0.5,
-        color: Color.fromRGBO(81, 85, 90, 1),
         child: AlertDialog(
           insetPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 250),
-          backgroundColor: Colors.white,
+          backgroundColor: UtilStyle.postContainer(),
           title: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -38,8 +38,7 @@ class UtilDialogo {
                 padding: const EdgeInsets.only(left: 10, right: 10),
                 child: Row(
                   children: [
-                    if(mensagem != null)
-                    Text(mensagem),
+                    if (mensagem != null) Text(mensagem),
                   ],
                 ),
               ),
@@ -82,7 +81,9 @@ class UtilDialogo {
                   child: Padding(
                       padding: EdgeInsets.all(16.0),
                       child: CircularProgressIndicator(
-                        backgroundColor: Colors.green[300],
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Color(0xff2869FC)),
+                        backgroundColor: Color(0xff248FE0),
                       ))));
         });
   }

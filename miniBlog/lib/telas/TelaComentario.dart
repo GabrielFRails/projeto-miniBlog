@@ -7,6 +7,7 @@ import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/entidades/Comentario.dart';
 import 'package:miniBlog/enums/StatusConsulta.dart';
 import 'package:miniBlog/util/UtilDialogo.dart';
+import 'package:miniBlog/util/UtilStyle.dart';
 import 'package:miniBlog/widgets_padrao/ComentarioWidget.dart';
 
 class TelaComentario extends StatefulWidget {
@@ -69,14 +70,6 @@ class _TelaComentarioState extends State<TelaComentario> {
                                 comentario.idComentario, sucesso: () {
                               Navigator.of(context).pop();
                               setState(() {});
-                              // SchedulerBinding.instance
-                              //     .addPostFrameCallback((_) {
-                              //   _scrollController.animateTo(
-                              //     _scrollController.position.maxScrollExtent,
-                              //     duration: const Duration(milliseconds: 300),
-                              //     curve: Curves.easeOut,
-                              //   );
-                              // });
                             }, erro: (msg) {
                               UtilDialogo.exibirAlerta(context,
                                   mensagem: msg, titulo: "ops!");
@@ -110,6 +103,11 @@ class _TelaComentarioState extends State<TelaComentario> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: BackButton(
+          onPressed: () {
+            Navigator.of(context).pushReplacementNamed("/telaPrincipal");
+          },
+        ),
         iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           "Página de comentário",
@@ -135,12 +133,11 @@ class _TelaComentarioState extends State<TelaComentario> {
                   _controladorComentario.text = "";
                 });
               });
-              //  _scrollController.jumpTo(value)
             }
           },
           formKey: formKey,
           commentController: _controladorComentario,
-          backgroundColor: Colors.grey[400],
+          backgroundColor: UtilStyle.commentBox(),
           textColor: Colors.white,
           sendWidget: Icon(Icons.send_sharp, size: 30, color: Colors.white),
         ),

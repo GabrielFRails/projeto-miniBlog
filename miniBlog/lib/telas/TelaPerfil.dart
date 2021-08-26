@@ -1,12 +1,14 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:miniBlog/controladores/ControladorSeguindo.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
+import 'package:miniBlog/controladores/ControladorWidget.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/util/DadosPerfilWidget.dart';
 import 'package:miniBlog/util/ImagemPerfilWidget.dart';
+import 'package:miniBlog/util/UtilStyle.dart';
 import 'package:miniBlog/widgets_padrao/BotaoPadrao.dart';
 
 class TelaPerfil extends StatefulWidget {
@@ -16,11 +18,11 @@ class TelaPerfil extends StatefulWidget {
   _TelaPerfilState createState() => _TelaPerfilState();
 }
 
-class _TelaPerfilState extends State<TelaPerfil>
-    with AfterLayoutMixin<TelaPerfil> {
+class _TelaPerfilState extends State<TelaPerfil> {
   BuildContext mMainContext;
   ControladorSeguindo _controladorSeguindo = GetIt.I.get<ControladorSeguindo>();
   ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
+  ControladorWidget _controladorWidget = GetIt.I.get<ControladorWidget>();
   Usuario _usuarioLogado = GetIt.I.get<ControladorUsuario>().mUsuarioLogado;
 
   @override
@@ -44,7 +46,8 @@ class _TelaPerfilState extends State<TelaPerfil>
       physics: BouncingScrollPhysics(),
       children: [
         ImagemPerfilWidget(
-          linkImagem: _usuarioLogado.imagemPerfil,
+          linkImagem: "",
+          //_usuarioLogado.imagemPerfil,
           tamanhoImagem: 150,
           onTap: () {
             Navigator.pushNamed(context, "/telaEditarPerfil");
@@ -56,22 +59,38 @@ class _TelaPerfilState extends State<TelaPerfil>
         DadosPerfilWidget(),
         const SizedBox(height: 50),
         Center(
-          child: BotaoPadrao(
-            context: context,
-            value: "Editar o meu Perfil",
-            onTap: () {
-              Navigator.pushNamed(context, "/telaEditarPerfil");
-            },
-          ),
-        ),
-        const SizedBox(height: 24),
-        Center(
-          child: BotaoPadrao(
-            context: context,
-            value: "Testar Filtrar Usuários",
-            onTap: () {
-              _controladorUsuario.filtrarUsuarios("");
-            },
+          child: Column(
+            children: [
+              BotaoPadrao(
+                context: context,
+                value: "Editar o meu Perfil",
+                onTap: () {
+                  Navigator.pushNamed(context, "/telaEditarPerfil");
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Observer(builder: (_) {
+                return BotaoPadrao(
+                    value: "Mudar tema",
+                    onTap: _controladorWidget.darkThemeSelected
+                        ? () {
+                            setState(() {
+                              _controladorUsuario.themeMode = ThemeMode.light;
+                              _controladorWidget.darkThemeSelected =
+                                  !_controladorWidget.darkThemeSelected;
+                            });
+                          }
+                        : () {
+                            setState(() {
+                              _controladorUsuario.themeMode = ThemeMode.dark;
+                              _controladorWidget.darkThemeSelected =
+                                  !_controladorWidget.darkThemeSelected;
+                            });
+                          });
+              })
+            ],
           ),
         ),
       ],
@@ -81,23 +100,19 @@ class _TelaPerfilState extends State<TelaPerfil>
   Widget buildNomeUsuario(Usuario usuario) => Column(
         children: [
           Text(
-            '${_usuarioLogado.nome}',
+            "nome",
+            // '${_usuarioLogado.nome}',
             //usuario.nome,
-            style: GoogleFonts.nunitoSans(
-                fontSize: 25,
-                color: Color(0xff0D0D0D),
-                fontWeight: FontWeight.bold),
+            style: UtilStyle.text(fontSize: 25, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 4),
           Text(
-            '${_usuarioLogado.email}',
+            "email",
+            //  '${_usuarioLogado.email}',
             //usuario.email,
             style: GoogleFonts.nunitoSans(
                 color: Colors.grey, fontWeight: FontWeight.w300),
           )
         ],
       );
-
-  @override
-  void afterFirstLayout(BuildContext context) {}
 }

@@ -23,6 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  day_night_switcher: any
   font_awesome_flutter: any
   flutter_svg: any
   animated_splash_screen: ^1.0.1

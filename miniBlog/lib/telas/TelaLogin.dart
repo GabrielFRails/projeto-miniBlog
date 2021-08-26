@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/animacao/FadeAnimacao.dart';
@@ -50,35 +49,31 @@ class _TelaLoginState extends State<TelaLogin> {
                           padding: EdgeInsets.all(5),
                           child: Column(
                             children: <Widget>[
-                              Observer(
-                                builder: (_) => TextFieldPadrao(
-                                  prefix: Icon(
-                                    Icons.alternate_email,
-                                  ),
-                                  hintText: "E-mail",
-                                  onChanged: (text) {
-                                    _usuario.email = text;
-                                  },
+                              TextFieldPadrao(
+                                prefix: Icon(
+                                  Icons.alternate_email,
                                 ),
+                                hintText: "E-mail",
+                                onChanged: (text) {
+                                  _usuario.email = text;
+                                },
                               ),
-                              Observer(
-                                builder: (_) => TextFieldPadrao(
-                                  prefix: Icon(Icons.lock),
-                                  hintText: "Senha",
-                                  obscureText: _controladorUsuario.obscureText,
-                                  maxLines: 1,
-                                  onChanged: (text) {
-                                    _usuario.senha = text;
+                              TextFieldPadrao(
+                                prefix: Icon(Icons.lock),
+                                hintText: "Senha",
+                                obscureText: _controladorUsuario.obscureText,
+                                maxLines: 1,
+                                onChanged: (text) {
+                                  _usuario.senha = text;
+                                },
+                                suffix: IconButtonPadrao(
+                                  radius: 32,
+                                  iconData: _controladorUsuario.obscureText
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  onTap: () {
+                                    _controladorUsuario.changeVisibility();
                                   },
-                                  suffix: IconButtonPadrao(
-                                    radius: 32,
-                                    iconData: _controladorUsuario.obscureText
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
-                                    onTap: () {
-                                      _controladorUsuario.changeVisibility();
-                                    },
-                                  ),
                                 ),
                               ),
                             ],

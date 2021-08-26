@@ -6,6 +6,7 @@ import 'package:miniBlog/controladores/ControladorPost.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/enums/StatusConsulta.dart';
 import 'package:miniBlog/util/UtilDialogo.dart';
+import 'package:miniBlog/util/UtilStyle.dart';
 import 'package:miniBlog/widgets_padrao/PostagemWidget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -21,7 +22,7 @@ class _TelaFeedState extends State<TelaFeed> {
   ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
 
   RefreshController _refreshController =
-      RefreshController(initialRefresh: true);
+      RefreshController(initialRefresh: false);
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) => _consultarOFeed());
@@ -45,18 +46,20 @@ class _TelaFeedState extends State<TelaFeed> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xff248FE0),
         onPressed: () {
           Navigator.of(context).pushNamed("/telaPostar");
         },
-        backgroundColor: Colors.green,
-        child: Icon(FontAwesomeIcons.featherAlt),
+        child: Icon(
+          FontAwesomeIcons.featherAlt,
+          color: Colors.white,
+        ),
       ),
       body: SmartRefresher(
-          enablePullDown: true,
           onRefresh: _consultarOFeed,
           controller: _refreshController,
           header: MaterialClassicHeader(
-            color: Colors.teal[200],
+            color: Colors.black54,
           ),
           child: listaDePosts()),
     );
@@ -99,19 +102,22 @@ class _TelaFeedState extends State<TelaFeed> {
                               Navigator.of(context)
                                   .pushNamed("/telaComentario");
                             },
-                            favorites: postSeguido.qntdLike,
+                            favorites:
+                                _controladorPost.postsSeguidos[index].qntdLike,
                             onPressedLike: () {
-                              postSeguido.liked
+                              _controladorPost.postsSeguidos[index].liked
                                   ? _controladorPost.removerLike(postSeguido.id,
                                       sucesso: () {
                                       setState(() {
-                                        postSeguido.qntdLike--;
+                                        _controladorPost
+                                            .postsSeguidos[index].qntdLike--;
                                       });
                                     })
                                   : _controladorPost.darLike(postSeguido.id,
                                       sucesso: () {
                                       setState(() {
-                                        postSeguido.qntdLike++;
+                                        _controladorPost
+                                            .postsSeguidos[index].qntdLike++;
                                       });
                                     });
                             },
@@ -148,7 +154,7 @@ class _TelaFeedState extends State<TelaFeed> {
                             },
                             color: _controladorPost.postsSeguidos[index].liked
                                 ? Colors.red
-                                : Colors.grey,
+                                : UtilStyle.iconColor(),
                           ),
                           Divider(
                             thickness: 1,

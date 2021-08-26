@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:miniBlog/util/UtilStyle.dart';
 
 class TextFieldPadrao extends StatelessWidget {
   final TextEditingController textEditingController;
@@ -28,12 +28,9 @@ class TextFieldPadrao extends StatelessWidget {
     return Container(
         padding: EdgeInsets.all(8.0),
         child: Theme(
-          data: Theme.of(context).copyWith(primaryColor: Color(0xff078783)),
+          data: Theme.of(context).copyWith(primaryColor: Color(0xff248FE0)),
           child: TextField(
-            style: GoogleFonts.nunitoSans(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: Colors.black54),
+            style: UtilStyle.text(),
             obscureText: obscureText,
             onChanged: onChanged,
             maxLines: maxLines,
@@ -49,10 +46,7 @@ class TextFieldPadrao extends StatelessWidget {
               enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey[300], width: 1.2)),
               hintText: hintText,
-              hintStyle: GoogleFonts.nunitoSans(
-                  color: Colors.grey[400],
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600),
+              hintStyle: UtilStyle.text(fontSize: 18),
             ),
           ),
         ));

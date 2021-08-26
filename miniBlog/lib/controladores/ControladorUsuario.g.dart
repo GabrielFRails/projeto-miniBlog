@@ -93,6 +93,21 @@ mixin _$ControladorUsuario on _ControladorUsuarioBase, Store {
     });
   }
 
+  final _$themeModeAtom = Atom(name: '_ControladorUsuarioBase.themeMode');
+
+  @override
+  ThemeMode get themeMode {
+    _$themeModeAtom.reportRead();
+    return super.themeMode;
+  }
+
+  @override
+  set themeMode(ThemeMode value) {
+    _$themeModeAtom.reportWrite(value, super.themeMode, () {
+      super.themeMode = value;
+    });
+  }
+
   final _$postsSeguidosAtom =
       Atom(name: '_ControladorUsuarioBase.postsSeguidos');
 
@@ -164,6 +179,7 @@ email: ${email},
 senha: ${senha},
 nome: ${nome},
 obscureText: ${obscureText},
+themeMode: ${themeMode},
 postsSeguidos: ${postsSeguidos},
 isLoginValido: ${isLoginValido}
     ''';
