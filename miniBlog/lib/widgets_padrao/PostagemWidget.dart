@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:miniBlog/util/UtilStyle.dart';
 
 class PostagemWidget extends StatelessWidget {
   final String avatar;
@@ -39,7 +39,7 @@ class PostagemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: UtilStyle.postContainer(),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -56,7 +56,7 @@ class PostagemWidget extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: CircleAvatar(
-          backgroundImage: NetworkImage(this.avatar),
+          backgroundImage: NetworkImage(this.avatar ?? ""),
         ),
       ),
     );
@@ -87,8 +87,7 @@ class PostagemWidget extends StatelessWidget {
         Container(
           margin: const EdgeInsets.only(right: 14.0),
           child: Text(this.username,
-              style: GoogleFonts.nunitoSans(
-                  fontSize: 17, fontWeight: FontWeight.bold)),
+              style: UtilStyle.text(fontSize: 17, fontWeight: FontWeight.bold)),
         ),
         SizedBox(
           width: 4,
@@ -106,10 +105,8 @@ class PostagemWidget extends StatelessWidget {
                     PopupMenuItem(
                       child: TextButton(
                         child: Text("Editar",
-                            style: GoogleFonts.nunitoSans(
-                                color: Color.fromRGBO(143, 148, 251, .9),
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600)),
+                            style: UtilStyle.text(
+                                fontSize: 15, fontWeight: FontWeight.w400)),
                         onPressed: onPressedEdit,
                       ),
                       value: 1,
@@ -118,10 +115,8 @@ class PostagemWidget extends StatelessWidget {
                       child: TextButton(
                         child: Text(
                           "Excluir",
-                          style: GoogleFonts.nunitoSans(
-                              color: Color.fromRGBO(143, 148, 251, .9),
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600),
+                          style: UtilStyle.text(
+                              fontSize: 15, fontWeight: FontWeight.w400),
                         ),
                         onPressed: onPressedDelete,
                       ),
@@ -141,7 +136,7 @@ class PostagemWidget extends StatelessWidget {
     return Text(
       text,
       overflow: TextOverflow.clip,
-      style: GoogleFonts.nunitoSans(fontSize: 14, fontWeight: FontWeight.w400),
+      style: UtilStyle.text(),
     );
   }
 
@@ -155,7 +150,8 @@ class PostagemWidget extends StatelessWidget {
           postIconButton(
               icon: FontAwesomeIcons.comment,
               text: this.comments.toString(),
-              onPressed: onPressedComment),
+              onPressed: onPressedComment,
+              color: UtilStyle.iconColor()),
           SizedBox(width: 15),
           postIconButton(
               icon: FontAwesomeIcons.heart,
@@ -178,14 +174,11 @@ class PostagemWidget extends StatelessWidget {
           ),
           onPressed: onPressed,
           iconSize: 14.0,
-          color: Colors.black45,
+          color: UtilStyle.iconColor(),
         ),
         Text(
           text,
-          style: TextStyle(
-            color: Colors.black45,
-            fontSize: 14.0,
-          ),
+          style: UtilStyle.text(),
         ),
       ],
     );

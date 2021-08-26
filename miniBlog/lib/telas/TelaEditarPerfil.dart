@@ -5,6 +5,7 @@ import 'package:miniBlog/animacao/FadeAnimacao.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/util/UtilDialogo.dart';
+import 'package:miniBlog/util/UtilStyle.dart';
 import 'package:miniBlog/widgets_padrao/BotaoPadrao.dart';
 import 'package:miniBlog/widgets_padrao/TextFieldPadrao.dart';
 
@@ -23,12 +24,12 @@ class _TelaEditarPerfilState extends State<TelaEditarPerfil> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: UtilStyle.postContainer(),
         body: SingleChildScrollView(
           child: Container(
             child: Column(
               children: <Widget>[
-                SizedBox(height: size.height * 0.04),
+                SizedBox(height: size.height * 0.08),
                 FadeAnimacao(
                     1.7,
                     SvgPicture.asset(
@@ -42,16 +43,6 @@ class _TelaEditarPerfilState extends State<TelaEditarPerfil> {
                       FadeAnimacao(
                           1.8,
                           Container(
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Color.fromRGBO(143, 148, 251, .2),
-                                      blurRadius: 20.0,
-                                      offset: Offset(0, 10))
-                                ]),
                             child: Column(
                               children: <Widget>[
                                 TextFieldPadrao(
@@ -76,7 +67,6 @@ class _TelaEditarPerfilState extends State<TelaEditarPerfil> {
                       SizedBox(
                         height: 30,
                       ),
-                      FadeAnimacao(2.0, Divider()),
                       FadeAnimacao(
                           1.9,
                           BotaoPadrao(

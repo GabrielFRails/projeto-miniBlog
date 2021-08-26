@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:miniBlog/util/UtilStyle.dart';
 
 class ComentarioWidget extends StatelessWidget {
   final String avatar;
@@ -25,7 +26,7 @@ class ComentarioWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: UtilStyle.postContainer(),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -69,9 +70,10 @@ class ComentarioWidget extends StatelessWidget {
         children: [
           Container(
             margin: const EdgeInsets.only(right: 5.0),
-            child: Text(username,
-                style: GoogleFonts.nunitoSans(
-                    fontSize: 17, fontWeight: FontWeight.bold)),
+            child: Text(
+              username,
+              style: UtilStyle.text(fontSize: 17, fontWeight: FontWeight.bold),
+            ),
           ),
           SizedBox(
             width: 4,
@@ -90,10 +92,8 @@ class ComentarioWidget extends StatelessWidget {
                         child: TextButton(
                           child: Text(
                             "Excluir",
-                            style: GoogleFonts.nunitoSans(
-                                color: Color.fromRGBO(143, 148, 251, .9),
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600),
+                            style: UtilStyle.text(
+                                fontSize: 15, fontWeight: FontWeight.w400),
                           ),
                           onPressed: onPressedDelete,
                         ),

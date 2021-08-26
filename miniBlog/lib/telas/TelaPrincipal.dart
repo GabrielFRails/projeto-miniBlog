@@ -5,8 +5,8 @@ import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/telas/TelaFeed.dart';
 import 'package:miniBlog/telas/TelaPerfil.dart';
-import 'package:miniBlog/util/ImagemPerfilWidget.dart';
 import 'package:miniBlog/util/UtilDialogo.dart';
+import 'package:miniBlog/util/UtilStyle.dart';
 
 class TelaPrincipal extends StatefulWidget {
   const TelaPrincipal({Key key}) : super(key: key);
@@ -31,15 +31,15 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
       appBar: AppBar(
         title: Text(
           "Twitter da Pacto",
-          style: TextStyle(color: Colors.white),
+          style: UtilStyle.text(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xff276B69),
+        backgroundColor: UtilStyle.postContainer(),
         actions: <Widget>[
           _currentIndex == 1
               ? IconButton(
                   icon: Icon(
                     Icons.logout,
-                    color: Colors.white,
+                    color: UtilStyle.iconColor(),
                   ),
                   onPressed: () {
                     Navigator.pushReplacementNamed(context, "/telaLogin");
@@ -47,7 +47,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
               : IconButton(
                   icon: Icon(
                     Icons.search,
-                    color: Colors.white,
+                    color: UtilStyle.iconColor(),
                   ),
                   onPressed: () {
                     _controladorUsuario.filtrarUsuarios("");
@@ -57,15 +57,15 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: UtilStyle.postContainer(),
           boxShadow: [
             BoxShadow(
-              color: Colors.black54,
+              color: UtilStyle.shadowColor(),
             ),
           ],
         ),
         child: BottomNavigationBar(
-          backgroundColor: Colors.white,
+          backgroundColor: UtilStyle.postContainer(),
           currentIndex: _currentIndex,
           onTap: (index) {
             setState(() {
@@ -73,7 +73,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
             });
           },
           type: BottomNavigationBarType.fixed,
-          fixedColor: Color(0xff008A85),
+          fixedColor: Color(0xff248FE0),
           items: [
             BottomNavigationBarItem(
                 backgroundColor: Colors.black,
@@ -81,7 +81,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                 icon: Icon(Icons.home_outlined)),
             BottomNavigationBarItem(
                 backgroundColor: Colors.black,
-                label: 'Profile',
+                label: 'Perfil',
                 icon: Icon(Icons.person_outline_rounded)),
           ],
         ),
@@ -89,7 +89,6 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.all(0),
         child: screens[_currentIndex],
       ),
     );
@@ -124,7 +123,9 @@ class UsuariosSearch extends SearchDelegate<String> {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-          icon: Icon(Icons.clear),
+          icon: Icon(
+            Icons.clear,
+          ),
           onPressed: () {
             query = "";
           })
@@ -165,7 +166,10 @@ class UsuariosSearch extends SearchDelegate<String> {
                 Row(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.arrow_back),
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: UtilStyle.iconColor(),
+                      ),
                       onPressed: () {},
                     ),
                   ],
@@ -185,10 +189,10 @@ class UsuariosSearch extends SearchDelegate<String> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ImagemPerfilWidget(
-                  linkImagem: _usuarioRetorno.imagemPerfil,
-                  tamanhoImagem: 30,
-                )
+                // ImagemPerfilWidget(
+                //   linkImagem: _usuarioRetorno.imagemPerfil,
+                //   tamanhoImagem: 30,
+                // )
               ],
             ),
           ),

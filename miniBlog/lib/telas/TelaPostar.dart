@@ -29,7 +29,7 @@ class _TelaPostarState extends State<TelaPostar> {
                   elevation: 4,
                   shadowColor: Colors.teal[800],
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   child: Padding(
                       padding: const EdgeInsets.all(15.0),
@@ -91,7 +91,7 @@ class _TelaPostarState extends State<TelaPostar> {
         width: 100,
         child: RaisedButton(
             disabledColor: Colors.grey,
-            color: Colors.green,
+            color: Color(0xff248FE0),
             shape: OutlineInputBorder(
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.all(Radius.circular(20))),

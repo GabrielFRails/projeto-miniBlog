@@ -26,4 +26,7 @@ abstract class _ControladorWidgetBase with Store {
   @action
   void setSelecionada(bool imagemASelecionar) =>
       imagemASelecionar = !imagemASelecionar;
+
+  @observable
+  bool darkThemeSelected = false;
 }

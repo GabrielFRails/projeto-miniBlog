@@ -39,7 +39,9 @@ class PostTextField extends StatelessWidget {
               height: maxLines == null ? 60 : null,
               child: TextField(
                   style: GoogleFonts.nunitoSans(
-                      fontSize: 18, fontWeight: FontWeight.w500),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black),
                   keyboardType: TextInputType.text,
                   autofocus: false,
                   maxLines: maxLines,
@@ -53,14 +55,16 @@ class PostTextField extends StatelessWidget {
                       isDense: true,
                       focusedBorder: OutlineInputBorder(
                           borderSide:
-                              BorderSide(color: Colors.teal[300], width: 2.4),
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                              BorderSide(color: Color(0xff248FE0), width: 2.4),
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
                       enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.teal[300]),
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                          borderSide: BorderSide(color: Color(0xff248FE0)),
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
                       filled: true,
                       hintStyle: GoogleFonts.nunitoSans(
-                          fontSize: 18, fontWeight: FontWeight.w500),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey[850]),
                       hintText: hintText,
                       fillColor: Colors.white)))
         ]);
