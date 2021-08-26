@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/ControladorPost.dart';
+import 'package:miniBlog/controladores/ControladorSeguindo.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/controladores/ControladorWidget.dart';
 import 'package:miniBlog/servicos/ServicoDioProvider.dart';
@@ -9,6 +10,7 @@ import 'package:miniBlog/telas/TelaCadastro.dart';
 import 'package:miniBlog/telas/TelaComentario.dart';
 import 'package:miniBlog/telas/TelaEditarPerfil.dart';
 import 'package:miniBlog/telas/TelaEditarPost.dart';
+import 'package:miniBlog/telas/TelaExibirUsuario.dart';
 import 'package:miniBlog/telas/TelaLogin.dart';
 import 'package:miniBlog/telas/TelaPerfil.dart';
 import 'package:miniBlog/telas/TelaPostar.dart';
@@ -23,6 +25,7 @@ void main() {
   getIt.registerSingleton<ControladorUsuario>(ControladorUsuario());
   getIt.registerSingleton<ControladorPost>(ControladorPost());
   getIt.registerSingleton<ControladorWidget>(ControladorWidget());
+  getIt.registerSingleton<ControladorSeguindo>(ControladorSeguindo());
   runApp(MyApp());
 }
 
@@ -35,7 +38,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             visualDensity: VisualDensity.adaptivePlatformDensity,
             primaryColorBrightness: Brightness.light),
-        initialRoute: "/telaLogin",
+        initialRoute: "/telaSplash",
         routes: {
           "/telaSplash": (_) => TelaSplash(),
           "/telaPrincipal": (_) => TelaPrincipal(),
@@ -45,6 +48,7 @@ class MyApp extends StatelessWidget {
           "/telaEditarPerfil": (_) => TelaEditarPerfil(),
           "/telaComentario": (_) => TelaComentario(),
           "/telaPostar": (_) => TelaPostar(),
+          "/telaExibirPerfil": (_) => TelaExibirUsuario(),
           "/telaEditarPost": (_) => TelaEditarPost()
         });
   }

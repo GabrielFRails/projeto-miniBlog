@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/AutenticarUsuario.dart';
 import 'package:miniBlog/entidades/Postagem.dart';
+import 'package:miniBlog/enums/StatusConsulta.dart';
 import 'package:miniBlog/servicos/ServicosDoMiniBlog.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:mobx/mobx.dart';
@@ -12,7 +13,13 @@ class ControladorUsuario = _ControladorUsuarioBase with _$ControladorUsuario;
 
 abstract class _ControladorUsuarioBase with Store {
   Usuario mUsuarioLogado;
+  Usuario mUsuarioRetorno;
   ServicosDoMiniBlog mService = GetIt.I.get<ServicosDoMiniBlog>();
+
+  @observable
+  ObservableList<Usuario> usuariosBuscados = ObservableList<Usuario>();
+
+  StatusConsulta mStatusConsultaUsuarios = StatusConsulta.CARREGANDO;
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
@@ -81,6 +88,7 @@ abstract class _ControladorUsuarioBase with Store {
       mService.autenticarUsuario(autenticarUsuario).then((value) {
         _prefs.then((db) {
           db.setString("tokenUsuario", value.token.toString());
+          db.setString("user", JsonCodec().encode(value.autenticado.toJson()));
           sucesso?.call();
           mUsuarioLogado = value.autenticado;
         });
@@ -138,20 +146,31 @@ abstract class _ControladorUsuarioBase with Store {
   }
 
   void buscaUsuario(int idUsuario,
-      {Function() sucesso, Function(String mensagem) erro}) {
+      {Usuario userRetorno,
+      Function() sucesso,
+      Function(String mensagem) erro}) {
     mService.buscarUsuario(idUsuario).then((value) {
+      mUsuarioRetorno = value;
+      userRetorno = value;
       sucesso?.call();
     }).catchError((onError) {
       erro?.call(onError.response.data["falha"]);
     });
   }
 
-  //ainda precisa fazer
   void filtrarUsuarios(String nome,
-      {Function() sucesso, Function(String mensagem) erro}) {
-    mService.filtrarUsuarios(nome).then((value) {
+      {Function() sucesso,
+      Function() carregando,
+      Function(String mensagem) erro}) {
+    carregando?.call();
+    mStatusConsultaUsuarios = StatusConsulta.CARREGANDO;
+    mService.filtrarUsuarios(nome).then((responseUsers) {
+      usuariosBuscados.clear();
+      usuariosBuscados.addAll(responseUsers);
+      mStatusConsultaUsuarios = StatusConsulta.SUCESSO;
       sucesso?.call();
     }).catchError((onError) {
+      mStatusConsultaUsuarios = StatusConsulta.ERRO;
       erro?.call(onError.response.data["falha"]);
     });
   }

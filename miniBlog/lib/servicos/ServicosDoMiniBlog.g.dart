@@ -338,12 +338,12 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<List<Usuario>> listarSeguidores() async {
+  Future<List<Usuario>> listarSeguindo() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<List<dynamic>>(
-        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/seguindo',
+        'https://app.pactosolucoes.com.br/socialmedia-api/seguindo',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -364,13 +364,12 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<String>(
-        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/seguindo/$id',
+        'https://app.pactosolucoes.com.br/socialmedia-api/seguindo/$id',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
             headers: <String, dynamic>{},
             extra: _extra,
-            contentType: 'application/x-www-form-urlencoded',
             baseUrl: baseUrl),
         data: _data);
     final value = _result.data;
@@ -384,13 +383,12 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<String>(
-        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/seguindo/$id',
+        'https://app.pactosolucoes.com.br/socialmedia-api/seguindo/$id',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'POST',
+            method: 'DELETE',
             headers: <String, dynamic>{},
             extra: _extra,
-            contentType: 'application/x-www-form-urlencoded',
             baseUrl: baseUrl),
         data: _data);
     final value = _result.data;
@@ -403,10 +401,10 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<List<dynamic>>(
-        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/seguindo​/seguidores',
+        'https://app.pactosolucoes.com.br/socialmedia-api/seguindo/seguidores',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'POST',
+            method: 'GET',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),
@@ -424,7 +422,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
     final queryParameters = <String, dynamic>{r'nome': nome};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<List<dynamic>>(
-        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/usuarios',
+        'https://app.pactosolucoes.com.br/socialmedia-api/usuarios',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -459,24 +457,21 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<List<Usuario>> buscarUsuario(idUsuario) async {
+  Future<Usuario> buscarUsuario(idUsuario) async {
     ArgumentError.checkNotNull(idUsuario, 'idUsuario');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<List<dynamic>>(
+    final _result = await _dio.request<Map<String, dynamic>>(
         'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/$idUsuario',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
             headers: <String, dynamic>{},
             extra: _extra,
-            contentType: 'application/x-www-form-urlencoded',
             baseUrl: baseUrl),
         data: _data);
-    var value = _result.data
-        .map((dynamic i) => Usuario.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = Usuario.fromJson(_result.data);
     return value;
   }
 
