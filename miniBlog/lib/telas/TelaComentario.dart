@@ -105,7 +105,8 @@ class _TelaComentarioState extends State<TelaComentario> {
       appBar: AppBar(
         leading: BackButton(
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed("/telaPrincipal");
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                "/telaPrincipal", (Route<dynamic> route) => false);
           },
         ),
         iconTheme: IconThemeData(color: Colors.white),

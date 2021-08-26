@@ -90,8 +90,9 @@ class _TelaLoginState extends State<TelaLogin> {
                               _controladorUsuario.autenticarUsuario(
                                 _usuario,
                                 sucesso: () {
-                                  Navigator.pushReplacementNamed(
-                                      context, "/telaPrincipal");
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                      "/telaPrincipal",
+                                      (Route<dynamic> route) => false);
                                 },
                                 erro: (mensagem) {
                                   UtilDialogo.exibirAlerta(context,
