@@ -8,9 +8,20 @@ class DadosPerfilWidget extends StatefulWidget {
 }
 
 class _DadosPerfilWidgetState extends State<DadosPerfilWidget> {
+  ControladorSeguindo _controladorSeguindo = GetIt.I.get<ControladorSeguindo>();
   int _numeroFollows = GetIt.I.get<ControladorSeguindo>().numeroFollow;
-
   int _numeroFollowers = GetIt.I.get<ControladorSeguindo>().numeroFollowers;
+
+  @override
+  void initState() {
+    _controladorSeguindo.listarSeguidores(sucesso: () {
+      setState(() {});
+    });
+    _controladorSeguindo.listarSeguindo(sucesso: () {
+      setState(() {});
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => Row(

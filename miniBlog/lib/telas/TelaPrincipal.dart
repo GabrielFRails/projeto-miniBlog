@@ -7,6 +7,7 @@ import 'package:miniBlog/telas/TelaFeed.dart';
 import 'package:miniBlog/telas/TelaPerfil.dart';
 import 'package:miniBlog/util/ImagemPerfilWidget.dart';
 import 'package:miniBlog/util/UtilDialogo.dart';
+import 'package:miniBlog/widgets_padrao/BotaoPadrao.dart';
 
 class TelaPrincipal extends StatefulWidget {
   const TelaPrincipal({Key key}) : super(key: key);
@@ -23,6 +24,12 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
     TelaFeed(),
     TelaPerfil(),
   ];
+
+  @override
+  void initState() {
+    _controladorUsuario.filtrarUsuarios("");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +49,8 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                     color: Colors.white,
                   ),
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, "/telaLogin");
+                    _controladorUsuario.logoutUsuario();
+                    Navigator.pushReplacementNamed(context, "/telaSplash");
                   })
               : IconButton(
                   icon: Icon(
@@ -50,7 +58,6 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                     color: Colors.white,
                   ),
                   onPressed: () {
-                    _controladorUsuario.filtrarUsuarios("");
                     showSearch(context: context, delegate: UsuariosSearch());
                   }),
         ],
@@ -98,6 +105,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
 
 class UsuariosSearch extends SearchDelegate<String> {
   int idAuxiliar;
+  Usuario usuarioExibir = Usuario();
   ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
   Usuario _usuarioRetorno = GetIt.I.get<ControladorUsuario>().mUsuarioRetorno;
   List<Usuario> _usuariosRetorno =
@@ -146,11 +154,6 @@ class UsuariosSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    /*  _controladorUsuario.buscaUsuario(idAuxiliar, sucesso: () {},
-        erro: (mensagem) {
-      UtilDialogo.exibirAlerta(context,
-          titulo: "Ops! Erro ao exibir o perfil", mensagem: mensagem);
-    }); */
     return Card(
         child: Padding(
       padding: const EdgeInsets.all(8.0),
@@ -158,24 +161,23 @@ class UsuariosSearch extends SearchDelegate<String> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(6.0),
+            padding: const EdgeInsets.only(left: 8),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      onPressed: () {},
-                    ),
-                  ],
+                ImagemPerfilWidget(
+                  linkImagem: usuarioExibir.imagemPerfil,
+                  tamanhoImagem: 70,
+                ),
+                Text(
+                  "${usuarioExibir.nome}\n${usuarioExibir.email}",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: Text("${_usuarioRetorno.nome}"),
           ),
           ButtonBar(
             alignment: MainAxisAlignment.start,
@@ -183,12 +185,23 @@ class UsuariosSearch extends SearchDelegate<String> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ImagemPerfilWidget(
-                  linkImagem: _usuarioRetorno.imagemPerfil,
-                  tamanhoImagem: 30,
-                )
+                BotaoPadrao(
+                  value: "Ir para perfil do Usuário",
+                  onTap: () {
+                    idAuxiliar = int.parse(usuarioExibir.id);
+                    _controladorUsuario.buscaUsuario(idAuxiliar, sucesso: () {
+                      Navigator.pushNamed(context, "/telaExibirPerfil");
+                    }, erro: (mensagem) {
+                      UtilDialogo.exibirAlerta(
+                        context,
+                        titulo: "Ops! Erro ao buscar ${usuarioExibir.nome}",
+                        mensagem: mensagem,
+                      );
+                    });
+                  },
+                ),
               ],
             ),
           ),
@@ -208,13 +221,8 @@ class UsuariosSearch extends SearchDelegate<String> {
     return ListView.builder(
       itemBuilder: (context, index) => ListTile(
         onTap: () {
-          idAuxiliar = int.parse(sugestaoDeUsuarios[index].id);
-          _controladorUsuario.buscaUsuario(idAuxiliar, sucesso: () {
-            showResults(context);
-          }, erro: (mensagem) {
-            UtilDialogo.exibirAlerta(context,
-                titulo: "Ops! Erro", mensagem: mensagem);
-          });
+          usuarioExibir = sugestaoDeUsuarios[index];
+          showResults(context);
         },
         leading: Icon(Icons.person),
         title: RichText(

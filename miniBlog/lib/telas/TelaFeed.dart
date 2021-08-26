@@ -117,7 +117,8 @@ class _TelaFeedState extends State<TelaFeed> {
                             },
                             onPressedEdit: () {
                               _controladorPost.postEditar = postSeguido;
-                              Navigator.of(context).pushNamed("/telaEditarPost");
+                              Navigator.of(context)
+                                  .pushNamed("/telaEditarPost");
                             },
                             onPressedDelete: () {
                               _controladorPost.excluirPostagem(postSeguido.id,
@@ -133,7 +134,8 @@ class _TelaFeedState extends State<TelaFeed> {
                               });
                             },
                             onTap: () {
-                              int auxiliarId = int.parse(postSeguido.usuario.id);
+                              int auxiliarId =
+                                  int.parse(postSeguido.usuario.id);
                               _controladorUsuario.buscaUsuario(auxiliarId,
                                   sucesso: () {
                                 Navigator.pushNamed(

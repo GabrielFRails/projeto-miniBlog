@@ -24,9 +24,18 @@ class _TelaPerfilState extends State<TelaPerfil>
   Usuario _usuarioLogado = GetIt.I.get<ControladorUsuario>().mUsuarioLogado;
 
   @override
+  void initState() {
+    _controladorSeguindo.listarSeguidores(sucesso: () {
+      setState(() {});
+    });
+    _controladorSeguindo.listarSeguindo(sucesso: () {
+      setState(() {});
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    _controladorSeguindo.listarSeguidores();
-    _controladorSeguindo.listarSeguindo();
     return Scaffold(
         body: ListView(
       primary: false,

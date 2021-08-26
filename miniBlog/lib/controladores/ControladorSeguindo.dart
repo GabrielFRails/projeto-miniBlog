@@ -4,6 +4,8 @@ import 'package:miniBlog/servicos/ServicosDoMiniBlog.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:mobx/mobx.dart';
 
+import 'ControladorUsuario.dart';
+
 part 'ControladorSeguindo.g.dart';
 
 class ControladorSeguindo = _ControladorSeguindoBase with _$ControladorSeguindo;
@@ -18,8 +20,14 @@ abstract class _ControladorSeguindoBase with Store {
 
   StatusConsulta mStatusConsultaFollow = StatusConsulta.CARREGANDO;
   StatusConsulta mStatusConsultaFollowers = StatusConsulta.CARREGANDO;
-  var numeroFollow;
-  var numeroFollowers;
+  int numeroFollow;
+  int numeroFollowers;
+
+  bool isUsuarioLogadoSeguindo(Usuario usuarioPesquisa) {
+    return followBuscados.indexWhere(
+            (userSeguido) => userSeguido.id == usuarioPesquisa.id) ==
+        -1;
+  }
 
   void seguirUsuario(int id,
       {Function() sucesso, Function(String mensagem) erro}) {
@@ -49,7 +57,7 @@ abstract class _ControladorSeguindoBase with Store {
       followBuscados.clear();
       followBuscados.addAll(responseFollows);
       mStatusConsultaFollow = StatusConsulta.SUCESSO;
-      numeroFollow = responseFollows.length - 1;
+      numeroFollow = responseFollows.length;
       sucesso?.call();
     }).catchError((onError) {
       mStatusConsultaFollow = StatusConsulta.ERRO;
@@ -67,7 +75,7 @@ abstract class _ControladorSeguindoBase with Store {
       followersBuscados.clear();
       followersBuscados.addAll(responseFollowers);
       mStatusConsultaFollowers = StatusConsulta.SUCESSO;
-      numeroFollowers = responseFollowers.length - 1;
+      numeroFollowers = responseFollowers.length;
       sucesso?.call();
     }).catchError((onError) {
       mStatusConsultaFollowers = StatusConsulta.ERRO;

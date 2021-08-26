@@ -42,22 +42,38 @@ class _TelaExibirUsuarioState extends State<TelaExibirUsuario>
           const SizedBox(height: 24),
           buildNomeUsuario(_usuarioRetorno),
           const SizedBox(height: 24),
-          DadosPerfilWidget(),
+          //DadosPerfilWidget(),
           const SizedBox(height: 50),
           Center(
             child: BotaoPadrao(
               context: context,
-              value: "Seguir",
+              value:
+                  _controladorSeguindo.isUsuarioLogadoSeguindo(_usuarioRetorno)
+                      ? "Seguir"
+                      : "Deixar de Seguir",
               onTap: () {
-                _controladorSeguindo
-                    .seguirUsuario(int.parse(_usuarioRetorno.id), sucesso: () {
-                  UtilDialogo.exibirAlerta(context,
-                      titulo: "Sucesso",
-                      mensagem: "Você Seguiu ${_usuarioRetorno.nome}");
-                }, erro: (mensagem) {
-                  UtilDialogo.exibirAlerta(context,
-                      titulo: "Vish deu Pau", mensagem: mensagem);
-                });
+                _controladorSeguindo.isUsuarioLogadoSeguindo(_usuarioRetorno)
+                    ? _controladorSeguindo.seguirUsuario(
+                        int.parse(_usuarioRetorno.id), sucesso: () {
+                        UtilDialogo.exibirAlerta(context,
+                            titulo: "Sucesso",
+                            mensagem: "Você Seguiu ${_usuarioRetorno.nome}");
+                      }, erro: (mensagem) {
+                        UtilDialogo.exibirAlerta(context,
+                            titulo:
+                                "Vish deu pau pra seguir ${_usuarioRetorno.nome}",
+                            mensagem: mensagem);
+                      })
+                    : _controladorSeguindo.unfollowUsuario(
+                        int.parse(_usuarioRetorno.id), sucesso: () {
+                        UtilDialogo.exibirAlerta(context,
+                            titulo: "Sucesso",
+                            mensagem:
+                                "Você deixou de Seguir ${_usuarioRetorno.nome}");
+                      }, erro: (mensagem) {
+                        UtilDialogo.exibirAlerta(context,
+                            titulo: "Vish deu Pau", mensagem: mensagem);
+                      });
               },
             ),
           ),
