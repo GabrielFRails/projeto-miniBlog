@@ -68,7 +68,7 @@ abstract class _ControladorPostBase with Store {
   void darLike(String id, {Function() erro, Function() sucesso}) {
     service.darLike(id).then((_) {
       var indexPost = postsSeguidos.indexWhere((element) => element.id == id);
-      postsSeguidos[indexPost].liked = true;
+      postsSeguidos[indexPost].temLike = true;
       sucesso?.call();
     }).catchError((onError) {
       erro?.call();
@@ -78,7 +78,7 @@ abstract class _ControladorPostBase with Store {
   void removerLike(String id, {Function() erro, Function() sucesso}) {
     service.removerLike(id).then((_) {
       var indexPost = postsSeguidos.indexWhere((element) => element.id == id);
-      postsSeguidos[indexPost].liked = false;
+      postsSeguidos[indexPost].temLike = false;
       sucesso?.call();
     }).catchError((onError) {
       erro?.call();

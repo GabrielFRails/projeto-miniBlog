@@ -15,7 +15,7 @@ Postagem _$PostagemFromJson(Map<String, dynamic> json) {
         ? null
         : Usuario.fromJson(json['usuario'] as Map<String, dynamic>),
   )
-    ..liked = json['liked'] as bool
+    ..temLike = json['temLike'] as bool
     ..qntdComentario = json['qntdComentario'] as int
     ..qntdLike = json['qntdLike'] as int
     ..comentarios = (json['comentarios'] as List)
@@ -29,7 +29,7 @@ Map<String, dynamic> _$PostagemToJson(Postagem instance) => <String, dynamic>{
       'id': instance.id,
       'data': instance.data,
       'usuario': instance.usuario,
-      'liked': instance.liked,
+      'temLike': instance.temLike,
       'qntdComentario': instance.qntdComentario,
       'qntdLike': instance.qntdLike,
       'comentarios': instance.comentarios,

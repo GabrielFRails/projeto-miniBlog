@@ -153,6 +153,22 @@ mixin _$ControladorWidget on _ControladorWidgetBase, Store {
     });
   }
 
+  final _$darkThemeSelectedAtom =
+      Atom(name: '_ControladorWidgetBase.darkThemeSelected');
+
+  @override
+  bool get darkThemeSelected {
+    _$darkThemeSelectedAtom.reportRead();
+    return super.darkThemeSelected;
+  }
+
+  @override
+  set darkThemeSelected(bool value) {
+    _$darkThemeSelectedAtom.reportWrite(value, super.darkThemeSelected, () {
+      super.darkThemeSelected = value;
+    });
+  }
+
   final _$_ControladorWidgetBaseActionController =
       ActionController(name: '_ControladorWidgetBase');
 
@@ -178,7 +194,8 @@ selecionouImagem4: ${selecionouImagem4},
 selecionouImagem5: ${selecionouImagem5},
 selecionouImagem6: ${selecionouImagem6},
 selecionouImagem7: ${selecionouImagem7},
-selecionouImagem8: ${selecionouImagem8}
+selecionouImagem8: ${selecionouImagem8},
+darkThemeSelected: ${darkThemeSelected}
     ''';
   }
 }

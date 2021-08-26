@@ -31,14 +31,11 @@ class _TelaFeedState extends State<TelaFeed> {
 
   _consultarOFeed() {
     _controladorPost.consultarOFeed(sucesso: () {
-      Navigator.of(context).pop();
       _refreshController.refreshCompleted();
     }, erro: (mensagem) {
       UtilDialogo.exibirAlerta(context,
           mensagem: "nao deu bom", titulo: "erro");
       _refreshController.refreshFailed();
-    }, carregando: () {
-      UtilDialogo.showLoading(context);
     });
   }
 
@@ -70,7 +67,21 @@ class _TelaFeedState extends State<TelaFeed> {
       child: Observer(builder: (_) {
         switch (_controladorPost.statusConsultaFeed) {
           case StatusConsulta.CARREGANDO:
-            return Container();
+            return Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height - 150,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: CircularProgressIndicator(
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Color(0xff2869FC)),
+                        backgroundColor: Color(0xff248FE0)),
+                  ),
+                ],
+              ),
+            );
             break;
           case StatusConsulta.ERRO:
             return Text("Desculpe, falhamos");
@@ -82,9 +93,6 @@ class _TelaFeedState extends State<TelaFeed> {
                     primary: false,
                     itemBuilder: (context, index) {
                       var postSeguido = _controladorPost.postsSeguidos[index];
-                      if (_controladorPost.postsSeguidos[index].liked == null) {
-                        _controladorPost.postsSeguidos[index].liked = false;
-                      }
                       return Column(
                         children: [
                           PostagemWidget(
@@ -105,7 +113,7 @@ class _TelaFeedState extends State<TelaFeed> {
                             favorites:
                                 _controladorPost.postsSeguidos[index].qntdLike,
                             onPressedLike: () {
-                              _controladorPost.postsSeguidos[index].liked
+                              _controladorPost.postsSeguidos[index].temLike
                                   ? _controladorPost.removerLike(postSeguido.id,
                                       sucesso: () {
                                       setState(() {
@@ -152,7 +160,7 @@ class _TelaFeedState extends State<TelaFeed> {
                                     mensagem: mensagem);
                               });
                             },
-                            color: _controladorPost.postsSeguidos[index].liked
+                            color: _controladorPost.postsSeguidos[index].temLike
                                 ? Colors.red
                                 : UtilStyle.iconColor(),
                           ),

@@ -42,7 +42,8 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                     color: UtilStyle.iconColor(),
                   ),
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, "/telaLogin");
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        "/telaLogin", (Route<dynamic> route) => false);
                   })
               : IconButton(
                   icon: Icon(

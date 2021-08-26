@@ -23,7 +23,7 @@ part 'Postagem.g.dart';
 class Postagem {
   String conteudo, id, data;
   Usuario usuario;
-  bool liked;
+  bool temLike;
   int qntdComentario;
   int qntdLike;
   List<Comentario> comentarios = new List<Comentario>();
