@@ -4,8 +4,6 @@ import 'package:miniBlog/servicos/ServicosDoMiniBlog.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:mobx/mobx.dart';
 
-import 'ControladorUsuario.dart';
-
 part 'ControladorSeguindo.g.dart';
 
 class ControladorSeguindo = _ControladorSeguindoBase with _$ControladorSeguindo;

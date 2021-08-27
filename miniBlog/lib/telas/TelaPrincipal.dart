@@ -106,7 +106,6 @@ class UsuariosSearch extends SearchDelegate<String> {
   int idAuxiliar;
   Usuario usuarioExibir = Usuario();
   ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
-  Usuario _usuarioRetorno = GetIt.I.get<ControladorUsuario>().mUsuarioRetorno;
   List<Usuario> _usuariosRetorno =
       GetIt.I.get<ControladorUsuario>().usuariosBuscados;
   List<Usuario> usuariosRecentes = [

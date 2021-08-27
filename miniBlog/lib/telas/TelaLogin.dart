@@ -59,7 +59,9 @@ class _TelaLoginState extends State<TelaLogin> {
                                 },
                               ),
                               TextFieldPadrao(
-                                prefix: Icon(Icons.lock),
+                                prefix: Icon(
+                                  Icons.lock,
+                                ),
                                 hintText: "Senha",
                                 obscureText: _controladorUsuario.obscureText,
                                 maxLines: 1,
@@ -87,18 +89,17 @@ class _TelaLoginState extends State<TelaLogin> {
                         BotaoPadrao(
                             value: "Entrar",
                             onTap: () {
-                              _controladorUsuario.autenticarUsuario(
-                                _usuario,
-                                sucesso: () {
-                                  Navigator.of(context).pushNamedAndRemoveUntil(
-                                      "/telaPrincipal",
-                                      (Route<dynamic> route) => false);
-                                },
-                                erro: (mensagem) {
-                                  UtilDialogo.exibirAlerta(context,
-                                      titulo: "Ops!", mensagem: mensagem);
-                                },
-                              );
+                              _controladorUsuario.autenticarUsuario(_usuario,
+                                  sucesso: () {
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                    "/telaPrincipal",
+                                    (Route<dynamic> route) => false);
+                              }, erro: (mensagem) {
+                                UtilDialogo.exibirAlerta(context,
+                                    titulo: "Ops!", mensagem: mensagem);
+                              }, carregando: () {
+                                UtilDialogo.showLoading(context);
+                              });
                             })),
                     SizedBox(height: 16),
                     FadeAnimacao(

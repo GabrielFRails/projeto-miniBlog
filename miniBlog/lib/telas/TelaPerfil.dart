@@ -54,7 +54,10 @@ class _TelaPerfilState extends State<TelaPerfil> {
     return Scaffold(
         body: carregando
             ? Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(Color(0xff2869FC)),
+                    backgroundColor: Color(0xff248FE0)),
               )
             : ListView(
                 primary: false,

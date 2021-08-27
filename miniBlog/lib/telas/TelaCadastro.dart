@@ -146,6 +146,8 @@ class _TelaCadastroState extends State<TelaCadastro> {
                                 UtilDialogo.exibirAlerta(context,
                                     titulo: "Ops deu erro no Cadastro",
                                     mensagem: mensagem);
+                              }, carregando: () {
+                                UtilDialogo.showLoading(context);
                               });
                             },
                           )),

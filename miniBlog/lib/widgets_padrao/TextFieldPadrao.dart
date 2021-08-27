@@ -28,7 +28,7 @@ class TextFieldPadrao extends StatelessWidget {
     return Container(
         padding: EdgeInsets.all(8.0),
         child: Theme(
-          data: Theme.of(context).copyWith(primaryColor: Color(0xff248FE0)),
+          data: Theme.of(context).copyWith(accentColor: Color(0xff248FE0)),
           child: TextField(
             style: UtilStyle.text(),
             obscureText: obscureText,
