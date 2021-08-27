@@ -24,7 +24,9 @@ abstract class _ControladorSeguindoBase with Store {
   int numeroFollowers;
 
   bool isUsuarioLogadoNaoSeguindo(Usuario usuarioPesquisa) {
-    return followersBuscados.indexWhere( (userSeguido) => userSeguido.id == usuarioPesquisa.id) == -1;
+    return followersBuscados.indexWhere(
+            (userSeguido) => userSeguido.id == usuarioPesquisa.id) ==
+        -1;
   }
 
   void seguirUsuario(int id,
@@ -75,7 +77,7 @@ abstract class _ControladorSeguindoBase with Store {
       followersBuscados.clear();
       followersBuscados.addAll(responseFollowers);
       mStatusConsultaFollowers = StatusConsulta.SUCESSO;
-      numeroFollowers = responseFollowers.length - 1;
+      numeroFollowers = responseFollowers.length;
       sucesso?.call();
     }).catchError((onError) {
       mStatusConsultaFollowers = StatusConsulta.ERRO;

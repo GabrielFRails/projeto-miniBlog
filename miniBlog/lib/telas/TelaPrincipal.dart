@@ -28,6 +28,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
 
   @override
   void initState() {
+    _controladorUsuario.filtrarUsuarios("");
     super.initState();
   }
 
@@ -49,8 +50,15 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                     color: UtilStyle.iconColor(),
                   ),
                   onPressed: () {
-                    _controladorUsuario.logoutUsuario();
-                    Navigator.pushReplacementNamed(context, "/telaSplash");
+                    _controladorUsuario.logoutUsuario(sucesso: () {
+                      Navigator.pushReplacementNamed(context, "/telaSplash");
+                    }, erro: (mensagem) {
+                      UtilDialogo.exibirAlerta(
+                        context,
+                        titulo: "Erro",
+                        mensagem: mensagem,
+                      );
+                    });
                   })
               : IconButton(
                   icon: Icon(

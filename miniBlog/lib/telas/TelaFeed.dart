@@ -29,6 +29,7 @@ class _TelaFeedState extends State<TelaFeed> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) => _consultarOFeed());
+    _controladorUsuario.filtrarUsuarios("");
     super.initState();
   }
 
@@ -70,6 +71,7 @@ class _TelaFeedState extends State<TelaFeed> {
       child: Observer(builder: (_) {
         switch (_controladorPost.statusConsultaFeed) {
           case StatusConsulta.CARREGANDO:
+            _controladorUsuario.filtrarUsuarios("");
             return Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height - 150,
@@ -87,6 +89,7 @@ class _TelaFeedState extends State<TelaFeed> {
             );
             break;
           case StatusConsulta.ERRO:
+            _controladorUsuario.filtrarUsuarios("");
             return Container();
             break;
           case StatusConsulta.SUCESSO:
@@ -195,8 +198,10 @@ class _TelaFeedState extends State<TelaFeed> {
                       ],
                     ),
                   );
+
             break;
           default:
+            _controladorUsuario.filtrarUsuarios("");
             return Text("default");
             break;
         }
