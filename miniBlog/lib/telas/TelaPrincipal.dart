@@ -34,7 +34,6 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
 
   @override
   Widget build(BuildContext context) {
-    print(_controlerUsuario.mUsuarioLogado);
     return Scaffold(
       appBar: AppBar(
         title: Text(
