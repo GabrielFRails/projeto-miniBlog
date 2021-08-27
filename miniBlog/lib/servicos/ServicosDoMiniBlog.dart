@@ -109,7 +109,7 @@ abstract class ServicosDoMiniBlog {
   //@FormUrlEncoded()
   Future<Usuario> buscarUsuario(@Path("idUsuario") int idUsuario);
 
-  @POST("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/{idUsuario}")
+  @PUT("https://app.pactosolucoes.com.br/socialmedia-api/usuarios/{idUsuario}")
   Future<dynamic> editarUsuario(
       @Path("idUsuario") int idUsuario, @Body() Usuario usuario);
 

@@ -78,11 +78,18 @@ abstract class _ControladorUsuarioBase with Store {
     });
   }
 
-  void logoutUsuario() {
+  void logoutUsuario(
+      {Function() sucesso,
+      Function(String mensagem) erro,
+      Function() carregando}) {
+    carregando?.call();
     _prefs.then((db) {
       db.remove("user");
       db.remove("tokenUsuario");
-      db.clear();
+      //db.clear();
+      sucesso?.call();
+    }).catchError((onError) {
+      erro?.call("Erro no logout");
     });
   }
 
@@ -105,7 +112,7 @@ abstract class _ControladorUsuarioBase with Store {
           mUsuarioLogado = value.autenticado;
         });
       }).catchError((onError) {
-        erro?.call(onError.response.data["error"]);
+        erro?.call(onError.response.data.toString());
       });
     }
   }
@@ -147,7 +154,7 @@ abstract class _ControladorUsuarioBase with Store {
     mService.editarUsuario(idUsuario, usuarioEditar).then((value) {
       sucesso?.call();
     }).catchError((onError) {
-      erro?.call(onError.response.data["mensagem"]);
+      erro?.call(onError.response.data.toString());
     });
   }
 

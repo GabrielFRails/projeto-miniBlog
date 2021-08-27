@@ -92,31 +92,6 @@ class _TelaEditarPerfilState extends State<TelaEditarPerfil> {
                               });
                             },
                           )),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      FadeAnimacao(
-                          1.9,
-                          BotaoPadrao(
-                            value: "Excluir o meu Perfil",
-                            onTap: () {
-                              UtilDialogo.exibirAlerta(context,
-                                  titulo: "ATENÇÃO!",
-                                  mensagem: "Deseja mesmo excluir sua conta?",
-                                  onTap: () {
-                                _controladorUsuario.excluirUsuario(
-                                    int.parse(_usuarioLogado.id), sucesso: () {
-                                  Navigator.pushReplacementNamed(
-                                      context, "/telaLogin");
-                                }, erro: (mensagem) {
-                                  Navigator.pop(context);
-                                  UtilDialogo.exibirAlerta(context,
-                                      titulo: "Erro ao excluir",
-                                      mensagem: mensagem);
-                                });
-                              });
-                            },
-                          ))
                     ],
                   ),
                 )
