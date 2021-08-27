@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:miniBlog/controladores/ControladorPost.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
@@ -36,7 +37,7 @@ class _TelaFeedState extends State<TelaFeed> {
       _refreshController.refreshCompleted();
     }, erro: (mensagem) {
       UtilDialogo.exibirAlerta(context,
-          mensagem: "nao deu bom", titulo: "erro");
+          mensagem: "Houve um erro, por favor tente novamente");
       _refreshController.refreshFailed();
     });
   }
@@ -86,7 +87,7 @@ class _TelaFeedState extends State<TelaFeed> {
             );
             break;
           case StatusConsulta.ERRO:
-            return Text("Desculpe, falhamos");
+            return Container();
             break;
           case StatusConsulta.SUCESSO:
             _controladorUsuario.filtrarUsuarios("");
@@ -183,7 +184,16 @@ class _TelaFeedState extends State<TelaFeed> {
                     ),
                   )
                 : Container(
-                    child: Text("Sem posts"),
+                    padding: EdgeInsets.only(top: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Siga alguém ou poste algo para ver seu feed",
+                          style: GoogleFonts.nunitoSans(fontSize: 14),
+                        ),
+                      ],
+                    ),
                   );
             break;
           default:

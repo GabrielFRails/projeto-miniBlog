@@ -60,7 +60,9 @@ class _TelaLoginState extends State<TelaLogin> {
                                 },
                               ),
                               TextFieldPadrao(
-                                prefix: Icon(Icons.lock),
+                                prefix: Icon(
+                                  Icons.lock,
+                                ),
                                 hintText: "Senha",
                                 obscureText: _controladorUsuario.obscureText,
                                 maxLines: 1,

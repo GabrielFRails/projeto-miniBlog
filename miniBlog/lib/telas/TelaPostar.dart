@@ -40,7 +40,7 @@ class _TelaPostarState extends State<TelaPostar> {
                               minLines: 1,
                               maxLines: 7,
                               textEditingController: null,
-                              hintText: "¿Qué pasa chico?",
+                              hintText: "¿Qué pasa?",
                               onChanged: (text) {
                                 _postagem.conteudo = text;
                                 text.length > 0

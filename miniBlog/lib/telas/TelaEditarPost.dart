@@ -46,7 +46,7 @@ class _TelaPostarState extends State<TelaEditarPost> {
                               minLines: 1,
                               maxLines: 7,
                               textEditingController: _textEditingController,
-                              hintText: "¿Qué pasa chico?",
+                              hintText: "¿Qué pasa?",
                               onChanged: (text) {
                                 _postagem.conteudo = text;
                                 text.length > 0
@@ -99,7 +99,7 @@ class _TelaPostarState extends State<TelaEditarPost> {
         width: 100,
         child: RaisedButton(
             disabledColor: Colors.grey,
-            color: Colors.green,
+            color: Color(0xff248FE0),
             shape: OutlineInputBorder(
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.all(Radius.circular(20))),

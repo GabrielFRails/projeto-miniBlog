@@ -19,11 +19,6 @@ class BotaoPadrao extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Color(0xff248FE0),
-          // gradient: LinearGradient(colors: [
-          //   Color(0xff34D7F7),
-          //   Color(0xff248FE0),
-          //   Color(0xff2869FC),
-          // ])
         ),
         child: Center(
           child: Text(

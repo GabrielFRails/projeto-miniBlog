@@ -29,7 +29,7 @@ class _TelaSplashState extends State<TelaSplash> {
         });
         return;
       },
-      backgroundColor: Color.fromRGBO(143, 148, 251, 1),
+      backgroundColor: Color(0xff248FE0),
       splashTransition: SplashTransition.fadeTransition,
     );
   }

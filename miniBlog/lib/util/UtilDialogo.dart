@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:miniBlog/util/UtilStyle.dart';
 import 'package:miniBlog/widgets_padrao/BotaoPadrao.dart';
 
@@ -28,7 +29,10 @@ class UtilDialogo {
                 SizedBox(
                   height: 12,
                 ),
-                Center(child: Text(titulo)),
+                Center(
+                    child: Text(titulo,
+                        style: GoogleFonts.nunitoSans(
+                            fontSize: 20, fontWeight: FontWeight.bold)))
               ],
             ),
           ),
@@ -37,13 +41,17 @@ class UtilDialogo {
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (mensagem != null) Text(mensagem),
+                    if (mensagem != null)
+                      Text(mensagem,
+                          style: GoogleFonts.nunitoSans(
+                              fontSize: 17, fontWeight: FontWeight.normal))
                   ],
                 ),
               ),
               SizedBox(
-                height: 32,
+                height: 20,
               ),
               Align(
                 alignment: Alignment.bottomCenter,
@@ -72,7 +80,7 @@ class UtilDialogo {
 
   static void showLoading(BuildContext context) {
     showDialog(
-        barrierDismissible: true,
+        barrierDismissible: false,
         context: context,
         builder: (context) {
           return Center(

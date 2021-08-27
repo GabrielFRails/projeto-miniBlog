@@ -87,7 +87,10 @@ abstract class _ControladorUsuarioBase with Store {
   }
 
   void autenticarUsuario(Usuario usuarioLogar,
-      {Function() sucesso, Function(String mensagem) erro}) {
+      {Function() sucesso,
+      Function(String mensagem) erro,
+      Function() carregando}) {
+    carregando?.call();
     if ((usuarioLogar.email?.isEmpty ?? true) ||
         (usuarioLogar.senha?.isEmpty ?? true)) {
       erro?.call("Usuario ou senha inválidos!");
@@ -108,7 +111,10 @@ abstract class _ControladorUsuarioBase with Store {
   }
 
   void cadastrarUsuario(Usuario usuarioCadastrar,
-      {Function() sucesso, Function(String mensagem) erro}) {
+      {Function() sucesso,
+      Function(String mensagem) erro,
+      Function() carregando}) {
+    carregando?.call();
     if (usuarioCadastrar.email?.isEmpty ?? true) {
       erro?.call("E-mail Inválido");
     } else if (usuarioCadastrar.senha?.isEmpty ?? true) {

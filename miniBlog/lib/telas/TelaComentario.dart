@@ -103,7 +103,7 @@ class _TelaComentarioState extends State<TelaComentario> {
                 );
           break;
         case StatusConsulta.ERRO:
-          return Text("Desculpe, falhamos");
+          return Container();
           break;
         case StatusConsulta.CARREGANDO:
           return Text("Carregando");
@@ -125,12 +125,12 @@ class _TelaComentarioState extends State<TelaComentario> {
                 "/telaPrincipal", (Route<dynamic> route) => false);
           },
         ),
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: UtilStyle.iconColor()),
         title: Text(
           "Página de comentário",
-          style: TextStyle(color: Colors.white),
+          style: UtilStyle.text(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xff276B69),
+        backgroundColor: UtilStyle.postContainer(),
       ),
       body: Container(
         child: CommentBox(
@@ -153,7 +153,7 @@ class _TelaComentarioState extends State<TelaComentario> {
           },
           formKey: formKey,
           commentController: _controladorComentario,
-          backgroundColor: UtilStyle.commentBox(),
+          backgroundColor: Color(0xff248FE0),
           textColor: Colors.white,
           sendWidget: Icon(Icons.send_sharp, size: 30, color: Colors.white),
         ),
