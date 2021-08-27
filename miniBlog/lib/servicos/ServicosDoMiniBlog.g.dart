@@ -489,7 +489,7 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
         'https://app.pactosolucoes.com.br/socialmedia-api/usuarios/$idUsuario',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'PUT',
+            method: 'POST',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),

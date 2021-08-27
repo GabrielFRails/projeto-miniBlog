@@ -23,7 +23,7 @@ class _TelaExibirUsuarioState extends State<TelaExibirUsuario>
   Usuario _usuarioRetorno = GetIt.I.get<ControladorUsuario>().mUsuarioRetorno;
   Usuario _usuarioLogado = GetIt.I.get<ControladorUsuario>().mUsuarioLogado;
   ControladorSeguindo _controladorSeguindo = GetIt.I.get<ControladorSeguindo>();
-
+  String situacaoAtual = "";
   bool carregando = true;
 
   @override
@@ -40,6 +40,9 @@ class _TelaExibirUsuarioState extends State<TelaExibirUsuario>
                 carregando = true;
               },
               sucesso: () {
+                _controladorSeguindo.isUsuarioLogadoNaoSeguindo(_usuarioLogado)
+                    ? situacaoAtual = "Seguir"
+                    : situacaoAtual = "Deixar de Seguir";
                 carregando = false;
                 setState(() {});
               });
@@ -73,25 +76,32 @@ class _TelaExibirUsuarioState extends State<TelaExibirUsuario>
                     const SizedBox(height: 24),
                     buildNomeUsuario(_usuarioRetorno),
                     const SizedBox(height: 24),
-                    DadosPerfilWidget(),
+                    DadosPerfilWidget(
+                      numFollow:
+                          GetIt.I.get<ControladorSeguindo>().numeroFollow,
+                      numFollowers:
+                          GetIt.I.get<ControladorSeguindo>().numeroFollowers,
+                    ),
                     const SizedBox(height: 50),
                     Center(
                       child: BotaoPadrao(
                         context: context,
-                        value: _controladorSeguindo
-                                .isUsuarioLogadoSeguindo(_usuarioLogado)
-                            ? "Seguir"
-                            : "Deixar de Seguir",
+                        value: situacaoAtual,
                         onTap: () {
                           _controladorSeguindo
-                                  .isUsuarioLogadoSeguindo(_usuarioLogado)
+                                  .isUsuarioLogadoNaoSeguindo(_usuarioLogado)
                               ? _controladorSeguindo.seguirUsuario(
                                   int.parse(_usuarioRetorno.id), sucesso: () {
-                                  UtilDialogo.exibirAlerta(context,
-                                      titulo: "Sucesso",
-                                      mensagem:
-                                          "Você Seguiu ${_usuarioRetorno.nome}");
-                                  setState(() {});
+                                  _controladorSeguindo.listarSeguidores(
+                                      email: _usuarioRetorno.email,
+                                      sucesso: () {
+                                        situacaoAtual = "Deixar de Seguir";
+                                        UtilDialogo.exibirAlerta(context,
+                                            titulo: "Sucesso",
+                                            mensagem:
+                                                "Você Seguiu ${_usuarioRetorno.nome}");
+                                        setState(() {});
+                                      });
                                 }, erro: (mensagem) {
                                   UtilDialogo.exibirAlerta(context,
                                       titulo:
@@ -100,11 +110,16 @@ class _TelaExibirUsuarioState extends State<TelaExibirUsuario>
                                 })
                               : _controladorSeguindo.unfollowUsuario(
                                   int.parse(_usuarioRetorno.id), sucesso: () {
-                                  UtilDialogo.exibirAlerta(context,
-                                      titulo: "Sucesso",
-                                      mensagem:
-                                          "Você deixou de Seguir ${_usuarioRetorno.nome}");
-                                  setState(() {});
+                                  _controladorSeguindo.listarSeguidores(
+                                      email: _usuarioRetorno.email,
+                                      sucesso: () {
+                                        situacaoAtual = "Seguir";
+                                        UtilDialogo.exibirAlerta(context,
+                                            titulo: "Sucesso",
+                                            mensagem:
+                                                "Você deixou de Seguir ${_usuarioRetorno.nome}");
+                                        setState(() {});
+                                      });
                                 }, erro: (mensagem) {
                                   UtilDialogo.exibirAlerta(context,
                                       titulo: "Vish deu Pau",
@@ -113,14 +128,14 @@ class _TelaExibirUsuarioState extends State<TelaExibirUsuario>
                         },
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    /* const SizedBox(height: 24),
                     Center(
                       child: BotaoPadrao(
                         context: context,
                         value: "Ver Publicações",
                         onTap: () {},
                       ),
-                    ),
+                    ), */
                   ],
                 ),
               ));

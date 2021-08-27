@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/animacao/FadeAnimacao.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
@@ -89,17 +90,23 @@ class _TelaLoginState extends State<TelaLogin> {
                         BotaoPadrao(
                             value: "Entrar",
                             onTap: () {
-                              _controladorUsuario.autenticarUsuario(_usuario,
-                                  sucesso: () {
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                    "/telaPrincipal",
-                                    (Route<dynamic> route) => false);
-                              }, erro: (mensagem) {
-                                UtilDialogo.exibirAlerta(context,
-                                    titulo: "Ops!", mensagem: mensagem);
-                              }, carregando: () {
-                                UtilDialogo.showLoading(context);
-                              });
+                              _controladorUsuario.autenticarUsuario(
+                                _usuario,
+                                sucesso: () {
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                      "/telaPrincipal",
+                                      (Route<dynamic> route) => false);
+                                },
+                                erro: (mensagem) {
+                                  Fluttertoast.showToast(
+                                      msg: mensagem == "Unauthorized"
+                                          ? "E-mail ou senha incorretos"
+                                          : mensagem,
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 10);
+                                },
+                              );
                             })),
                     SizedBox(height: 16),
                     FadeAnimacao(

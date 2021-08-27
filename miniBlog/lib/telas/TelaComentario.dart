@@ -77,6 +77,20 @@ class _TelaComentarioState extends State<TelaComentario> {
                                   mensagem: msg, titulo: "ops!");
                             });
                           },
+                          onTap: () {
+                            int auxiliarId = int.parse(comentario.usuario.id);
+                            _controladorUsuario.buscaUsuario(auxiliarId,
+                                sucesso: () {
+                              comentario.usuario.id == _usuarioLogado.id
+                                  ? Navigator.pushNamed(context, "/telaPerfil")
+                                  : Navigator.pushNamed(
+                                      context, "/telaExibirPerfil");
+                            }, erro: (mensagem) {
+                              UtilDialogo.exibirAlerta(context,
+                                  titulo: "Ops! Erro ao exibir o perfil",
+                                  mensagem: mensagem);
+                            });
+                          },
                         )),
                         Divider(
                           height: 1,

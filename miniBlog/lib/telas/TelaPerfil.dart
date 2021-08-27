@@ -59,64 +59,75 @@ class _TelaPerfilState extends State<TelaPerfil> {
                         AlwaysStoppedAnimation<Color>(Color(0xff2869FC)),
                     backgroundColor: Color(0xff248FE0)),
               )
-            : ListView(
-                primary: false,
-                shrinkWrap: true,
-                padding: EdgeInsets.all(25),
-                physics: BouncingScrollPhysics(),
-                children: [
-                  ImagemPerfilWidget(
-                    linkImagem: _usuarioLogado.imagemPerfil,
-                    tamanhoImagem: 150,
-                    onTap: () {
-                      Navigator.pushNamed(context, "/telaEditarPerfil");
-                    },
-                  ),
-                  const SizedBox(height: 24),
-                  buildNomeUsuario(_usuarioLogado),
-                  const SizedBox(height: 24),
-                  DadosPerfilWidget(),
-                  const SizedBox(height: 50),
-                  Center(
-                    child: Column(
-                      children: [
-                        BotaoPadrao(
-                          context: context,
-                          value: "Editar o meu Perfil",
-                          onTap: () {
-                            Navigator.pushNamed(context, "/telaEditarPerfil");
-                          },
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Observer(builder: (_) {
-                          return BotaoPadrao(
-                              value: "Mudar tema",
-                              onTap: _controladorWidget.darkThemeSelected
-                                  ? () {
-                                      setState(() {
-                                        _controladorUsuario.themeMode =
-                                            ThemeMode.light;
-                                        _controladorWidget.darkThemeSelected =
-                                            !_controladorWidget
-                                                .darkThemeSelected;
-                                      });
-                                    }
-                                  : () {
-                                      setState(() {
-                                        _controladorUsuario.themeMode =
-                                            ThemeMode.dark;
-                                        _controladorWidget.darkThemeSelected =
-                                            !_controladorWidget
-                                                .darkThemeSelected;
-                                      });
-                                    });
-                        }),
-                      ],
+            : Container(
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height / 15),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: ListView(
+                  primary: false,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.all(25),
+                  physics: BouncingScrollPhysics(),
+                  children: [
+                    ImagemPerfilWidget(
+                      linkImagem: _usuarioLogado.imagemPerfil,
+                      tamanhoImagem: 150,
+                      onTap: () {
+                        Navigator.pushNamed(context, "/telaEditarPerfil");
+                      },
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 24),
+                    buildNomeUsuario(_usuarioLogado),
+                    const SizedBox(height: 24),
+                    DadosPerfilWidget(
+                      numFollow:
+                          GetIt.I.get<ControladorSeguindo>().numeroFollow,
+                      numFollowers:
+                          GetIt.I.get<ControladorSeguindo>().numeroFollowers,
+                    ),
+                    const SizedBox(height: 50),
+                    Center(
+                      child: Column(
+                        children: [
+                          BotaoPadrao(
+                            context: context,
+                            value: "Editar o meu Perfil",
+                            onTap: () {
+                              Navigator.pushNamed(context, "/telaEditarPerfil");
+                            },
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Observer(builder: (_) {
+                            return BotaoPadrao(
+                                value: "Mudar tema",
+                                onTap: _controladorWidget.darkThemeSelected
+                                    ? () {
+                                        setState(() {
+                                          _controladorUsuario.themeMode =
+                                              ThemeMode.light;
+                                          _controladorWidget.darkThemeSelected =
+                                              !_controladorWidget
+                                                  .darkThemeSelected;
+                                        });
+                                      }
+                                    : () {
+                                        setState(() {
+                                          _controladorUsuario.themeMode =
+                                              ThemeMode.dark;
+                                          _controladorWidget.darkThemeSelected =
+                                              !_controladorWidget
+                                                  .darkThemeSelected;
+                                        });
+                                      });
+                          }),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ));
   }
 

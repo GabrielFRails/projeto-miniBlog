@@ -10,6 +10,12 @@
             "type": "dart"
         },
         {
+            "name": "Twitter Release",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
             "name": "microblog (profile mode)",
             "request": "launch",
             "type": "dart",

@@ -18,14 +18,13 @@ abstract class _ControladorSeguindoBase with Store {
 
   StatusConsulta mStatusConsultaFollow = StatusConsulta.CARREGANDO;
   StatusConsulta mStatusConsultaFollowers = StatusConsulta.CARREGANDO;
+  @observable
   int numeroFollow;
+  @observable
   int numeroFollowers;
 
-  bool isUsuarioLogadoSeguindo(Usuario usuarioPesquisa) {
-    print(usuarioPesquisa);
-    return followersBuscados.indexWhere(
-            (userSeguido) => userSeguido.id == usuarioPesquisa.id) ==
-        -1;
+  bool isUsuarioLogadoNaoSeguindo(Usuario usuarioPesquisa) {
+    return followersBuscados.indexWhere( (userSeguido) => userSeguido.id == usuarioPesquisa.id) == -1;
   }
 
   void seguirUsuario(int id,
@@ -33,7 +32,7 @@ abstract class _ControladorSeguindoBase with Store {
     mService.seguirUsuario(id).then((value) {
       sucesso?.call();
     }).catchError((onError) {
-      erro?.call(onError.response.data["falha"]);
+      erro?.call(onError.response.data["mensagem"]);
     });
   }
 
@@ -42,7 +41,7 @@ abstract class _ControladorSeguindoBase with Store {
     mService.unFollowUser(id).then((value) {
       sucesso?.call();
     }).catchError((onError) {
-      erro?.call(onError.response.data["falha"]);
+      erro?.call(onError.response.data["mensagem"]);
     });
   }
 
@@ -61,7 +60,7 @@ abstract class _ControladorSeguindoBase with Store {
       sucesso?.call();
     }).catchError((onError) {
       mStatusConsultaFollow = StatusConsulta.ERRO;
-      erro?.call(onError.response.data["falha"]);
+      erro?.call(onError.response.data["mensagem"]);
     });
   }
 
@@ -80,7 +79,7 @@ abstract class _ControladorSeguindoBase with Store {
       sucesso?.call();
     }).catchError((onError) {
       mStatusConsultaFollowers = StatusConsulta.ERRO;
-      erro?.call(onError.response.data["falha"]);
+      erro?.call(onError.response.data["mensagem"]);
     });
   }
 }
@@ -98,6 +97,6 @@ abstract class _ControladorSeguindoBase with Store {
       sucesso?.call();
     }).catchError((onError) {
       mStatusConsultaUsuarios = StatusConsulta.ERRO;
-      erro?.call(onError.response.data["falha"]);
+      erro?.call(onError.response.data["mensagem"]);
     });
   } */
