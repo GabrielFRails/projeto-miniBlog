@@ -12,6 +12,7 @@ class ComentarioWidget extends StatelessWidget {
   final bool visible;
   final VoidCallback onPressedDelete;
   final Function onTap;
+  final String date;
 
   const ComentarioWidget(
       {Key key,
@@ -22,7 +23,8 @@ class ComentarioWidget extends StatelessWidget {
       this.context,
       this.visible,
       this.onPressedDelete,
-      this.onTap})
+      this.onTap,
+      this.date})
       : super(key: key);
 
   @override
@@ -117,6 +119,7 @@ class ComentarioWidget extends StatelessWidget {
 
   Widget comentarioText() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           text,
@@ -126,7 +129,20 @@ class ComentarioWidget extends StatelessWidget {
         ),
         SizedBox(
           height: 15,
-        )
+        ),
+        Row(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(right: 10.0),
+              child: Text(this.date,
+                  style: UtilStyle.text(
+                      fontSize: 12, fontWeight: FontWeight.w400)),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 15,
+        ),
       ],
     );
   }

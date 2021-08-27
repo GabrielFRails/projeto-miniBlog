@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:get_it/get_it.dart';
-import 'package:miniBlog/controladores/ControladorSeguindo.dart';
 
 class DadosPerfilWidget extends StatefulWidget {
   final int numFollow;
@@ -15,22 +13,6 @@ class DadosPerfilWidget extends StatefulWidget {
 
 class _DadosPerfilWidgetState extends State<DadosPerfilWidget> {
   bool carregando = false;
-
-  @override
-  /* void initState() {
-    _controladorSeguindo.listarSeguidores(carregando: () {
-      carregando = true;
-    }, sucesso: () {
-      _controladorSeguindo.listarSeguindo(carregando: () {
-        carregando = true;
-      }, sucesso: () {
-        carregando = false;
-        setState(() {});
-      });
-    });
-
-    super.initState();
-  } */
 
   @override
   Widget build(BuildContext context) => carregando

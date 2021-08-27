@@ -2,6 +2,7 @@ import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:miniBlog/controladores/ControladorPost.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/entidades/Comentario.dart';
@@ -59,6 +60,7 @@ class _TelaComentarioState extends State<TelaComentario> {
                       children: [
                         Container(
                             child: ComentarioWidget(
+                          date: comentario.dataFormatada,
                           context: context,
                           avatar: "${comentario.usuario.imagemPerfil}",
                           username: "${comentario.usuario.nome}",
@@ -99,7 +101,16 @@ class _TelaComentarioState extends State<TelaComentario> {
                     );
                   })
               : Container(
-                  child: Text("Sem comentarios"),
+                  padding: EdgeInsets.only(top: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "A publicação ainda não tem comentários",
+                        style: GoogleFonts.nunitoSans(fontSize: 14),
+                      ),
+                    ],
+                  ),
                 );
           break;
         case StatusConsulta.ERRO:

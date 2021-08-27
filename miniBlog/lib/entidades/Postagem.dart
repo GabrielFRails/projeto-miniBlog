@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:miniBlog/entidades/Comentario.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
+import 'package:miniBlog/util/UtilDataHora.dart';
 part 'Postagem.g.dart';
 
 /* Modelo da postagem
@@ -27,6 +28,10 @@ class Postagem {
   int qntdComentario;
   int qntdLike;
   List<Comentario> comentarios = new List<Comentario>();
+
+  String get dataFormatada {
+    return UtilDataHora.getDiaMesHoraMinuto(this.data);
+  }
 
   Postagem({this.conteudo, this.id, this.data, this.usuario});
 

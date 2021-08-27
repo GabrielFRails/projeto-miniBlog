@@ -17,6 +17,7 @@ class PostagemWidget extends StatelessWidget {
   final VoidCallback onPressedEdit;
   final Color color;
   final bool visible;
+  final String date;
 
   const PostagemWidget(
       {Key key,
@@ -33,7 +34,8 @@ class PostagemWidget extends StatelessWidget {
       this.visible,
       this.onPressedDelete,
       this.onPressedEdit,
-      this.onTap})
+      this.onTap,
+      this.date})
       : super(key: key);
 
   @override
@@ -89,44 +91,45 @@ class PostagemWidget extends StatelessWidget {
           child: Text(this.username,
               style: UtilStyle.text(fontSize: 17, fontWeight: FontWeight.bold)),
         ),
-        SizedBox(
-          width: 4,
-        ),
         Spacer(),
-        Container(
-          child: visible
-              ? PopupMenuButton(
-                  icon: Icon(
-                    FontAwesomeIcons.angleDown,
-                    size: 14.0,
-                    color: Colors.grey,
-                  ),
-                  itemBuilder: (context) => [
-                    PopupMenuItem(
-                      child: TextButton(
-                        child: Text("Editar",
-                            style: UtilStyle.text(
-                                fontSize: 15, fontWeight: FontWeight.w400)),
-                        onPressed: onPressedEdit,
+        Row(
+          children: [
+            Container(
+              child: visible
+                  ? PopupMenuButton(
+                      icon: Icon(
+                        FontAwesomeIcons.angleDown,
+                        size: 14.0,
+                        color: Colors.grey,
                       ),
-                      value: 1,
-                    ),
-                    PopupMenuItem(
-                      child: TextButton(
-                        child: Text(
-                          "Excluir",
-                          style: UtilStyle.text(
-                              fontSize: 15, fontWeight: FontWeight.w400),
+                      itemBuilder: (context) => [
+                        PopupMenuItem(
+                          child: TextButton(
+                            child: Text("Editar",
+                                style: UtilStyle.text(
+                                    fontSize: 15, fontWeight: FontWeight.w400)),
+                            onPressed: onPressedEdit,
+                          ),
+                          value: 1,
                         ),
-                        onPressed: onPressedDelete,
-                      ),
-                      value: 2,
+                        PopupMenuItem(
+                          child: TextButton(
+                            child: Text(
+                              "Excluir",
+                              style: UtilStyle.text(
+                                  fontSize: 15, fontWeight: FontWeight.w400),
+                            ),
+                            onPressed: onPressedDelete,
+                          ),
+                          value: 2,
+                        )
+                      ],
                     )
-                  ],
-                )
-              : SizedBox(
-                  height: 50,
-                ),
+                  : SizedBox(
+                      height: 50,
+                    ),
+            ),
+          ],
         )
       ],
     );
@@ -146,6 +149,12 @@ class PostagemWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Container(
+            margin: const EdgeInsets.only(right: 10.0),
+            child: Text(this.date,
+                style:
+                    UtilStyle.text(fontSize: 12, fontWeight: FontWeight.w400)),
+          ),
           Spacer(),
           postIconButton(
               icon: FontAwesomeIcons.comment,
