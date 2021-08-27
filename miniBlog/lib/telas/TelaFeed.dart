@@ -104,6 +104,7 @@ class _TelaFeedState extends State<TelaFeed> {
                         return Column(
                           children: [
                             PostagemWidget(
+                              date: postSeguido.dataFormatada,
                               visible: _controladorUsuario.isCriador(
                                   _controladorUsuario.mUsuarioLogado.id,
                                   postSeguido.usuario.id),
@@ -198,7 +199,6 @@ class _TelaFeedState extends State<TelaFeed> {
                       ],
                     ),
                   );
-
             break;
           default:
             _controladorUsuario.filtrarUsuarios("");

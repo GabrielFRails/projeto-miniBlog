@@ -11,4 +11,15 @@ class UtilDataHora {
       return null;
     }
   }
+
+  static String getDiaMesHoraMinuto(dynamic data) {
+    try {
+      if (data is String) {
+        data = convert(data);
+      }
+      return DateFormat("dd/MM HH:mm").format(data);
+    } catch (e) {
+      return null;
+    }
+  }
 }

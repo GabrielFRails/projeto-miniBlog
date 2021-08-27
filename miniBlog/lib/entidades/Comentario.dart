@@ -9,6 +9,10 @@ class Comentario {
   @JsonKey(fromJson: UtilDataHora.convert)
   DateTime data;
   Usuario usuario;
+  
+  String get dataFormatada {
+    return UtilDataHora.getDiaMesHoraMinuto(this.data);
+  }
 
   Comentario clone() {
     return _$ComentarioFromJson(this.toJson());
