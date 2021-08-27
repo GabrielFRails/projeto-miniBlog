@@ -127,7 +127,7 @@ abstract class _ControladorUsuarioBase with Store {
       mService.cadastrarUsuario(usuarioCadastrar).then((usuario) {
         sucesso?.call();
       }).catchError((onError) {
-        erro?.call(onError.response.data["mensagem"]);
+        erro?.call(onError.toString());
       });
     }
   }
