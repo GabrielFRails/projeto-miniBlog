@@ -144,7 +144,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                                 });
                               }, erro: (mensagem) {
                                 UtilDialogo.exibirAlerta(context,
-                                    titulo: "Ops deu erro no Login",
+                                    titulo: "Ops deu erro no Cadastro",
                                     mensagem: mensagem);
                               });
                             },

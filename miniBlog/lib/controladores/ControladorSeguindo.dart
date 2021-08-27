@@ -4,6 +4,8 @@ import 'package:miniBlog/servicos/ServicosDoMiniBlog.dart';
 import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:mobx/mobx.dart';
 
+import 'ControladorUsuario.dart';
+
 part 'ControladorSeguindo.g.dart';
 
 class ControladorSeguindo = _ControladorSeguindoBase with _$ControladorSeguindo;
@@ -18,8 +20,15 @@ abstract class _ControladorSeguindoBase with Store {
 
   StatusConsulta mStatusConsultaFollow = StatusConsulta.CARREGANDO;
   StatusConsulta mStatusConsultaFollowers = StatusConsulta.CARREGANDO;
-  var numeroFollow;
-  var numeroFollowers;
+  int numeroFollow;
+  int numeroFollowers;
+
+  bool isUsuarioLogadoSeguindo(Usuario usuarioPesquisa) {
+    print(usuarioPesquisa);
+    return followersBuscados.indexWhere(
+            (userSeguido) => userSeguido.id == usuarioPesquisa.id) ==
+        -1;
+  }
 
   void seguirUsuario(int id,
       {Function() sucesso, Function(String mensagem) erro}) {
@@ -40,16 +49,17 @@ abstract class _ControladorSeguindoBase with Store {
   }
 
   void listarSeguindo(
-      {Function() sucesso,
+      {String email,
+      Function() sucesso,
       Function() carregando,
       Function(String mensagem) erro}) {
     carregando?.call();
     mStatusConsultaFollow = StatusConsulta.CARREGANDO;
-    mService.listarSeguindo().then((responseFollows) {
+    mService.listarSeguindo(email: email).then((responseFollows) {
       followBuscados.clear();
       followBuscados.addAll(responseFollows);
       mStatusConsultaFollow = StatusConsulta.SUCESSO;
-      numeroFollow = responseFollows.length - 1;
+      numeroFollow = responseFollows.length;
       sucesso?.call();
     }).catchError((onError) {
       mStatusConsultaFollow = StatusConsulta.ERRO;
@@ -58,12 +68,13 @@ abstract class _ControladorSeguindoBase with Store {
   }
 
   void listarSeguidores(
-      {Function() sucesso,
+      {String email,
+      Function() sucesso,
       Function() carregando,
       Function(String mensagem) erro}) {
     carregando?.call();
     mStatusConsultaFollowers = StatusConsulta.CARREGANDO;
-    mService.listarMeusSeguidores().then((responseFollowers) {
+    mService.listarMeusSeguidores(email: email).then((responseFollowers) {
       followersBuscados.clear();
       followersBuscados.addAll(responseFollowers);
       mStatusConsultaFollowers = StatusConsulta.SUCESSO;

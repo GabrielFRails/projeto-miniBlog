@@ -81,6 +81,7 @@ abstract class _ControladorUsuarioBase with Store {
   void logoutUsuario() {
     _prefs.then((db) {
       db.remove("user");
+      db.remove("tokenUsuario");
     });
   }
 

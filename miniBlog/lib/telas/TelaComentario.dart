@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/ControladorPost.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
 import 'package:miniBlog/entidades/Comentario.dart';
+import 'package:miniBlog/entidades/Usuario.dart';
 import 'package:miniBlog/enums/StatusConsulta.dart';
 import 'package:miniBlog/util/UtilDialogo.dart';
 import 'package:miniBlog/util/UtilStyle.dart';
@@ -22,6 +23,7 @@ class _TelaComentarioState extends State<TelaComentario> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController _controladorComentario = TextEditingController();
   ControladorUsuario _controladorUsuario = GetIt.I.get<ControladorUsuario>();
+  Usuario _usuarioLogado = GetIt.I.get<ControladorUsuario>().mUsuarioLogado;
   Comentario comentarioAdicionar = new Comentario();
   ScrollController _scrollController = new ScrollController();
 
@@ -118,8 +120,7 @@ class _TelaComentarioState extends State<TelaComentario> {
       ),
       body: Container(
         child: CommentBox(
-          userImage:
-              "https://lh3.googleusercontent.com/a-/AOh14GjRHcaendrf6gU5fPIVd8GIl1OgblrMMvGUoCBj4g=s400",
+          userImage: _usuarioLogado.imagemPerfil,
           child: comentariosChild(),
           labelText: 'Adicione um comentário',
           withBorder: false,

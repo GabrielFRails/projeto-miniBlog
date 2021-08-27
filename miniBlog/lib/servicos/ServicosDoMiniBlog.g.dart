@@ -338,9 +338,10 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<List<Usuario>> listarSeguindo() async {
+  Future<List<Usuario>> listarSeguindo({email}) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'email': email};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.request<List<dynamic>>(
         'https://app.pactosolucoes.com.br/socialmedia-api/seguindo',
@@ -396,9 +397,10 @@ class _ServicosDoMiniBlog implements ServicosDoMiniBlog {
   }
 
   @override
-  Future<List<Usuario>> listarMeusSeguidores() async {
+  Future<List<Usuario>> listarMeusSeguidores({email}) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'email': email};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.request<List<dynamic>>(
         'https://app.pactosolucoes.com.br/socialmedia-api/seguindo/seguidores',

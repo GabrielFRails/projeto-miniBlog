@@ -20,7 +20,7 @@ class _TelaSplashState extends State<TelaSplash> {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen.withScreenFunction(
       animationDuration: Duration(seconds: 3),
-      splash: Icons.coronavirus_sharp,
+      splash: Icons.three_k_plus,
       screenFunction: () async {
         GetIt.I.get<ControladorUsuario>().usuarioExiste(existe: () {
           Navigator.pushReplacementNamed(context, "/telaPrincipal");
