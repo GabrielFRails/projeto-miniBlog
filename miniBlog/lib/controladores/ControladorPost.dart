@@ -44,7 +44,7 @@ abstract class _ControladorPostBase with Store {
       sucesso?.call();
     }).catchError((onError) {
       statusConsultaFeed = StatusConsulta.ERRO;
-      erro?.call("Houve um erro");
+      erro?.call(onError.response.data["mensagem"]);
     });
   }
 
@@ -61,7 +61,7 @@ abstract class _ControladorPostBase with Store {
       sucesso?.call();
     }).catchError((onError) {
       statusConsultaComentario = StatusConsulta.ERRO;
-      erro?.call("Houve um erro");
+      erro?.call(onError.response.data["mensagem"]);
     });
   }
 

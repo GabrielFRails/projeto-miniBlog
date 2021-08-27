@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/animacao/FadeAnimacao.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
@@ -95,8 +96,13 @@ class _TelaLoginState extends State<TelaLogin> {
                                       (Route<dynamic> route) => false);
                                 },
                                 erro: (mensagem) {
-                                  UtilDialogo.exibirAlerta(context,
-                                      titulo: "Ops!", mensagem: mensagem);
+                                  Fluttertoast.showToast(
+                                      msg: mensagem == "Unauthorized"
+                                          ? "E-mail ou senha incorretos"
+                                          : mensagem,
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 10);
                                 },
                               );
                             })),

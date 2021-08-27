@@ -11,6 +11,7 @@ class ComentarioWidget extends StatelessWidget {
   final BuildContext context;
   final bool visible;
   final VoidCallback onPressedDelete;
+  final Function onTap;
 
   const ComentarioWidget(
       {Key key,
@@ -20,7 +21,8 @@ class ComentarioWidget extends StatelessWidget {
       @required this.text,
       this.context,
       this.visible,
-      this.onPressedDelete})
+      this.onPressedDelete,
+      this.onTap})
       : super(key: key);
 
   @override
@@ -40,8 +42,11 @@ class ComentarioWidget extends StatelessWidget {
   Widget comentarioAvatar() {
     return Container(
       margin: const EdgeInsets.fromLTRB(15, 15, 10, 0),
-      child: CircleAvatar(
-        backgroundImage: NetworkImage(avatar),
+      child: GestureDetector(
+        onTap: onTap,
+        child: CircleAvatar(
+          backgroundImage: NetworkImage(this.avatar ?? ""),
+        ),
       ),
     );
   }

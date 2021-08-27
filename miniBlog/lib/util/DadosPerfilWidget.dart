@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/controladores/ControladorSeguindo.dart';
 
 class DadosPerfilWidget extends StatefulWidget {
+  final int numFollow;
+  final int numFollowers;
+
+  DadosPerfilWidget({@required this.numFollow, @required this.numFollowers});
+
   @override
   _DadosPerfilWidgetState createState() => _DadosPerfilWidgetState();
 }
 
 class _DadosPerfilWidgetState extends State<DadosPerfilWidget> {
-  int _numeroFollows = GetIt.I.get<ControladorSeguindo>().numeroFollow;
-  int _numeroFollowers = GetIt.I.get<ControladorSeguindo>().numeroFollowers;
-
   bool carregando = false;
 
   @override
@@ -34,14 +37,17 @@ class _DadosPerfilWidgetState extends State<DadosPerfilWidget> {
       ? Center(
           child: CircularProgressIndicator(),
         )
-      : Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            buildButton(context, _numeroFollows.toString(), 'Seguindo'),
-            buildDivider(),
-            buildButton(context, _numeroFollowers.toString(), 'Seguidores'),
-          ],
-        );
+      : Observer(builder: (_) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              buildButton(context, widget.numFollow.toString(), 'Seguindo'),
+              buildDivider(),
+              buildButton(
+                  context, widget.numFollowers.toString(), 'Seguidores'),
+            ],
+          );
+        });
 
   Widget buildDivider() => Container(
         height: 24,

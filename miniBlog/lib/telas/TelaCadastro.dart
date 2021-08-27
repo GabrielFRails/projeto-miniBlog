@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:miniBlog/animacao/FadeAnimacao.dart';
 import 'package:miniBlog/controladores/ControladorUsuario.dart';
@@ -135,18 +136,26 @@ class _TelaCadastroState extends State<TelaCadastro> {
                           BotaoPadrao(
                             value: "Concluir Cadastro",
                             onTap: () {
-                              _controladorUsuario.cadastrarUsuario(usuario,
-                                  sucesso: () {
-                                UtilDialogo.exibirAlerta(context,
-                                    titulo: "Cadastro ok!", onTap: () {
-                                  Navigator.pushReplacementNamed(
-                                      context, "/telaLogin");
-                                });
-                              }, erro: (mensagem) {
-                                UtilDialogo.exibirAlerta(context,
-                                    titulo: "Ops deu erro no Cadastro",
-                                    mensagem: mensagem);
-                              });
+                              _controladorUsuario.cadastrarUsuario(
+                                usuario,
+                                sucesso: () {
+                                  UtilDialogo.exibirAlerta(context,
+                                      titulo: "Cadastro ok!",
+                                      mensagem:
+                                          "Você precisará fazer login agora!",
+                                      onTap: () {
+                                    Navigator.pushReplacementNamed(
+                                        context, "/telaLogin");
+                                  });
+                                },
+                                erro: (mensagem) {
+                                  Fluttertoast.showToast(
+                                      msg: mensagem,
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 10);
+                                },
+                              );
                             },
                           )),
                     ],

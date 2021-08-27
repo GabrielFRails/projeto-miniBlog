@@ -82,6 +82,7 @@ abstract class _ControladorUsuarioBase with Store {
     _prefs.then((db) {
       db.remove("user");
       db.remove("tokenUsuario");
+      db.clear();
     });
   }
 
@@ -101,7 +102,7 @@ abstract class _ControladorUsuarioBase with Store {
           mUsuarioLogado = value.autenticado;
         });
       }).catchError((onError) {
-        erro?.call(onError.response.data["falha"]);
+        erro?.call(onError.response.data["error"]);
       });
     }
   }
@@ -120,7 +121,7 @@ abstract class _ControladorUsuarioBase with Store {
       mService.cadastrarUsuario(usuarioCadastrar).then((usuario) {
         sucesso?.call();
       }).catchError((onError) {
-        erro?.call(onError.response.data["falha"]);
+        erro?.call(onError.response.data["mensagem"]);
       });
     }
   }
@@ -140,7 +141,7 @@ abstract class _ControladorUsuarioBase with Store {
     mService.editarUsuario(idUsuario, usuarioEditar).then((value) {
       sucesso?.call();
     }).catchError((onError) {
-      erro?.call(onError.response.data["falha"]);
+      erro?.call(onError.response.data["mensagem"]);
     });
   }
 
@@ -149,7 +150,7 @@ abstract class _ControladorUsuarioBase with Store {
     mService.excluirUsuario(idUsuario).then((value) {
       sucesso?.call();
     }).catchError((onError) {
-      erro?.call(onError.response.data["falha"]);
+      erro?.call(onError.response.data["error"]);
     });
   }
 
@@ -162,7 +163,7 @@ abstract class _ControladorUsuarioBase with Store {
       userRetorno = value;
       sucesso?.call();
     }).catchError((onError) {
-      erro?.call(onError.response.data["falha"]);
+      erro?.call(onError.response.data["mensagem"]);
     });
   }
 
@@ -179,7 +180,7 @@ abstract class _ControladorUsuarioBase with Store {
       sucesso?.call();
     }).catchError((onError) {
       mStatusConsultaUsuarios = StatusConsulta.ERRO;
-      erro?.call(onError.response.data["falha"]);
+      erro?.call(onError.response.data["mensagem"]);
     });
   }
 }
